@@ -28,6 +28,10 @@ gem 'rspec-rails'
 # Use for authentification.
 gem 'devise', '~> 3.5', '>= 3.5.6'
 
+# Convert file to needed format
+gem 'slim', '~> 3.0', '>= 3.0.6'
+gem 'html2slim', '~> 0.2.0'
+
 # Use for bootstrap.
 gem 'therubyracer'
 gem 'less-rails' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
