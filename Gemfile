@@ -25,6 +25,18 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'rspec-rails'
 
+# Use for authentification.
+gem 'devise', '~> 3.5', '>= 3.5.6'
+
+# Convert file to needed format
+gem 'slim', '~> 3.0', '>= 3.0.6'
+gem 'html2slim', '~> 0.2.0'
+
+# Use for bootstrap.
+gem 'therubyracer'
+gem 'less-rails' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem 'twitter-bootstrap-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
