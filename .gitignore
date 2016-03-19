@@ -16,4 +16,5 @@ secrets.yml
 .secret
 .ruby-version
 .ruby-gemset
-.idea
+
+.idea/
