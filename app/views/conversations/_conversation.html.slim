@@ -1,0 +1,19 @@
+.media
+  .media-left
+    a[href="#"]
+      img.media-object[src="http://placehold.it/64x64" alt="..."]
+  .media-body
+    h4.media-heading
+      = conversation.originator.email
+      br
+      small
+        b
+          | Subject:
+        = conversation.subject
+      br
+      small
+        b
+          | Date:
+        =  conversation.messages.last.created_at.strftime("%A, %b %d, %Y at %I:%M%p")
+    = truncate conversation.messages.last.body, length: 145
+    = link_to "View", conversation_path(conversation)
