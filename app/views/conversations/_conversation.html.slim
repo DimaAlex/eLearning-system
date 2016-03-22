@@ -15,7 +15,7 @@
       small
         b
           | Date:
-        .pad
+        | &nbsp
         =  conversation.messages.last.created_at.strftime("%A, %b %d, %Y at %I:%M%p")
     = truncate conversation.messages.last.body, length: 145
     .pad
