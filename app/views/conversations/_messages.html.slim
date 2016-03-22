@@ -11,10 +11,12 @@
         small
           b
             | Subject:
+          .pad
           = message.subject
         br
         small
           b
             | Date:
-          =  message.created_at.strftime("%A, %b %d, %Y at %I:%M%p")
+          .pad
+          = message.created_at.strftime("%A, %b %d, %Y at %I:%M%p")
       = message.body
