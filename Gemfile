@@ -38,6 +38,7 @@ gem 'less-rails' #Sprockets (what Rails 3.1 uses for its asset pipeline) support
 gem 'twitter-bootstrap-rails'
 
 gem 'simple_form', '~> 3.2.1'
+gem 'cancancan', '~> 1.10'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
