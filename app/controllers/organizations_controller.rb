@@ -50,6 +50,10 @@ class OrganizationsController < ApplicationController
       @organization = Organization.find(params[:id])
     end
 
+    def users
+      @users = User.all
+    end
+
     def organization_params
       params.require(:organization).permit(:title)
     end

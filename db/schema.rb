@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321205120) do
+ActiveRecord::Schema.define(version: 20160322113146) do
 
   create_table "organizations", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -39,5 +39,14 @@ ActiveRecord::Schema.define(version: 20160321205120) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "users_organizations", force: :cascade do |t|
+    t.boolean "is_org_admin"
+    t.integer "user_id",         limit: 4
+    t.integer "organization_id", limit: 4
+  end
+
+  add_index "users_organizations", ["organization_id"], name: "index_users_organizations_on_organization_id", using: :btree
+  add_index "users_organizations", ["user_id"], name: "index_users_organizations_on_user_id", using: :btree
 
 end
