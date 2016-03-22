@@ -29,16 +29,23 @@ gem 'rspec-rails'
 gem 'devise', '~> 3.5', '>= 3.5.6'
 
 # Convert file to needed format
-gem 'slim', '~> 3.0', '>= 3.0.6'
+gem 'slim-rails', '~> 3.0.1'
 gem 'html2slim', '~> 0.2.0'
 
 # Use for bootstrap.
 # gem 'therubyracer'
 # gem 'less-rails' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem 'twitter-bootstrap-rails'
+
+gem 'simple_form', '~> 3.2.1'
+gem 'cancancan', '~> 1.10'
+
+gem 'searchkick', '~> 1.2.1'
+
 gem 'bootstrap-sass', '3.3.6'
 gem 'mailboxer', '0.13.0'
 gem 'chosen-rails', '1.4.3'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'react-rails', '~> 1.6'
