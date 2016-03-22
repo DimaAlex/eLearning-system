@@ -1,0 +1,21 @@
+h1 Listing organizations
+
+table.table-condensed
+  thead
+    tr
+      th Title
+      th
+      th
+      th
+
+  tbody
+    - @organizations.each do |organization|
+      tr
+        td = organization.title
+        td = link_to 'Show', organization
+        td = link_to 'Edit', edit_organization_path(organization)
+        td = link_to 'Destroy', organization, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Organization', new_organization_path
