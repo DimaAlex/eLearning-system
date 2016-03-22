@@ -40,6 +40,8 @@ gem 'twitter-bootstrap-rails'
 gem 'simple_form', '~> 3.2.1'
 gem 'cancancan', '~> 1.10'
 
+gem 'searchkick', '~> 1.2.1'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
