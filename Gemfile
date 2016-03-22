@@ -29,7 +29,7 @@ gem 'rspec-rails'
 gem 'devise', '~> 3.5', '>= 3.5.6'
 
 # Convert file to needed format
-gem 'slim', '~> 3.0', '>= 3.0.6'
+gem 'slim-rails', '~> 3.0.1'
 gem 'html2slim', '~> 0.2.0'
 
 # Use for bootstrap.
