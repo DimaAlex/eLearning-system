@@ -18,8 +18,7 @@ gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem 'react-rails', '~> 1.6'
-
-
+gem "pry"
 group :development, :test do
   gem 'byebug'
 end

@@ -1,7 +1,7 @@
-var CourseForm = React.createClass({
+var PageForm = React.createClass({
     getInitialState: function() {
         return { title: "",
-                 permission: ""}
+                 page_type: "lecture"}
     },
     handleChange: function(e) {
         var name = e.target.name;
@@ -10,15 +10,15 @@ var CourseForm = React.createClass({
         this.setState(obj);
     },
     valid: function() {
-        return (this.state.title && this.state.permission);
+        return (this.state.title);
     },
 
     handleSubmit: function(e) {
         e.preventDefault();
         $.post('',
-            { course: this.state },
+            { page: this.state },
             function(data) {
-                this.props.handleNewCourse(data);
+                this.props.handleNewPage(data);
                 this.setState(this.getInitialState());
             }.bind(this),
             'JSON'
@@ -35,10 +35,16 @@ var CourseForm = React.createClass({
                     </input>
                 </div>
                 <div className="form-group">
-                    <input type="text" className="form-control"
-                           placeholder="Permission" name="permission"
-                           value={this.state.permission} onChange={this.handleChange}>
-                    </input>
+                    { (this.state.page_type == "lecture"
+                           ? <input type="radio" name="page_type" id="lecture" value="lecture" onChange={this.handleChange}
+                                   checked="checked"/>
+                           :  <input type="radio" name="page_type" id="lecture" value="lecture" onChange={this.handleChange}/>
+                    )}
+                        <span> Lecture</span>
+                    <input type="radio"  name="page_type" id="video" value="video" onChange={this.handleChange}/>
+                        <span> Video</span>
+                    <input type="radio"  name="page_type" value="question" onChange={this.handleChange}/>
+                        <span> Question</span>
                 </div>
                 <div className="form-group">
                     <input type="submit" className="btn btn-primary"

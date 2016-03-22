@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :courses
+  resources :courses do
+    resources :pages
+  end
   root to: 'home#index'
 
 
