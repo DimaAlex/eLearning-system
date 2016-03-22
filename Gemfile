@@ -16,11 +16,20 @@ gem 'slim', '~> 3.0', '>= 3.0.6'
 gem 'html2slim', '~> 0.2.0'
 gem 'therubyracer'
 gem 'less-rails'
+
 gem 'twitter-bootstrap-rails'
+
+gem 'bootstrap-sass', '3.3.6'
+gem 'mailboxer', '0.13.0'
+gem 'chosen-rails', '1.4.3'
+
 gem 'react-rails', '~> 1.6'
-gem "pry"
+
+gem 'font-awesome-rails'
 group :development, :test do
   gem 'byebug'
+  gem 'awesome_print', '1.6.1'
+  gem 'pry-rails', '0.3.4'
 end
 
 group :development do
