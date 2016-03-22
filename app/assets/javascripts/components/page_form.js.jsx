@@ -25,12 +25,28 @@ var PageForm = React.createClass({
         );
     },
 
+    renderInputForm: function() {
+        if ( this.state.page_type == "lecture" ) {
+            return  <input type="text" className="form-control"
+                           placeholder="Text" name="body"
+                           value={this.state.body} onChange={this.handleChange}>
+                    </input>
+        } else if(this.state.page_type == "video"){
+            return  <input type="text" className="form-control"
+                        placeholder="Add link from youtube" name="body"
+                        value={this.state.body} onChange={this.handleChange}>
+                    </input>
+        } else {
+            return  <i className="glyphicon glyphicon-question-sign"></i>
+        }
+    },
+
     render: function() {
         return(
             <form className="'form-inline" onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <input type="text" className="form-control"
-                           placeholder="Title" name="title"
+                           placeholder="Title" name="title" maxLength="35"
                            value={this.state.title} onChange={this.handleChange}>
                     </input>
                 </div>
@@ -45,6 +61,9 @@ var PageForm = React.createClass({
                         <span> Video</span>
                     <input type="radio"  name="page_type" value="question" onChange={this.handleChange}/>
                         <span> Question</span>
+                </div>
+                <div>
+                    {this.renderInputForm()}
                 </div>
                 <div className="form-group">
                     <input type="submit" className="btn btn-primary"

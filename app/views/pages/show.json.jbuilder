@@ -1,1 +1,1 @@
-json.extract! @course, :id, :title, :page_type
+json.extract! @page, :id, :title, :page_type, :body
