@@ -1,5 +1,16 @@
 = form_for :conversation, url: :conversations, html: { class: "" } do |f|
   .form-group
+    | Search Recipients by:
+    br
+    = radio_button_tag(:recipient, "email", true)
+    .pad
+    = label_tag(:recipient_email, "Email")
+    br
+    = radio_button_tag(:recipient, "last_name")
+    .pad
+    = label_tag(:recipient_last_name, "Last name")
+
+  .form-group
     = f.label :recipients
     = f.select(:recipients, User.all.collect {|p| [ p.email, p.id ] }, {}, { multiple: true , class:  "chosen-select form-control"  })
   .form-group

@@ -49,6 +49,7 @@ gem 'chosen-rails', '1.4.3'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'react-rails', '~> 1.6'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -61,6 +62,7 @@ group :development, :test do
   gem 'byebug'
   gem 'awesome_print', '1.6.1'
   gem 'pry-rails', '0.3.4'
+  gem 'faker'
 end
 
 group :development do

@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require chosen-jquery
+//= require scaffold
+//= require func
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require react
