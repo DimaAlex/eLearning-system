@@ -21,3 +21,12 @@
 //= require froala_editor.min.js
 //= require_tree .
 
+
+//$(function() {
+//    $('.categories').hover(function(){ //Open on hover
+//            $('.categories-info').addClass("categories_info")
+//        },
+//        function(){ //Close when not hovered
+//            $('.categories-info').addClass("categories_info")
+//        });
+//});

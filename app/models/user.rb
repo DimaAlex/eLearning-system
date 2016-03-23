@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :courses, as: :author
 
+  has_many :users_organizations
+  has_many :organizations, through: :users_organizations
+
   acts_as_messageable
 
   def mailboxer_email(object)

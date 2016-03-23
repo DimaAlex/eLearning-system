@@ -13,11 +13,20 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rspec-rails'
 gem 'devise', '~> 3.5', '>= 3.5.6'
 gem 'slim', '~> 3.0', '>= 3.0.6'
+
+# Convert file to needed format
+gem 'slim-rails', '~> 3.0.1'
 gem 'html2slim', '~> 0.2.0'
 gem 'therubyracer'
 gem 'less-rails'
 
 gem 'twitter-bootstrap-rails'
+
+
+gem 'simple_form', '~> 3.2.1'
+gem 'cancancan', '~> 1.10'
+
+gem 'searchkick', '~> 1.2.1'
 
 gem 'bootstrap-sass', '3.3.6'
 gem 'mailboxer', '0.13.0'

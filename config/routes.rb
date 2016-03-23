@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
+  resources :organizations
+
   resources :courses do
     resources :pages
   end
   root to: 'home#index'
 
+  get 'admin', to: 'admin#index'
 
   devise_for :users, controllers: {
       sessions: 'devise/sessions'
