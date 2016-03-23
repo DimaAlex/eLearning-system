@@ -1,4 +1,10 @@
 var PageForm = React.createClass({
+    componentDidMount: function() {
+        $('#editor').froalaEditor();
+    },
+    componentDidUpdate: function(){
+        $('#editor').froalaEditor();
+    },
     getInitialState: function() {
         return { title: "",
                  page_type: "lecture"}
@@ -27,11 +33,15 @@ var PageForm = React.createClass({
 
     renderInputForm: function() {
         if ( this.state.page_type == "lecture" ) {
-            return  <input type="text" className="form-control"
-                           placeholder="Text" name="body"
-                           value={this.state.body} onChange={this.handleChange}>
-                    </input>
-        } else if(this.state.page_type == "video"){
+            return <textarea name="body"
+                      id="editor"
+                      placeholder="Add link from youtube"
+                      name="body"
+                      value={this.state.body}
+                      onChange={this.handleChange}/>
+
+            }
+        else if(this.state.page_type == "video"){
             return  <input type="text" className="form-control"
                         placeholder="Add link from youtube" name="body"
                         value={this.state.body} onChange={this.handleChange}>

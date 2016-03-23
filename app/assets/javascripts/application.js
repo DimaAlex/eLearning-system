@@ -18,4 +18,6 @@
 //= require react
 //= require react_ujs
 //= require components
+//= require froala_editor.min.js
 //= require_tree .
+

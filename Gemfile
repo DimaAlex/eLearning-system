@@ -24,7 +24,7 @@ gem 'mailboxer', '0.13.0'
 gem 'chosen-rails', '1.4.3'
 
 gem 'react-rails', '~> 1.6'
-
+gem 'wysiwyg-rails', '~> 2.2'
 gem 'font-awesome-rails'
 group :development, :test do
   gem 'byebug'
