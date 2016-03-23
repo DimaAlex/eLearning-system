@@ -30,7 +30,7 @@ gem 'rspec-rails'
 
 # Use for authentification.
 gem 'devise', '~> 3.5', '>= 3.5.6'
-
+gem 'devise-bootstrap-views'
 # Convert file to needed format
 gem 'slim-rails', '~> 3.0.1'
 gem 'html2slim', '~> 0.2.0'
