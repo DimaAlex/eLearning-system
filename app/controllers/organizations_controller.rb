@@ -1,9 +1,10 @@
 class OrganizationsController < ApplicationController
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
-  authorize_resource
+  authorize_resource except: [:index, :show]
 
   def index
     @organizations = Organization.all
+    @organization = Organization.new
   end
 
   def show

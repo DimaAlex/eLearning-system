@@ -16,7 +16,7 @@ p
   strong Phone:
   = @organization.phone
 
-
-= link_to 'Edit', edit_organization_path(@organization), class: 'btn btn-default'
+- if can? :manage, @organization
+  = link_to 'Edit', edit_organization_path(@organization), class: 'btn btn-default'
 .pad
 = link_to 'Back', organizations_path, class: 'btn btn-default'

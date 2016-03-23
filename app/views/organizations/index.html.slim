@@ -13,9 +13,10 @@ table.table-condensed
       tr
         td = organization.title
         td = link_to 'Show', organization
-        td = link_to 'Edit', edit_organization_path(organization)
-        td = link_to 'Destroy', organization, data: {:confirm => 'Are you sure?'}, :method => :delete
+        - if can? :manage, organization
+          td = link_to 'Edit', edit_organization_path(organization)
+          td = link_to 'Destroy', organization, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
-
-= link_to 'New Organization', new_organization_path
+- if can? :new, @organization
+  = link_to 'New Organization', new_organization_path
