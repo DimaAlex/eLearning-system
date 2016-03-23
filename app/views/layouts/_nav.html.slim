@@ -25,6 +25,8 @@
                   li
                     = link_to 'MESSAGES', mailbox_inbox_path
                   li
+                    = link_to "PROFILE", user_profile_path(current_user.id)
+                  li
                     = link_to 'LOG OUT', destroy_user_session_path, :method => :delete
               - else
                 ul.dropdown-menu.nav-text-color

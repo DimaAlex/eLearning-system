@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   get 'admin', to: 'admin#index'
+  get '/user/:id', to: 'users#profile', as: 'user_profile'
 
   devise_for :users, controllers: {
       sessions: 'devise/sessions'

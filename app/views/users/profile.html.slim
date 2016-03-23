@@ -1,0 +1,35 @@
+- provide(:title, 'Profile')
+.panel.panel-default
+  .panel-heading
+    h4
+      | Profile
+  .panel-body
+    .container
+      .row
+        .col-md-12.lead
+          | User Profile
+        hr/
+
+      .col-md-4.text-center
+        img.img-circle.avatar.avatar-original
+          = image_tag @user.avatar.url(:medium)
+      .col-md-8
+        .row
+          .col-md-12
+            h1.only-bottom-margin
+              = @user.first_name
+        .row
+          .col-md-6
+            span.text-muted= t("user.email")
+            = @user.email
+            br
+              br
+                small.text-muted= t("user.created")
+                = @user.created_at
+          .col-md-12
+            = link_to "My Cources", "#", class: "btn btn-success"
+            - if current_user
+              -if current_user.id == @user.id
+                = link_to edit_user_registration_path, class: "btn btn-info" do
+                  i.glyphicon.glyphicon-pencil
+                  = t("user.edit")
