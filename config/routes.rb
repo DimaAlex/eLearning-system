@@ -1,16 +1,29 @@
 Rails.application.routes.draw do
+  resources :organizations
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root to: 'home#index'
 
+  get 'admin', to: 'admin#index'
 
   devise_for :users, controllers: {
       sessions: 'devise/sessions'
   }
 
+  get "mailbox/inbox" => "mailbox#inbox", as: :mailbox_inbox
+  get "mailbox/sent" => "mailbox#sent", as: :mailbox_sent
+  get "mailbox/trash" => "mailbox#trash", as: :mailbox_trash
 
+  resources :conversations do
+    member do
+      post :reply
+      post :trash
+      post :untrash
+      post :empty_trash
+    end
+  end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

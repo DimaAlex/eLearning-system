@@ -1,0 +1,28 @@
+.row
+  .spacer
+  .col-md-6
+    = link_to "Compose", new_conversation_path, class: "btn btn-success"
+.row
+  .spacer
+  .col-md-4
+    .panel.panel-default
+      .panel-body
+        = render 'mailbox/folders'
+  .col-md-8
+
+    .panel.panel-default
+      .panel-body
+        = render partial: 'messages'
+        .col-md-12
+        .panel-footer
+          = form_for :message, url: reply_conversation_path(conversation) do |f|
+            .form-group
+              = f.text_area :body, placeholder: "Reply Message", rows: 4, class: "form-control"
+            = f.submit "Reply", class: 'btn btn-danger pull-right'
+          .clearfix
+          - if conversation.is_trashed?(current_user)
+            = link_to 'Untrash', untrash_conversation_path(conversation), class: 'btn btn-info', method: :post
+            .pad
+            = link_to 'Empty trash', empty_trash_conversation_path(conversation), class: 'pad btn btn-info', method: :post
+          - else
+            = link_to 'Move to trash', trash_conversation_path(conversation), class: 'btn btn-danger', method: :post, data: {confirm: 'Are you sure?'}
