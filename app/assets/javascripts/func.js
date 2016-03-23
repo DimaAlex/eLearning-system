@@ -28,4 +28,3 @@ $(document).ready(function(){
 
 
 //render :json {data[email] }
-
