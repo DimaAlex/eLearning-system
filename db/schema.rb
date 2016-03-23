@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322105731) do
+ActiveRecord::Schema.define(version: 20160323143527) do
+
+  create_table "answers", force: :cascade do |t|
+    t.integer "page_id",     limit: 4
+    t.string  "answer_type", limit: 255
+    t.boolean "is_right",                default: false
+  end
+
+  add_index "answers", ["page_id"], name: "index_answers_on_page_id", using: :btree
 
   create_table "courses", force: :cascade do |t|
     t.string   "title",       limit: 255

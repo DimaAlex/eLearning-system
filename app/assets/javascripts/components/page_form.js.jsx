@@ -47,7 +47,11 @@ var PageForm = React.createClass({
                         value={this.state.body} onChange={this.handleChange}>
                     </input>
         } else {
-            return  <i className="glyphicon glyphicon-question-sign"></i>
+            return  <div>
+                        <label>Type of answer</label>
+                        <div>
+                        </div>
+                </div>
         }
     },
 
@@ -62,12 +66,12 @@ var PageForm = React.createClass({
                 </div>
                 <div className="form-group">
                     { (this.state.page_type == "lecture"
-                           ? <input type="radio" name="page_type" id="lecture" value="lecture" onChange={this.handleChange}
+                           ? <input type="radio" name="page_type" value="lecture" onChange={this.handleChange}
                                    checked="checked"/>
-                           :  <input type="radio" name="page_type" id="lecture" value="lecture" onChange={this.handleChange}/>
+                           :  <input type="radio" name="page_type" value="lecture" onChange={this.handleChange}/>
                     )}
                         <span> Lecture</span>
-                    <input type="radio"  name="page_type" id="video" value="video" onChange={this.handleChange}/>
+                    <input type="radio"  name="page_type" value="video" onChange={this.handleChange}/>
                         <span> Video</span>
                     <input type="radio"  name="page_type" value="question" onChange={this.handleChange}/>
                         <span> Question</span>

@@ -293,7 +293,7 @@ DEPENDENCIES
   twitter-bootstrap-rails
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
-  wysiwyg-rails
+  wysiwyg-rails (~> 2.2)
 
 BUNDLED WITH
    1.11.2
