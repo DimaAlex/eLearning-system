@@ -10,11 +10,13 @@ p
   strong Description:
   = @organization.description
 p
-  strong Adress:
-  = @organization.adress
-p
   strong Phone:
   = @organization.phone
+p
+  strong Org admins:
+  /- @organization.org_admins.each do |oa|
+    p= oa.first_name
+    p= oa.last_name
 
 - if can? :manage, @organization
   = link_to 'Edit', edit_organization_path(@organization), class: 'btn btn-default'

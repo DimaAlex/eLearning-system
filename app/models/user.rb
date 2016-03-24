@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :users_organizations
+  has_many :users_organizations, class_name: 'UsersOrganization'
   has_many :organizations, through: :users_organizations
 
   acts_as_messageable

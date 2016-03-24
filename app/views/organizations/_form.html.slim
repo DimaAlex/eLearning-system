@@ -3,5 +3,7 @@
   = f.input :title
   = f.input :description
   = f.input :phone
-  = f.input :adress
+
+  = f.select(:org_admins, User.all.collect {|p| [ p.email, p.id ] }, {}, { multiple: true , class:  "chosen-select form-control"  })
+
   = f.submit

@@ -1,5 +1,7 @@
 class OrganizationsController < ApplicationController
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
+  before_action :set_org_admins, only: [:create, :update]
+
   authorize_resource except: [:index, :show]
 
   def index
@@ -30,8 +32,13 @@ class OrganizationsController < ApplicationController
   end
 
   def update
+    @org_admins.each do |org_admin|
+      @organization.users_organizations.build(user_id: org_admin.id, is_org_admin: true)
+    end
+
     respond_to do |format|
       if @organization.update(organization_params)
+        binding.pry
         format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
       else
         format.html { render :edit }
@@ -47,11 +54,16 @@ class OrganizationsController < ApplicationController
   end
 
   private
-    def set_organization
-      @organization = Organization.find(params[:id])
-    end
+  def set_organization
+    @organization = Organization.find(params[:id])
+  end
 
-    def organization_params
-      params.require(:organization).permit(:title, :description, :adress, :phone, :image)
-    end
+  def organization_params
+    params.require(:organization).permit(:title, :description, :adress, :phone, :image)
+  end
+
+  def set_org_admins
+    @org_admins = User.where(id: params.require(:organization).permit(org_admins:[])[:org_admins])
+  end
+
 end
