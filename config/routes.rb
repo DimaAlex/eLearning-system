@@ -7,9 +7,11 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   get 'admin', to: 'admin#index'
+  get '/user/:id=', to: 'users#profile', as: 'user_profile'
 
   devise_for :users, controllers: {
-      sessions: 'devise/sessions'
+      sessions: 'devise/sessions',
+      registrations: "users/registrations"
   }
 
   get "mailbox/inbox" => "mailbox#inbox", as: :mailbox_inbox
