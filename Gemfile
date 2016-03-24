@@ -39,6 +39,7 @@ gem 'html2slim', '~> 0.2.0'
 # gem 'therubyracer'
 # gem 'less-rails' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem 'twitter-bootstrap-rails'
+gem 'bootstrap-material-design', '~> 0.2.2'
 
 gem 'simple_form', '~> 3.2.1'
 gem 'cancancan', '~> 1.10'
@@ -72,4 +73,3 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-
