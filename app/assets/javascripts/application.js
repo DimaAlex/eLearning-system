@@ -15,6 +15,7 @@
 //= require chosen-jquery
 //= require scaffold
 //= require func
+//= require timeago.jquery
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require react
