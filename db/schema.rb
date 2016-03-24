@@ -94,6 +94,10 @@ ActiveRecord::Schema.define(version: 20160324104850) do
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
     t.boolean  "is_admin"
+    t.string   "avatar_file_name",       limit: 255
+    t.string   "avatar_content_type",    limit: 255
+    t.integer  "avatar_file_size",       limit: 4
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

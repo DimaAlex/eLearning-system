@@ -47,6 +47,8 @@ GEM
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-material-design (0.2.2)
+      bootstrap-sass (~> 3.0)
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -103,6 +105,7 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    devise-bootstrap-views (0.0.8)
     diff-lcs (1.2.5)
     elasticsearch (1.0.15)
       elasticsearch-api (= 1.0.15)
@@ -124,9 +127,6 @@ GEM
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     hashie (3.4.3)
-    hpricot (0.8.6)
-    html2slim (0.2.0)
-      hpricot
     i18n (0.7.0)
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
@@ -297,14 +297,15 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print (= 1.6.1)
+  bootstrap-material-design (~> 0.2.2)
   bootstrap-sass (= 3.3.6)
   byebug
   cancancan (~> 1.10)
   chosen-rails (= 1.4.3)
   coffee-rails (~> 4.1.0)
   devise (~> 3.5, >= 3.5.6)
+  devise-bootstrap-views
   font-awesome-rails
-  html2slim (~> 0.2.0)
   jbuilder (~> 2.0)
   jquery-rails
   mailboxer (= 0.13.0)
