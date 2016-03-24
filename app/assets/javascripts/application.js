@@ -18,7 +18,7 @@
 //= require react
 //= require react_ujs
 //= require components
-//= require froala_editor.min.js
+//= require ckeditor/init
 //= require_tree .
 
 

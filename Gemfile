@@ -34,7 +34,7 @@ gem 'chosen-rails', '1.4.3'
 gem 'paperclip', '~> 4.3'
 
 gem 'react-rails', '~> 1.6'
-gem 'wysiwyg-rails', '~> 2.2'
+gem 'ckeditor', '~> 4.1'
 gem 'font-awesome-rails'
 group :development, :test do
   gem 'byebug'

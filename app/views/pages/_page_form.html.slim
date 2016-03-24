@@ -1,0 +1,17 @@
+.form-group
+  h2
+    = "Create new page"
+  = simple_form_for @page, url: {action: :create}, remote: true do |p|
+    = p.input :title, placeholder: "Title"
+    = p.input :page_type, as: :radio_buttons,
+            collection: ['Lecture', 'Video', 'Question'],
+            item_label_class: "radio-inline",
+            item_wrapper_tag: false,
+            checked: 'Lecture'
+    #lecture
+      = p.cktext_area :body,:ckeditor => {:uiColor => '#e0dede', :toolbar => 'mini'}
+    #video
+      = p.text_field :body, placeholder: "Add link from youtube", class: "form-control"
+    #question
+      = render "new_question"
+    =p.submit "Create", class: "btn btn-default"

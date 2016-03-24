@@ -3,6 +3,7 @@ class PagesController < ApplicationController
 
   def index
     @pages = Page.where(course_id: params[:course_id])
+    @page = Page.new
   end
 
   def show
@@ -21,7 +22,7 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       if @page.save
-        format.html { redirect_to course_pages_path, notice: 'Page was successfully created.' }
+        format.html { redirect_to course_pages_path }
         format.json { render :show, status: :created, location: course_pages_path }
       else
         format.html { render :new}
