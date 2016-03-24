@@ -4,6 +4,6 @@
   = f.input :description
   = f.input :phone
 
-  = f.select(:org_admins, User.all.collect {|p| [ p.email, p.id ] }, {}, { multiple: true , class:  "chosen-select form-control"  })
+  = f.select(:org_admins, (@organization.users_in_org).collect {|p| [ p.email, p.id ] }, {}, { multiple: true , class:  "chosen-select form-control"  })
 
-  = f.submit
+  = f.submit class: 'btn btn-success'

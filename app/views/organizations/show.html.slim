@@ -14,11 +14,13 @@ p
   = @organization.phone
 p
   strong Org admins:
-  /- @organization.org_admins.each do |oa|
-    p= oa.first_name
-    p= oa.last_name
+  - @organization.org_admins.each do |oa|
+    br
+      = oa.first_name
+      | &nbsp
+      = oa.last_name
 
 - if can? :manage, @organization
-  = link_to 'Edit', edit_organization_path(@organization), class: 'btn btn-default'
+  = link_to 'Edit', edit_organization_path(@organization), class: 'btn btn-danger btn-raised'
 .pad
-= link_to 'Back', organizations_path, class: 'btn btn-default'
+= link_to 'Back', organizations_path, class: 'btn btn-default btn-raised'
