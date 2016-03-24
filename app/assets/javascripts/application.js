@@ -22,13 +22,5 @@
 //= require react_ujs
 //= require components
 //= require_tree .
+//= require bootstrap-material-design
 
-
-//$(function() {
-//    $('.categories').hover(function(){ //Open on hover
-//            $('.categories-info').addClass("categories_info")
-//        },
-//        function(){ //Close when not hovered
-//            $('.categories-info').addClass("categories_info")
-//        });
-//});

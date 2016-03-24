@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-
-
 gem 'rails', '4.2.5'
 
 gem 'mysql2', '>= 0.3.13', '< 0.5'
@@ -29,6 +27,7 @@ gem 'devise-bootstrap-views'
 gem 'slim-rails', '~> 3.0.1'
 
 gem 'twitter-bootstrap-rails'
+gem 'bootstrap-material-design', '~> 0.2.2'
 
 gem 'simple_form', '~> 3.2.1'
 gem 'cancancan', '~> 1.10'
@@ -56,4 +55,3 @@ group :development do
 
   gem 'spring'
 end
-
