@@ -4,6 +4,10 @@
   = f.input :description
   = f.input :phone
 
-  = f.select(:org_admins, (@organization.users_in_org).collect {|p| [ p.email, p.id ] }, {}, { multiple: true , class:  "chosen-select form-control"  })
+  strong Choose admin(s) for organization
+  - if @organization.users.org_admins.empty?
+    = f.select(:users, @users_without_admin.collect { |p| [p.email, p.id] }, {}, {multiple: true, class: "chosen-select form-control"})
+  - else
+    = f.select(:users, (@organization.users.usual_users_in_org).collect {|p| [ p.email, p.id ] }, {}, { multiple: true , class:  "chosen-select form-control"  })
 
   = f.submit class: 'btn btn-success'

@@ -14,7 +14,7 @@ p
   = @organization.phone
 p
   strong Org admins:
-  - @organization.org_admins.each do |oa|
+  - @organization.users.org_admins.each do |oa|
     br
       = oa.first_name
       | &nbsp
