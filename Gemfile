@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.5'
 
 gem 'mysql2', '>= 0.3.13', '< 0.5'
-gem 'pg'
 gem 'sass-rails', '~> 5.0'
 
 gem 'uglifier', '>= 1.3.0'
@@ -41,13 +40,19 @@ gem 'chosen-rails', '1.4.3'
 gem 'paperclip', '~> 4.3'
 
 gem 'font-awesome-rails'
-gem 'momentjs-rails'
+gem 'figaro'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'awesome_print', '1.6.1'
   gem 'pry-rails', '0.3.4'
   gem 'faker'
+end
+
+group :production do
+  gem 'pg', '0.15.1'
+  gem 'rails_12factor', '0.0.2'
 end
 
 group :development do
