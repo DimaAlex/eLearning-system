@@ -21,6 +21,7 @@
 //= require react
 //= require react_ujs
 //= require components
+//= require ckeditor/init
 //= require_tree .
 //= require bootstrap-material-design
 
@@ -32,11 +33,3 @@ $(document).ready(function() {
         });
     }
 });
-//$(function() {
-//    $('.categories').hover(function(){ //Open on hover
-//            $('.categories-info').addClass("categories_info")
-//        },
-//        function(){ //Close when not hovered
-//            $('.categories-info').addClass("categories_info")
-//        });
-//});
