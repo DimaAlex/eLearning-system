@@ -18,5 +18,6 @@
           small
             b Date:
             .pad
-            = message.created_at.strftime("%A, %b %d, %Y at %I:%M%p")
+            = timeago(message.created_at)
+            / = moment(message.created_at).fromNow()
         = message.body

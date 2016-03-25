@@ -1,9 +1,39 @@
-p#notice = notice
+.col-lg-8.col-md-8.col-sm-12.col-xs-12.col-lg-offset-2.col-md-offset-2.col-sm-offset-2
+  h2.title-box
+    = @organization.title
+  .show-main-box.margin-top-40
+    = image_tag @organization.image.url(:medium), class: 'col-lg-4 show-photo-box'
 
-p
-  strong Title:
-  = @organization.title
+    .show-description-box.col-lg-7.col-lg-offset-1
+      h2.show-about-us
+        = 'About'
+      = @organization.description
 
-= link_to 'Edit', edit_organization_path(@organization)
-'|
-= link_to 'Back', organizations_path
+  br
+  br
+  .col-lg-4
+    table.table.table-hover
+      caption.margin-top-15
+        = 'Info'
+      tr
+        td
+          = 'Name'
+        td
+          = @organization.title
+      tr
+        td
+          = 'Phone'
+        td
+          = @organization.phone
+      tr
+        td
+          = 'Organization admins'
+      - @organization.users.org_admins.each do |oa|
+        = oa.first_name
+        | &nbsp
+        = oa.last_name
+
+- if can? :manage, @organization
+  = link_to 'Edit', edit_organization_path(@organization), class: 'btn btn-danger btn-raised'
+.pad
+= link_to 'Back', organizations_path, class: 'btn btn-default btn-raised'
