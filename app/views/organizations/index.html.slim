@@ -1,22 +1,19 @@
-h1 Listing organizations
+h2.title-box
+  = 'Organizations'
+.col-lg-6.col-lg-offset-3
+  - @organizations.each do |organization|
 
-table.table-condensed
-  thead
-    tr
-      th Title
-      th
-      th
-      th
+    .well
+      .media-left
+        = image_tag organization.image.url(:thumb), class: "pull-left"
+      .media-body
+        h4.media-heading
+          = organization.title
+        br
+        = "Phone: #{organization.phone}"
+        br
 
-  tbody
-    - @organizations.each do |organization|
-      tr
-        td = organization.title
-        td = link_to 'Show', organization
-        - if can? :manage, organization
-          td = link_to 'Edit', edit_organization_path(organization)
-          td = link_to 'Destroy', organization, data: {:confirm => 'Are you sure?'}, :method => :delete
-
-br
-- if can? :new, @organization
-  = link_to 'New Organization', new_organization_path
+        = link_to 'Show', organization, class: "pad btn btn-primary"
+  br
+  - if can? :new, @organization
+    = link_to 'New Organization', new_organization_path, class: 'btn btn-info btn-raise'
