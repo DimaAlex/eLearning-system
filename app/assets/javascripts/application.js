@@ -21,7 +21,14 @@
 //= require ckeditor/init
 //= require_tree .
 
-
+$(document).ready(function() {
+    if ($('textarea').length > 0) {
+        var data = $('textarea');
+        $.each(data, function(i) {
+            CKEDITOR.replace(data[i].id);
+        });
+    }
+});
 //$(function() {
 //    $('.categories').hover(function(){ //Open on hover
 //            $('.categories-info').addClass("categories_info")

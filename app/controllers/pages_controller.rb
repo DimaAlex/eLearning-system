@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_action :set_page, only: [:show, :edit, :update, :destroy]
+  before_action :set_page, only: [:show, :edit, :update, :destroy, :update]
 
   def index
     @pages = Page.where(course_id: params[:course_id])
@@ -14,6 +14,7 @@ class PagesController < ApplicationController
   end
 
   def edit
+    @course = Course.find(params[:course_id])
   end
 
   def create
@@ -22,17 +23,21 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       if @page.save
-        format.html { redirect_to course_pages_path }
+        format.html { redirect_to edit_course_page_path(id: @page.id) }
         format.json { render :show, status: :created, location: course_pages_path }
       else
-        format.html { render :new}
+        format.html { redirect_to course_pages_path }
         format.json { render json: @page.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def update
-
+    if @page.update(page_params)
+      redirect_to course_pages_path
+    else
+      redirect_to edit_course_page_path(id: @page.id)
+    end
   end
 
   def destroy
@@ -44,11 +49,12 @@ class PagesController < ApplicationController
   end
 
   private
-  def set_course
+  def set_page
     @page = Page.find(params[:id])
   end
 
   def page_params
-    params.require(:page).permit(:title, :page_type, :body)
+    params.require(:page).permit(:title, :page_type, :body,
+                                 answer_attributes: [:page_id,:answer_type, :answer_body, :is_right],)
   end
 end
