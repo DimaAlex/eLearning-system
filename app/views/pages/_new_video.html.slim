@@ -1,0 +1,6 @@
+.col-md-offset-2.col-md-8
+  h2
+    = @page.title
+  = simple_form_for [@course, @page] do |p|
+    = p.text_field :body, placeholder: "Add link from youtube", class: "form-control"
+    =p.submit "Save", class: "btn btn-default"
