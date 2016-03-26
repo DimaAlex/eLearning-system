@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160325113053) do
+ActiveRecord::Schema.define(version: 20160326085021) do
 
   create_table "answers", force: :cascade do |t|
     t.string   "answer_type", limit: 255
@@ -19,7 +19,10 @@ ActiveRecord::Schema.define(version: 20160325113053) do
     t.string   "answer_body", limit: 255
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "page_id",     limit: 4
   end
+
+  add_index "answers", ["page_id"], name: "index_answers_on_page_id", using: :btree
 
   create_table "courses", force: :cascade do |t|
     t.string   "title",       limit: 255

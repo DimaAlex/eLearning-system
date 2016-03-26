@@ -8,5 +8,14 @@
             item_label_class: "radio-inline",
             item_wrapper_tag: false,
             checked: 'Lecture'
+    #question
+      = p.fields_for :answers do |u|
+        = u.input :answer_type, as: :radio_buttons,
+                collection: ['Input', 'Radio', 'Checkbox'],
+                item_label_class: "radio-inline",
+                item_wrapper_tag: false,
+                checked: 'Input'
+        #count-of-answers
+          = p.input :body, as: :select, collection: 2..5, prompt: "Count of answers"
     =p.submit "Next", class: "btn btn-default"
 
