@@ -1,0 +1,14 @@
+.list-group
+  .list-group-item.h2
+    ="Lectures"
+  - @pages.each do |page|
+    .list-group-item
+      span.h4
+        = page.title
+        span.right
+          - if page.page_type == "Lecture"
+            i.glyphicon.glyphicon-file
+          - elsif page.page_type == "Video"
+            i.glyphicon.glyphicon-film
+          - else
+            i.glyphicon.glyphicon-question-sign

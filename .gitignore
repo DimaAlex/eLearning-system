@@ -18,6 +18,7 @@ database.yml
 
 .idea/
 system/
+*~
 
 # Ignore application configuration
 /config/application.yml

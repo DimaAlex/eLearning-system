@@ -1,0 +1,12 @@
+.form-group
+  h2
+    = "Create new page"
+  = simple_form_for @page, url: {action: :create} do |p|
+    = p.input :title, placeholder: "Title"
+    = p.input :page_type, as: :radio_buttons,
+            collection: ['Lecture', 'Video', 'Question'],
+            item_label_class: "radio-inline",
+            item_wrapper_tag: false,
+            checked: 'Lecture'
+    =p.submit "Next", class: "btn btn-default"
+
