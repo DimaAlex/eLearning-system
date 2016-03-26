@@ -10,10 +10,13 @@
       - if user_signed_in?
         ul.nav.navbar-nav.ul-right
           li.nav-text-color.header-box
+          if user.signed_in?
+            = link_to 'Create course', new_course_path
+          li.nav-text-color.header-box
             = link_to 'Categories', root_path
             = render 'layouts/categories'
           li.nav-text-color.header-box
-            = link_to 'Companies', root_path
+            = link_to 'Companies', organizations_path
             = render 'layouts/companies'
           li.dropdown.nav-text-color
             a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
@@ -25,13 +28,15 @@
                 li
                   = link_to 'MESSAGES', mailbox_inbox_path
                 li
-                  = link_to 'PROFILE', user_profile_path(:id => current_user)   
+                  = link_to 'PROFILE', user_profile_path(:id => current_user)
                 li
                   = link_to 'LOG OUT', destroy_user_session_path, :method => :delete
             - else
               ul.dropdown-menu
                 li
                   = link_to 'MESSAGES', mailbox_inbox_path
+                li
+                  = link_to 'PROFILE', user_profile_path(:id => current_user)
                 li
                   = link_to 'LOG OUT', destroy_user_session_path, :method => :delete
       - else
@@ -40,7 +45,7 @@
             = link_to 'Categories', root_path
             = render 'layouts/categories'
           li.nav-text-color.header-box
-            = link_to 'Companies', root_path
+            = link_to 'Companies', organizations_path
             = render 'layouts/companies'
           li.nav-text-color
             = link_to 'Sign In', new_user_session_path

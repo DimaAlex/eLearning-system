@@ -1,9 +1,9 @@
 - @receipts.each do |receipt|
   - message = receipt.message
-  .media
+  .well
     .media-left
-      a[href="#"]
-        img.media-object[src="http://placehold.it/64x64" alt="..."]
+      a[href= user_profile_path(conversation.originator.id)]
+        = image_tag conversation.originator.avatar.url(:thumb)
     .media-body
       h4.media-heading
         = message.sender.email
@@ -18,5 +18,5 @@
           b
             | Date:
           .pad
-          = message.created_at.strftime("%A, %b %d, %Y at %I:%M%p")
+          = timeago(message.created_at)
       = message.body

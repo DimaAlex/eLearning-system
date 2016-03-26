@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160324105242) do
+ActiveRecord::Schema.define(version: 20160325113053) do
+
+  create_table "answers", force: :cascade do |t|
+    t.string   "answer_type", limit: 255
+    t.boolean  "is_right"
+    t.string   "answer_body", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
   create_table "certificates", force: :cascade do |t|
     t.integer  "type",       limit: 4
@@ -23,6 +31,17 @@ ActiveRecord::Schema.define(version: 20160324105242) do
 
   add_index "certificates", ["users_id"], name: "index_certificates_on_users_id", using: :btree
   add_index "certificates", ["сourses_id"], name: "index_certificates_on_сourses_id", using: :btree
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "title",       limit: 255
+    t.string   "permission",  limit: 255
+    t.integer  "author_id",   limit: 4
+    t.string   "author_type", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "courses", ["author_type", "author_id"], name: "index_courses_on_author_type_and_author_id", using: :btree
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
     t.integer "unsubscriber_id",   limit: 4
@@ -78,27 +97,44 @@ ActiveRecord::Schema.define(version: 20160324105242) do
   add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type", using: :btree
 
   create_table "organizations", force: :cascade do |t|
+    t.string   "title",              limit: 255
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "phone",              limit: 255
+    t.string   "description",        limit: 255
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.integer  "course_id",  limit: 4
     t.string   "title",      limit: 255
+    t.string   "page_type",  limit: 255
+    t.string   "body",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
+  add_index "pages", ["course_id"], name: "index_pages_on_course_id", using: :btree
+
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "email",                  limit: 255, default: "",    null: false
+    t.string   "encrypted_password",     limit: 255, default: "",    null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
-    t.boolean  "is_admin"
+    t.boolean  "is_admin",                           default: false
     t.string   "avatar_file_name",       limit: 255
     t.string   "avatar_content_type",    limit: 255
     t.integer  "avatar_file_size",       limit: 4
@@ -109,12 +145,13 @@ ActiveRecord::Schema.define(version: 20160324105242) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "users_organizations", force: :cascade do |t|
-    t.boolean "is_org_admin"
+    t.boolean "is_org_admin",              default: false
     t.integer "user_id",         limit: 4
     t.integer "organization_id", limit: 4
   end
 
   add_index "users_organizations", ["organization_id"], name: "index_users_organizations_on_organization_id", using: :btree
+  add_index "users_organizations", ["user_id", "organization_id"], name: "index_users_organizations_on_user_id_and_organization_id", unique: true, using: :btree
   add_index "users_organizations", ["user_id"], name: "index_users_organizations_on_user_id", using: :btree
 
   add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", column: "conversation_id", name: "mb_opt_outs_on_conversations_id"
