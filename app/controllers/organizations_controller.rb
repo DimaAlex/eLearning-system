@@ -42,7 +42,6 @@ class OrganizationsController < ApplicationController
 
     respond_to do |format|
       if @organization.update(organization_params)
-        binding.pry
         format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
       else
         format.html { render :edit }

@@ -1,39 +1,32 @@
-.col-lg-8.col-md-8.col-sm-12.col-xs-12.col-lg-offset-2.col-md-offset-2.col-sm-offset-2
-  h2.title-box
+.col-lg-8.col-lg-offset-2.well
+
+  h2.col-sm-offset-1
     = @organization.title
-  .show-main-box.margin-top-40
-    = image_tag @organization.image.url(:medium), class: 'col-lg-4 show-photo-box'
+  p
+    = image_tag @organization.image.url(:medium), class: 'col-lg-4 img-ciricle'
 
-    .show-description-box.col-lg-7.col-lg-offset-1
-      h2.show-about-us
-        = 'About'
-      = @organization.description
+  .col-lg-offset-4
+    h4 About
+    = @organization.description
 
-  br
   br
   .col-lg-4
     table.table.table-hover
-      caption.margin-top-15
-        = 'Info'
       tr
+        td Created
         td
-          = 'Name'
-        td
-          = @organization.title
+          = @organization.created_at.strftime("%d:%m:%Y")
       tr
-        td
-          = 'Phone'
+        td Phone
         td
           = @organization.phone
-      tr
-        td
-          = 'Organization admins'
-      - @organization.users.org_admins.each do |oa|
-        = oa.first_name
-        | &nbsp
-        = oa.last_name
+  h4 Admins of organization
+  - @organization.users.org_admins.each do |oa|
+    = link_to user_profile_path(oa)
+      = image_tag oa.avatar.url(:thumb), class: 'img-ciricle', title: "#{ oa.first_name } #{ oa.last_name }"
+    br
 
-- if can? :manage, @organization
-  = link_to 'Edit', edit_organization_path(@organization), class: 'btn btn-danger btn-raised'
-.pad
-= link_to 'Back', organizations_path, class: 'btn btn-default btn-raised'
+  - if can? :manage, @organization
+    = link_to 'Edit', edit_organization_path(@organization), class: 'btn btn-danger btn-raised'
+  .pad
+  = link_to 'Back', organizations_path, class: 'btn btn-default btn-raised'
