@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323113125) do
+ActiveRecord::Schema.define(version: 20160324105242) do
+
+  create_table "certificates", force: :cascade do |t|
+    t.integer  "type",       limit: 4
+    t.integer  "сourses_id", limit: 4
+    t.integer  "users_id",   limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "certificates", ["users_id"], name: "index_certificates_on_users_id", using: :btree
+  add_index "certificates", ["сourses_id"], name: "index_certificates_on_сourses_id", using: :btree
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
     t.integer "unsubscriber_id",   limit: 4
