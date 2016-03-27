@@ -1,0 +1,22 @@
+.well
+  .media-left
+    a[href= user_profile_path(conversation.originator.id)]
+      = image_tag conversation.originator.avatar.url(:thumb)
+  .media-body
+    h4.media-heading
+      = conversation.originator.email
+      br
+      small
+        b
+          | Subject:
+        .pad
+        = conversation.subject
+      br
+      small
+        b
+          | Date:
+        | &nbsp
+        = timeago(conversation.messages.last.created_at)
+    = truncate conversation.messages.last.body, length: 145
+    .pad
+    = link_to "View", conversation_path(conversation)

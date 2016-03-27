@@ -1,0 +1,22 @@
+- @receipts.each do |receipt|
+  - message = receipt.message
+  .well
+    .media-left
+      a[href= user_profile_path(conversation.originator.id)]
+        = image_tag conversation.originator.avatar.url(:thumb)
+    .media-body
+      h4.media-heading
+        = message.sender.email
+        br
+        small
+          b
+            | Subject:
+          .pad
+          = message.subject
+        br
+        small
+          b
+            | Date:
+          .pad
+          = timeago(message.created_at)
+      = message.body

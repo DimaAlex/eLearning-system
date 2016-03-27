@@ -1,0 +1,6 @@
+.col-md-offset-2.col-md-8
+  h2
+    = @page.title
+  =simple_form_for [@course, @page] do |p|
+    = p.cktext_area :body, :ckeditor => {:uiColor => '#e0dede', :toolbar => 'mini'}
+    =p.submit "Save", class: "btn btn-default"

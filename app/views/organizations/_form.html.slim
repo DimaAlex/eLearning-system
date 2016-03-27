@@ -1,0 +1,14 @@
+.col-lg-6.col-lg-offset-3
+  = simple_form_for @organization do |f|
+    = f.input :image, as: :file
+    = f.input :title
+    = f.input :description
+    = f.input :phone
+
+    strong Choose admin(s) for organization
+    - if @organization.users.org_admins.empty?
+      = f.select(:users, @users_without_admin.collect { |p| [p.email, p.id] }, {}, {multiple: true, class: "chosen-select form-control"})
+    - else
+      = f.select(:users, (@organization.users.usual_users_in_org).collect {|p| [ p.email, p.id ] }, {}, { multiple: true , class:  "chosen-select form-control"  })
+
+    = f.submit class: 'btn btn-success'

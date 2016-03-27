@@ -12,9 +12,13 @@
 !/log/.keep
 /tmp
 database.yml
-secrets.yml
 .secret
 .ruby-version
 .ruby-gemset
 
 .idea/
+system/
+*~
+
+# Ignore application configuration
+/config/application.yml

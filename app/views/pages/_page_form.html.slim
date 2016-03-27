@@ -1,0 +1,19 @@
+.form-group
+  h2
+    = "Create new page"
+  = simple_form_for @page, url: {action: :create} do |p|
+    = p.input :title, label: false, placeholder: "Title", required: true
+    = p.label "Choose page type"
+    = p.input :page_type, as: :radio_buttons, label: false,
+            collection: ['Lecture', 'Video', 'Question'],
+            checked: 'Lecture'
+    #question
+      = p.label "Choose answer type"
+      = p.fields_for :answers do |u|
+        = u.input :answer_type, label: false, as: :radio_buttons,
+                collection: ['Input', 'Radio', 'Checkbox'],
+                checked: 'Input'
+        #count-of-answers
+          = p.input :body, label: false, as: :select, collection: 2..5, prompt: "Count of answers"
+    =p.submit "Next", class: "btn btn-default"
+

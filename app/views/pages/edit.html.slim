@@ -1,0 +1,6 @@
+- if @page.page_type == "Lecture"
+  = render "new_lecture"
+-elsif @page.page_type == "Video"
+  = render "new_video"
+- else
+  = render "new_question"

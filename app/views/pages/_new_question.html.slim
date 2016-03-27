@@ -1,0 +1,23 @@
+.col-md-offset-2.col-md-8
+  h2
+    = @page.title
+  = simple_form_for [@course, @page] do |p|
+    .form-group
+      = p.label "Answers", class: 'col-sm-5 control-label'
+      br
+    = p.fields_for :answers do |u|
+        .form-group
+          .col-sm-6
+            = u.text_field :answer_body, class: 'form-control'
+          - if @answer_type == "Input"
+             = u.input :is_right, inline_label: "Is right?", as: :hidden, :input_html => { value: true }
+          - else
+            - if @answer_type == "Checkbox"
+              .col-sm-2
+                = u.input :is_right, inline_label: "Is right?", as: :boolean
+            - else
+              .radio_type
+                .col-sm-2
+                  = u.input :is_right, inline_label: "Is right?", as: :boolean
+          br
+    =p.submit "Save", class: "btn btn-default"

@@ -1,0 +1,9 @@
+.text-center
+  = link_to "New course", new_course_path, class: "btn btn-primary"
+.list-group
+  .list-group-item.h2
+    ="Courses"
+    - @courses.each do |course|
+      .list-group-item
+        span.h4
+          = link_to course.title, course_path(course)

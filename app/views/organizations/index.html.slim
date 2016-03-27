@@ -1,0 +1,19 @@
+h2.title-box
+  = 'Organizations'
+.col-lg-6.col-lg-offset-3
+  - @organizations.each do |organization|
+
+    .well
+      .media-left
+        = image_tag organization.image.url(:thumb), class: "pull-left"
+      .media-body
+        h4.media-heading
+          = organization.title
+        br
+        = "Phone: #{organization.phone}"
+        br
+
+        = link_to 'Show', organization, class: "pad btn btn-primary"
+  br
+  - if can? :new, @organization
+    = link_to 'New Organization', new_organization_path, class: 'btn btn-info btn-raise'

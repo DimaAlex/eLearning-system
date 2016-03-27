@@ -1,0 +1,23 @@
+- if @receipts
+  - @receipts.each do |receipt|
+    - message = receipt.message
+    .media
+      .media-left
+        /! user avators can go here
+        a href="#"
+          img.media-object alt="..." src="http://placehold.it/64x64" /
+      .media-body
+        h4.media-heading
+          = message.sender.email
+          br/
+          small
+            b Subject:
+            .pad
+            = message.subject
+          br/
+          small
+            b Date:
+            .pad
+            = timeago(message.created_at)
+            / = moment(message.created_at).fromNow()
+        = message.body
