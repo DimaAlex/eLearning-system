@@ -1,5 +1,5 @@
 class OrganizationsController < ApplicationController
-  before_action :set_organization, only: [:show, :edit, :update, :destroy]
+  before_action :set_organization, only: [:show, :edit, :update, :destroy, :users_in_org, :new_users_to_org]
   before_action :set_org_admins, only: [:create, :update]
   before_action :all_users_without_admin, only:  [:new, :edit]
 
@@ -55,6 +55,14 @@ class OrganizationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to organizations_url, notice: 'Organization was successfully destroyed.' }
     end
+  end
+
+  def users_in_org
+
+  end
+
+  def new_users_to_org
+
   end
 
   private

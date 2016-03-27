@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   resources :organizations
+  get 'organizations/:id/all_users', to: 'organizations#users_in_org', as: :organization_all_users
+  get 'organizations/:id/new_users', to: 'organizations#new_users_to_org', as: :organization_new_users
 
   resources :courses do
     resources :pages

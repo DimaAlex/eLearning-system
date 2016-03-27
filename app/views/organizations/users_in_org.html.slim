@@ -1,0 +1,6 @@
+table.table-hover
+  - @organization.users.usual_users_in_org.each do |user|
+    tr
+      td = user.email
+
+= link_to 'add users in org', organization_new_users_path(@organization)
