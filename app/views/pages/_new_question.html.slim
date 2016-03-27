@@ -9,12 +9,15 @@
         .form-group
           .col-sm-6
             = u.text_field :answer_body, class: 'form-control'
-          - if @answer_type == "Checkbox"
-            .col-sm-2
-              = u.input :is_right, as: :boolean
+          - if @answer_type == "Input"
+             = u.input :is_right, inline_label: "Is right?", as: :hidden, :input_html => { value: true }
           - else
-            .radio_type
+            - if @answer_type == "Checkbox"
               .col-sm-2
-                = u.input :is_right, as: :boolean
+                = u.input :is_right, inline_label: "Is right?", as: :boolean
+            - else
+              .radio_type
+                .col-sm-2
+                  = u.input :is_right, inline_label: "Is right?", as: :boolean
           br
     =p.submit "Save", class: "btn btn-default"

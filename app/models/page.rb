@@ -3,4 +3,18 @@ class Page < ActiveRecord::Base
   has_many :answers, dependent: :destroy
   accepts_nested_attributes_for :answers
   validates :title, presence: true, allow_blank: false
+  validates :body, presence: true, on: :create, if: :page_type_question?
+  validates_format_of :body, with: /https:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]*)/,
+                      on: :update,
+                      if: :page_type_video?
+
+  def page_type_question?
+    @answer_type = answers.first.answer_type
+    page_type == "Question" && (@answer_type == "Radio" || @answer_type == "Checkbox")
+  end
+
+  def page_type_video?
+    page_type == "Video"
+  end
+
 end
