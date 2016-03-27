@@ -38,11 +38,11 @@ gem 'cancancan', '~> 1.10'
 
 gem 'searchkick', '~> 1.2.1'
 
-gem 'paperclip', '~> 4.3'
-
 gem 'bootstrap-sass', '3.3.6'
 gem 'mailboxer', '0.13.0'
 gem 'chosen-rails', '1.4.3'
+
+gem 'paperclip', '~> 4.3'
 
 gem 'ckeditor', '~> 4.1'
 gem 'font-awesome-rails'

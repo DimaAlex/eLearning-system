@@ -10,8 +10,7 @@
       - if user_signed_in?
         ul.nav.navbar-nav.ul-right
           li.nav-text-color.header-box
-          if user.signed_in?
-            = link_to 'Create course', new_course_path
+            = link_to 'Courses', courses_path
           li.nav-text-color.header-box
             = link_to 'Categories', root_path
             = render 'layouts/categories'

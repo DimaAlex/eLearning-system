@@ -20,6 +20,8 @@
         = f.radio_button :permission, "individual"
         = "Individual"
     .form-group
+      = f.file_field :image
+    .form-group
       .col-sm-offset-2.col-sm-6
         = f.submit "Create", class: "btn btn-primary"
         = link_to "Back", :back
