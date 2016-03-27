@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   before_action :set_page, only: [:show, :edit, :update, :destroy, :update]
 
   def index
+    @course = Course.find(params[:course_id])
     @pages = Page.where(course_id: params[:course_id])
     @page = Page.new
     @page.answers.build

@@ -3,6 +3,7 @@ class Page < ActiveRecord::Base
   has_many :answers, dependent: :destroy
   accepts_nested_attributes_for :answers
   validates :title, presence: true, allow_blank: false
+  validates :body, presence: true, on: :update, if: :page_type_lecture?
   validates :body, presence: true, on: :create, if: :page_type_question?
   validates_format_of :body, with: /https:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]*)/,
                       on: :update,
@@ -15,6 +16,10 @@ class Page < ActiveRecord::Base
 
   def page_type_video?
     page_type == "Video"
+  end
+
+  def page_type_lecture?
+    page_type == "Lecture"
   end
 
 end

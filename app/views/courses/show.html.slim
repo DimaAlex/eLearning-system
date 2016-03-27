@@ -1,2 +1,25 @@
-h2
-  = @course.title
+.panel.panel-default
+  .panel-heading
+    h4
+      | Course
+  .panel-body
+    .container
+      .col-md-4
+        .text-center
+          = image_tag @course.image.url(:medium)
+          h1
+            = @course.title
+          = label_tag "Created by: "
+          .pad
+            = "#{@course.author.first_name} #{@course.author.last_name}"
+            i.glyphicon.glyphicon-user
+          div
+            = link_to "Start course", "#", class: "btn btn-danger"
+      .col-md-8
+        .row
+          .col-md-12
+            h2.text-center
+              = "Class Curriculum"
+        .row
+          .col-md-offset-2.col-md-8
+            =render "pages/pages", pages: @course.pages
