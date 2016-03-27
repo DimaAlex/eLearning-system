@@ -10,7 +10,6 @@
       - if user_signed_in?
         ul.nav.navbar-nav.ul-right
           li.nav-text-color.header-box
-          if user.signed_in?
             = link_to 'Create course', new_course_path
           li.nav-text-color.header-box
             = link_to 'Categories', root_path
@@ -21,7 +20,8 @@
           li.dropdown.nav-text-color
             a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
               = "#{current_user.first_name} #{current_user.last_name}"
-              //TODO: image avatar
+              img.img-circle
+                = image_tag current_user.avatar.url(:thumb), :class => "avatar-header"
               span.caret
             - if current_user.is_admin
               ul.dropdown-menu

@@ -12,8 +12,6 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'coffee-rails', '~> 4.1.0'
 
-gem 'react-rails', '~> 1.6', '>= 1.6.2'
-
 gem 'jquery-rails'
 gem 'turbolinks'
 
@@ -53,6 +51,9 @@ gem 'ckeditor', '~> 4.1'
 gem 'font-awesome-rails'
 gem 'figaro'
 gem 'puma'
+
+gem 'chartist-rails'
+gem 'chartkick', '~> 1.4', '>= 1.4.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

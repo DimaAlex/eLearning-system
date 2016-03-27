@@ -24,6 +24,8 @@
 //= require ckeditor/init
 //= require_tree .
 //= require bootstrap-material-design
+//= require chartist
+//= require chartkick
 
 $(document).ready(function() {
     if ($('textarea').length > 0) {

@@ -60,6 +60,8 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    chartist-rails (0.9.7)
+    chartkick (1.4.2)
     chosen-rails (1.4.3)
       coffee-rails (>= 3.2)
       compass-rails (>= 2.0.4)
@@ -323,6 +325,8 @@ DEPENDENCIES
   bootstrap-sass (= 3.3.6)
   byebug
   cancancan (~> 1.10)
+  chartist-rails
+  chartkick (~> 1.4, >= 1.4.2)
   chosen-rails (= 1.4.3)
   ckeditor (~> 4.1)
   coffee-rails (~> 4.1.0)
@@ -343,7 +347,7 @@ DEPENDENCIES
   puma
   rails (= 4.2.5)
   rails_12factor (= 0.0.2)
-  react-rails (~> 1.6, >= 1.6.2)
+  react-rails (~> 1.6)
   rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

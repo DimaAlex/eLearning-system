@@ -1,0 +1,19 @@
+= render 'home/search'
+
+.header-title
+  | Be part of us
+.panel.panel-default.geo_map.col-lg-6
+  = geo_chart User.group(:country).count
+.geo-text.col-lg-6
+  | All courses offered by Coursera are "accessible for free" and some give the option to pay a fee to join the "Signature Track." Students on the Signature Track receive verified certificates, appropriate for employment purposes. These students authenticate their course submissions by sending webcam photos and having their typing pattern analyzed.
+    There are many specializations which are fee based, but even these courses can be audited for free, with the restriction that one cannot give the quizzes for that course. Courses such as "How To Create A Website In A Weekend" restrict the peer review or collaboration function of the curriculum to students who have paid a required fee.
+    The website provides courses in a variety of areas, including Humanities, Medicine, Biology, Social Sciences, Mathematics, Business, Computer Science, Digital Marketing and Data Science.
+
+  .geo-count-and-button
+    .panel.panel-default.col-lg-8.geo-count
+      = "#{User.all.count} peoples are using our system"
+
+    - if user_signed_in?
+       = link_to "Messages", mailbox_inbox_path, class: "btn btn-raised btn-danger btn-home-message"
+    - else
+       = link_to "Sign Up", new_user_registration_path, class: "btn btn-raised btn-danger btn-home-message-sign-up"
