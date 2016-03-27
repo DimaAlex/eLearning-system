@@ -14,6 +14,7 @@ h2.title-box
         br
 
         = link_to 'Show', organization, class: 'pad btn btn-primary'
+    = will_paginate @organizations
   br
   - if can? :new, @organization
     = link_to 'New Organization', new_organization_path, class: 'btn btn-info btn-raise'
