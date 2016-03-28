@@ -7,6 +7,6 @@ $(document).ready ->
   return
 
 $ ->
-  $('#сourse_search').typeahead
+  $('#course_search').typeahead
     name: "course"
     remote: "/courses/autocomplete?query=%QUERY"

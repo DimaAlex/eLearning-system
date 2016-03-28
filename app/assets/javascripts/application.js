@@ -18,15 +18,12 @@
 //= require timeago.jquery
 //= require bootstrap-sprockets
 //= require turbolinks
-//= require react
-//= require react_ujs
-//= require components
 //= require ckeditor/init
-//= require_tree .
 //= require bootstrap-material-design
 //= require chartist
 //= require chartkick
 //= require bxslider
+//= require twitter/typeahead.min
 
 $(document).ready(function() {
     if ($('textarea').length > 0) {

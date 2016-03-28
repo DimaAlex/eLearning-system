@@ -1,19 +1,19 @@
-.panel.panel-default
-  .panel-heading
-    h4= t('.sign_in', :default => "Sign in")
-  .panel-body
-    .col-lg-4.col-lg-offset-4
-      = form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form",class: 'well'}) do |f|
-        .form-group
-          = f.label :email
-          = f.email_field :email, autofocus: true, class: "form-control"
-        .form-group
-          = f.label :password
-          = f.password_field :password, autocomplete: "off", class: "form-control"
-        - if devise_mapping.rememberable?
-          .checkbox
-            label
-              = f.check_box :remember_me
-              = f.label :remember_me
-        = f.submit  t('.sign_in', :default => "Sign in"), class: "btn btn-primary"
-      = render "devise/shared/links"
+.header-title.header-title-top
+  | Sign In
+.panel-body.col-lg-6
+  .col-lg-10.col-lg-offset-1
+    = form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form",class: 'well'}) do |f|
+      .form-group.has-error.label-floating
+        = f.label :email, class: "control-label"
+        = f.email_field :email, autofocus: true, class: "form-control"
+      .form-group.has-error.label-floating
+        = f.label :password, class: "control-label"
+        = f.password_field :password, autocomplete: "off", class: "form-control"
+      = f.submit  t('.sign_in', :default => "Sign in"), class: "btn btn-raised btn-danger"
+      = link_to "Sign Up", new_user_registration_path, class: "btn btn-raised btn-default btn-right"
+
+.panel.panel-default.col-lg-1.sign-in-image
+
+.col-lg-6
+  .panel.panel-default.sign-in-slogan
+    | Brain dont grow on trees
