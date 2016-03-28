@@ -94,10 +94,10 @@ ActiveRecord::Schema.define(version: 20160327131107) do
 
   create_table "organizations", force: :cascade do |t|
     t.string   "title",              limit: 255
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "phone",              limit: 255
-    t.string   "description",        limit: 255
+    t.text     "description",        limit: 65535
     t.string   "image_file_name",    limit: 255
     t.string   "image_content_type", limit: 255
     t.integer  "image_file_size",    limit: 4
@@ -130,11 +130,11 @@ ActiveRecord::Schema.define(version: 20160327131107) do
     t.datetime "updated_at",                                         null: false
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
-    t.boolean  "is_admin",                           default: false
     t.string   "avatar_file_name",       limit: 255
     t.string   "avatar_content_type",    limit: 255
     t.integer  "avatar_file_size",       limit: 4
     t.datetime "avatar_updated_at"
+    t.boolean  "is_admin",                           default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
