@@ -54,6 +54,7 @@ gem 'puma'
 
 gem 'chartist-rails'
 gem 'chartkick', '~> 1.4', '>= 1.4.2'
+gem 'bxslider-rails', '~> 4.2', '>= 4.2.5.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

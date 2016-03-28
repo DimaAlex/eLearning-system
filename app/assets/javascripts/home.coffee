@@ -5,3 +5,8 @@
 $(document).ready ->
   $('.dropdown-toggle').dropdown()
   return
+
+$ ->
+  $('#сourse_search').typeahead
+    name: "course"
+    remote: "/courses/autocomplete?query=%QUERY"

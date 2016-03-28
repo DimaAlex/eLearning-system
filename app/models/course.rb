@@ -3,6 +3,6 @@ class Course < ActiveRecord::Base
   has_many :pages
   validates :title, presence: true, allow_blank: false
 
-  searchkick
+  searchkick autocomplete: ['title']
 
 end

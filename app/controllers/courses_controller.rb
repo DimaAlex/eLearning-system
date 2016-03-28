@@ -54,6 +54,10 @@ class CoursesController < ApplicationController
     end
   end
 
+  def autocomplete
+    render json: Course.search(params[:query], autocomplete: true, limit: 10).map(&:title)
+  end
+
   private
     def set_course
       @course = Course.find(params[:id])

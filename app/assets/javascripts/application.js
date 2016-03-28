@@ -26,6 +26,7 @@
 //= require bootstrap-material-design
 //= require chartist
 //= require chartkick
+//= require bxslider
 
 $(document).ready(function() {
     if ($('textarea').length > 0) {
@@ -34,4 +35,8 @@ $(document).ready(function() {
             CKEDITOR.replace(data[i].id);
         });
     }
+});
+
+$(document).ready(function(){
+    $('.bxslider').bxSlider();
 });
