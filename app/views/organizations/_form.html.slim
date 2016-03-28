@@ -1,8 +1,8 @@
-.col-lg-6.col-lg-offset-3
+.col-lg-6.col-lg-offset-3.well
   = simple_form_for @organization do |f|
     = f.input :image, as: :file
     = f.input :title
-    = f.input :description
+    = f.input :description, as: :text
     = f.input :phone
 
     strong Choose admin(s) for organization
@@ -12,3 +12,5 @@
       = f.select(:users, (@organization.users.usual_users_in_org).collect {|p| [ p.email, p.id ] }, {}, { multiple: true , class:  "chosen-select form-control"  })
 
     = f.submit class: 'btn btn-success'
+    .pad
+    = link_to 'Back', organizations_path, class: 'btn btn-danger btn-raised'

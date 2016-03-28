@@ -2,5 +2,5 @@
   h2
     = @page.title
   =simple_form_for [@course, @page] do |p|
-    = p.text_area :body, :ckeditor => {:uiColor => '#e0dede', :toolbar => 'mini'}
+    = p.cktext_area :body, :ckeditor => {:uiColor => '#e0dede', :toolbar => 'mini'}
     =p.submit "Save", class: "btn btn-default"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160326210812) do
+ActiveRecord::Schema.define(version: 20160327131107) do
 
   create_table "answers", force: :cascade do |t|
     t.string   "answer_type", limit: 255
@@ -19,7 +19,10 @@ ActiveRecord::Schema.define(version: 20160326210812) do
     t.string   "answer_body", limit: 255
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "page_id",     limit: 4
   end
+
+  add_index "answers", ["page_id"], name: "index_answers_on_page_id", using: :btree
 
   create_table "certificates", force: :cascade do |t|
     t.integer  "type",       limit: 4
@@ -33,12 +36,16 @@ ActiveRecord::Schema.define(version: 20160326210812) do
   add_index "certificates", ["сourses_id"], name: "index_certificates_on_сourses_id", using: :btree
 
   create_table "courses", force: :cascade do |t|
-    t.string   "title",       limit: 255
-    t.string   "permission",  limit: 255
-    t.integer  "author_id",   limit: 4
-    t.string   "author_type", limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "title",              limit: 255
+    t.string   "permission",         limit: 255
+    t.integer  "author_id",          limit: 4
+    t.string   "author_type",        limit: 255
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
   end
 
   add_index "courses", ["author_type", "author_id"], name: "index_courses_on_author_type_and_author_id", using: :btree
@@ -98,10 +105,10 @@ ActiveRecord::Schema.define(version: 20160326210812) do
 
   create_table "organizations", force: :cascade do |t|
     t.string   "title",              limit: 255
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "phone",              limit: 255
-    t.string   "description",        limit: 255
+    t.text     "description",        limit: 65535
     t.string   "image_file_name",    limit: 255
     t.string   "image_content_type", limit: 255
     t.integer  "image_file_size",    limit: 4

@@ -6,8 +6,9 @@ class OrganizationsController < ApplicationController
   authorize_resource except: [:index, :show]
 
   def index
-    @organizations = Organization.all
+    @organizations = Organization.paginate(page: params[:page], per_page: 5)
     @organization = Organization.new
+
   end
 
   def show
@@ -42,7 +43,6 @@ class OrganizationsController < ApplicationController
 
     respond_to do |format|
       if @organization.update(organization_params)
-        binding.pry
         format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
       else
         format.html { render :edit }
