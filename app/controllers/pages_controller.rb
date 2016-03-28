@@ -9,6 +9,7 @@ class PagesController < ApplicationController
   end
 
   def show
+    @pages = Page.where(course_id: params[:course_id])
   end
 
   def new

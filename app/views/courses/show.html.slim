@@ -17,9 +17,9 @@
             = link_to "Start course", "#", class: "btn btn-danger"
       .col-md-8
         .row
-          .col-md-12
+          .col-md-10
             h2.text-center
               = "Class Curriculum"
         .row
-          .col-md-offset-2.col-md-8
-            =render "pages/pages", pages: @course.pages
+          .col-md-offset-1.col-md-9
+            = render "pages/pages", pages: @course.pages

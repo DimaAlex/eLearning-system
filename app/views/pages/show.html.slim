@@ -1,0 +1,30 @@
+.panel.panel-default
+  .page-header
+    .right
+      = link_to :back, class: "btn btn-default" do
+        i.glyphicon.glyphicon-arrow-left Previous
+      = link_to "#", class: "btn btn-danger" do
+        = "Complete and continue"
+        i.glyphicon.glyphicon-arrow-right
+    = link_to course_path(@page.course), class: "btn btn-default" do
+      i.glyphicon.glyphicon-circle-arrow-left
+  .panel-body
+    .container
+      .col-md-4
+        h3
+          = @page.course.title
+        = render "pages/pages", pages: @pages
+      .col-md-8
+        .row
+          .col-md-10
+            h2.text-center
+              = @page. title
+            - if @page.page_type == "Lecture"
+              = raw(@page.body)
+            - elsif @page.page_type == "Video"
+                .embed-container
+                  = embed(@page.body)
+            - else
+              - if @page.answers.first.answer_type == "Input"
+                =
+            -else
