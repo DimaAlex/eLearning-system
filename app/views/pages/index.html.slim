@@ -1,6 +1,9 @@
 - if signed_in?
   div.row
     .col-md-3
-      = render "pages"
+      - unless @pages.empty?
+        h2
+          = "Class Curriculum"
+      = render "pages", pages: @pages
     .col-md-6
       = render "page_form"

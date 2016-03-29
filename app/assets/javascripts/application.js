@@ -18,18 +18,7 @@
 //= require timeago.jquery
 //= require bootstrap-sprockets
 //= require turbolinks
-//= require react
-//= require react_ujs
-//= require components
 //= require ckeditor/init
 //= require_tree .
 //= require bootstrap-material-design
 
-$(document).ready(function() {
-    if ($('textarea').length > 0) {
-        var data = $('textarea');
-        $.each(data, function(i) {
-            CKEDITOR.replace(data[i].id);
-        });
-    }
-});

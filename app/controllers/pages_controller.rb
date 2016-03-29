@@ -2,8 +2,10 @@ class PagesController < ApplicationController
   before_action :set_page, only: [:show, :edit, :update, :destroy, :update]
 
   def index
+    @course = Course.find(params[:course_id])
     @pages = Page.where(course_id: params[:course_id])
     @page = Page.new
+    @page.answers.build
   end
 
   def show
@@ -15,6 +17,10 @@ class PagesController < ApplicationController
 
   def edit
     @course = Course.find(params[:course_id])
+    @answer_type = @page.answers.first.answer_type
+    if @page.page_type == "Question" && @page.body!=nil
+      (@page.body.to_i-1).times { @page.answers.build }
+    end
   end
 
   def create
@@ -55,6 +61,6 @@ class PagesController < ApplicationController
 
   def page_params
     params.require(:page).permit(:title, :page_type, :body,
-                                 answer_attributes: [:page_id,:answer_type, :answer_body, :is_right],)
+                                 answers_attributes: [:id, :page_id, :answer_type, :answer_body, :is_right])
   end
 end

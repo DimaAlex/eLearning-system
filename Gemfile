@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '4.2.5'
 
 gem 'mysql2', '>= 0.3.13', '< 0.5'
@@ -37,19 +36,18 @@ gem 'cancancan', '~> 1.10'
 
 gem 'searchkick', '~> 1.2.1'
 
-gem 'paperclip', '~> 4.3'
-
 gem 'bootstrap-sass', '3.3.6'
 gem 'mailboxer', '0.13.0'
 gem 'chosen-rails', '1.4.3'
 
 gem 'paperclip', '~> 4.3'
 
-gem 'react-rails', '~> 1.6'
 gem 'ckeditor', '~> 4.1'
 gem 'font-awesome-rails'
 gem 'figaro'
 gem 'puma'
+
+gem 'will_paginate', '~> 3.0.6'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

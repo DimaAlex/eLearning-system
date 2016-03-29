@@ -5,7 +5,7 @@ h2.title-box
 
     .well
       .media-left
-        = image_tag organization.image.url(:thumb), class: "pull-left"
+        = image_tag organization.image.url(:thumb), class: 'pull-left'
       .media-body
         h4.media-heading
           = organization.title
@@ -13,7 +13,8 @@ h2.title-box
         = "Phone: #{organization.phone}"
         br
 
-        = link_to 'Show', organization, class: "pad btn btn-primary"
+        = link_to 'Show', organization, class: 'pad btn btn-primary'
+    = will_paginate @organizations
   br
   - if can? :new, @organization
     = link_to 'New Organization', new_organization_path, class: 'btn btn-info btn-raise'
