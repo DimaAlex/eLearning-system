@@ -48,7 +48,6 @@ gem 'ckeditor', '~> 4.1'
 gem 'font-awesome-rails'
 gem 'figaro'
 gem 'puma'
-
 gem 'will_paginate', '~> 3.0.6'
 
 group :development, :test do
