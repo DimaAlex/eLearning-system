@@ -2,7 +2,11 @@ class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
   def index
-    @courses = Course.all
+    if params[:query].present?
+      @courses = Course.search(params[:query])
+    else
+      @courses = Course.all
+    end
   end
 
   def show
@@ -49,6 +53,11 @@ class CoursesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def autocomplete
+    render json: Course.search(params[:query], autocomplete: true, limit: 10).map(&:title)
+  end
+  
 
   private
     def set_course
