@@ -58,21 +58,22 @@ class OrganizationsController < ApplicationController
   end
 
   def users_in_org
-  end
-
-  def new_users_to_org
     @users = User.all - @organization.users
   end
 
   def create_users_to_org
     @organization.users << @users
 
-    redirect_to organization_path(@organization)
+    redirect_to organization_all_users_path(@organization)
   end
 
   def import
-    User.import(params[:file])
-    redirect_to organization_path(@organization)
+    begin
+      User.import(params[:file])
+      redirect_to organization_all_users_path(@organization)
+    rescue
+      redirect_to organization_all_users_path(@organization), notice: 'Invalid CSV file format.'
+    end
   end
 
   private
