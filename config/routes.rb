@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   resources :organizations
+  get 'organizations/:id/all_users', to: 'organizations#users_in_org', as: :organization_all_users
+  post 'organizations/:id/create_users', to: 'organizations#create_users_to_org', as: :organization_create_users
+  post 'organizations/:id/import', to: 'organizations#import', as: :import_emails
 
   resources :courses do
     resources :pages
