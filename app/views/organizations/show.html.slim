@@ -29,4 +29,5 @@
   - if can? :manage, @organization
     = link_to 'Edit', edit_organization_path(@organization), class: 'btn btn-danger btn-raised'
   .pad
+  = link_to 'Show users in organization', organization_all_users_path(@organization), class: 'btn btn-primary btn-raised'
   = link_to 'Back', organizations_path, class: 'btn btn-default btn-raised'

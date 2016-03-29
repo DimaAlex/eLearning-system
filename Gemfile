@@ -20,6 +20,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rspec-rails'
 
 gem 'devise', '~> 3.5', '>= 3.5.6'
+gem 'devise_invitable', '~> 1.5.2'
 gem 'devise-bootstrap-views'
 gem 'slim', '~> 3.0', '>= 3.0.6'
 
@@ -60,6 +61,7 @@ group :development, :test do
   gem 'awesome_print', '1.6.1'
   gem 'pry-rails', '0.3.4'
   gem 'faker'
+  gem 'letter_opener'
 end
 
 group :production do
