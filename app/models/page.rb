@@ -22,4 +22,12 @@ class Page < ActiveRecord::Base
     page_type == "Lecture"
   end
 
+  def next_page
+    course = self.course
+    index = course.pages.index(self)
+    if (course.pages.count - 1)!=index
+      course.pages[index + 1]
+    end
+  end
+
 end

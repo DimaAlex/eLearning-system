@@ -10,6 +10,7 @@ class PagesController < ApplicationController
 
   def show
     @pages = Page.where(course_id: params[:course_id])
+    @user = current_user
   end
 
   def new
@@ -19,7 +20,7 @@ class PagesController < ApplicationController
   def edit
     @course = Course.find(params[:course_id])
     @answer_type = @page.answers.first.answer_type
-    if @page.page_type == "Question" && @page.body!=nil
+    if @page.page_type == "Question" && (@answer_type == "Radio" || @answer_type == "Checkbox")
       (@page.body.to_i-1).times { @page.answers.build }
     end
   end
@@ -40,6 +41,9 @@ class PagesController < ApplicationController
   end
 
   def update
+    if @page.page_type == "Question" && @page.answers.first.answer_type == "Input"
+      Answer.create(page_id: @page.id, is_right: false)
+    end
     if @page.update(page_params)
       redirect_to course_pages_path
     else

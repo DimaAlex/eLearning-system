@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160327131107) do
+ActiveRecord::Schema.define(version: 20160328154237) do
 
   create_table "answers", force: :cascade do |t|
     t.string   "answer_type", limit: 255
@@ -130,15 +130,23 @@ ActiveRecord::Schema.define(version: 20160327131107) do
     t.datetime "updated_at",                                         null: false
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
+    t.boolean  "is_admin",                           default: false
     t.string   "avatar_file_name",       limit: 255
     t.string   "avatar_content_type",    limit: 255
     t.integer  "avatar_file_size",       limit: 4
     t.datetime "avatar_updated_at"
-    t.boolean  "is_admin",                           default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "users_answers", force: :cascade do |t|
+    t.integer "user_id",   limit: 4
+    t.integer "answer_id", limit: 4
+  end
+
+  add_index "users_answers", ["answer_id"], name: "index_users_answers_on_answer_id", using: :btree
+  add_index "users_answers", ["user_id"], name: "index_users_answers_on_user_id", using: :btree
 
   create_table "users_organizations", force: :cascade do |t|
     t.boolean "is_org_admin",              default: false

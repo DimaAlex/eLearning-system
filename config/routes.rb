@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get 'admin', to: 'admin#index'
   get '/user/:id=', to: 'users#profile', as: 'user_profile'
+  resources :users, only: [:update]
 
   devise_for :users, controllers: {
       sessions: 'devise/sessions',

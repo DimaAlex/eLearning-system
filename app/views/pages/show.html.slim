@@ -25,6 +25,20 @@
                 .embed-container
                   = embed(@page.body)
             - else
-              - if @page.answers.first.answer_type == "Input"
-                =
-            -else
+                = simple_form_for(@user) do |f|
+                  - if @page.answers.first.answer_type == "Checkbox"
+                    = f.simple_fields_for :users_answers, @user.users_answers.build do |ui|
+                      = f.collection_check_boxes :answer_ids, @page.answers, :id, :answer_body do |i|
+                        .collection-check-box
+                          = i.check_box
+                          = i.label
+                    br
+                  - elsif @page.answers.first.answer_type == "Radio"
+                    = f.simple_fields_for :users_answers, @user.users_answers.build do |ui|
+                      .radio_type
+                        = f.collection_check_boxes :answer_ids, @page.answers, :id, :answer_body do |i|
+                          .collection-check-box
+                            = i.check_box
+                            = i.label
+                    br
+                  = f.submit "Ok" , class: "btn btn-primary"
