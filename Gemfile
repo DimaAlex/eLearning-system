@@ -10,8 +10,6 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'coffee-rails', '~> 4.1.0'
 
-gem 'react-rails', '~> 1.6', '>= 1.6.2'
-
 gem 'jquery-rails'
 gem 'turbolinks'
 
@@ -33,22 +31,27 @@ gem 'less-rails'
 
 gem 'twitter-bootstrap-rails'
 gem 'bootstrap-material-design', '~> 0.2.2'
+gem 'twitter-typeahead-rails', '~> 0.11.1'
 
 gem 'simple_form', '~> 3.2.1'
 gem 'cancancan', '~> 1.10'
 
 gem 'searchkick', '~> 1.2.1'
 
-gem 'paperclip', '~> 4.3'
-
 gem 'bootstrap-sass', '3.3.6'
 gem 'mailboxer', '0.13.0'
 gem 'chosen-rails', '1.4.3'
+
+gem 'paperclip', '~> 4.3'
 
 gem 'ckeditor', '~> 4.1'
 gem 'font-awesome-rails'
 gem 'figaro'
 gem 'puma'
+
+gem 'chartist-rails'
+gem 'chartkick', '~> 1.4', '>= 1.4.2'
+gem 'bxslider-rails', '~> 4.2', '>= 4.2.5.1'
 
 gem 'will_paginate', '~> 3.0.6'
 
@@ -68,7 +71,6 @@ end
 
 group :development do
   gem 'web-console', '~> 2.0'
-
   gem 'spring'
 end
 

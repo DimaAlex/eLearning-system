@@ -116,18 +116,18 @@ ActiveRecord::Schema.define(version: 20160328134007) do
   add_index "pages", ["course_id"], name: "index_pages_on_course_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "",    null: false
-    t.string   "encrypted_password",     limit: 255, default: "",    null: false
+    t.string   "email",                  limit: 255, default: "",       null: false
+    t.string   "encrypted_password",     limit: 255, default: "",       null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,     null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,        null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
     t.string   "avatar_file_name",       limit: 255
@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(version: 20160328134007) do
     t.integer  "invited_by_id",          limit: 4
     t.string   "invited_by_type",        limit: 255
     t.integer  "invitations_count",      limit: 4,   default: 0
+    t.string   "country",                limit: 255, default: "Russia"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

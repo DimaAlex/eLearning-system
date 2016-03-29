@@ -1,7 +1,5 @@
 .list-group
-  .list-group-item.h2
-    ="Lectures"
-  - @pages.each do |page|
+  - pages.each do |page|
     .list-group-item
       span.h4
         = page.title
