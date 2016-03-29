@@ -3,4 +3,4 @@ table.table-hover
     tr
       td = user.email
 
-= link_to 'add users in org', organization_new_users_path(@organization)
+= link_to 'add users in org', organization_new_users_path(@organization), class: 'btn btn-info btn-raised'

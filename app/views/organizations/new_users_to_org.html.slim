@@ -1,1 +1,11 @@
-= simple_form_for @organization, url: , method: :post do |f|
+= simple_form_for @organization, url: organization_create_users_path, method: :post do |f|
+  = f.select(:users, @users.collect { |p| [p.email, p.id] }, {}, {multiple: true, class: "chosen-select form-control"})
+  = f.button :submit, 'Add users', class: 'btn btn-default btn-raised'
+
+= form_tag import_emails_path(@organization), multipart: true do
+  = file_field_tag :file
+  = submit_tag 'Import', class: 'btn btn-raised'
+
+= simple_form_for User.new, url: user_invitation_path do |f|
+  = f.input :email, placeholder: 'Enter email', label: false
+  = f.button :submit, 'Invite User', class: 'btn btn-primary btn-raised'
