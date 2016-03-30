@@ -6,8 +6,16 @@ Rails.application.routes.draw do
   end
   root to: 'home#index'
 
+  resources :courses, only: :index do
+    collection do
+      post :import
+      get :autocomplete # <= add this line
+    end
+  end
+
   get 'admin', to: 'admin#index'
   get '/user/:id=', to: 'users#profile', as: 'user_profile'
+  get '/user/show', to: 'users#show'
 
   devise_for :users, controllers: {
       sessions: 'devise/sessions',

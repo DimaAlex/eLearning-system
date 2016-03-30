@@ -13,4 +13,5 @@
         - if is_conversation
           = render 'conversations/form'
         - else
-          = render partial: 'conversations/conversation', collection: messages
+          = render partial: 'conversations/conversation', collection: messages = messages.paginate(:page => params[:page], :per_page => 5)
+          = will_paginate messages

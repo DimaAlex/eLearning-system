@@ -126,3 +126,143 @@ body{
     color: #fff;
     background-color: #f44336;
 }
+
+.avatar-header{
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  margin-left: 8px;
+}
+
+.search-container{
+  z-index: 99;
+  height: 270px;
+  background-image: url("1.jpg");
+  background-size: cover;
+  filter: blur(3px);
+  -webkit-filter: blur(3px);
+  -moz-filter: blur(3px);
+}
+
+.search-image{
+  background-image: url("search.png");
+  background-size: contain;
+  height: 100%;
+}
+
+.search-box{
+  background-color: #f44336;
+  color: #fff;
+  display: inline-block;
+  height: 100%;
+}
+
+.search-form{
+  position: absolute;
+  top: -150px;
+  z-index: 120;
+  color: red;
+  font-size: 40px;
+}
+
+.form-field-search{
+  width: 100% !important;
+  color: #fff !important;
+  font-size: 18px;
+}
+
+.slogon{
+  position: relative;
+  top: -230px;
+  left: 240px;
+  font-size: 40px;
+  color: #fff;
+}
+
+.alert-success{
+  background-color: #f44336 !important;
+}
+
+.geo_map{
+  background-color: #fff;
+}
+
+.header-title{
+  position: relative;
+  top: -20px;
+  font-size: 35px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.header-title-top{
+  margin-top: 30px;
+}
+
+.geo-text{
+  text-align: left;
+  padding: 0 40px;
+  font-size: 14px;
+}
+
+.btn-home-message{
+  float: right;
+}
+
+.btn-home-message-sign-up{
+  float: right;
+  width: 140px;
+}
+
+.geo-count-and-button{
+  margin-top: 15px;
+}
+
+.geo-count{
+  height: 35px;
+  font-size: 20px;
+  padding-top: 3px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.part-of-us{
+  height: 430px;
+}
+
+.image-courses{
+  height: 250px;
+}
+
+.image-courses-block{
+  width: 350px;
+  height: 100%;
+  background-color: #f44336;
+}
+
+.btn-right{
+  float: right !important;
+}
+
+.sign-in-image{
+  margin-left: 65px;
+  margin-top: 15px;
+  height: 400px;
+  width: 450px;
+  background-image: url("tree.png");
+  background-size: contain;
+}
+
+.sign-in-slogan{
+  position: relative;
+  margin-top: -150px;
+  margin-left: 60px;
+  display: block;
+  height: 130px;
+  width: 420px;
+  background-color: #f44336;
+  color: #fff;
+  font-size: 35px;
+  padding-top: 37px;
+  text-align: center;
+}

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160327131107) do
+ActiveRecord::Schema.define(version: 20160329114307) do
 
   create_table "answers", force: :cascade do |t|
     t.string   "answer_type", limit: 255
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20160327131107) do
     t.datetime "updated_at",              null: false
     t.integer  "page_id",     limit: 4
   end
+
+  add_index "answers", ["page_id"], name: "index_answers_on_page_id", using: :btree
 
   create_table "certificates", force: :cascade do |t|
     t.integer  "type",       limit: 4
@@ -32,19 +34,22 @@ ActiveRecord::Schema.define(version: 20160327131107) do
 
   add_index "certificates", ["users_id"], name: "index_certificates_on_users_id", using: :btree
   add_index "certificates", ["сourses_id"], name: "index_certificates_on_сourses_id", using: :btree
-  add_index "answers", ["page_id"], name: "index_answers_on_page_id", using: :btree
 
   create_table "courses", force: :cascade do |t|
-    t.string   "title",              limit: 255
-    t.string   "permission",         limit: 255
-    t.integer  "author_id",          limit: 4
-    t.string   "author_type",        limit: 255
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "image_file_name",    limit: 255
-    t.string   "image_content_type", limit: 255
-    t.integer  "image_file_size",    limit: 4
+    t.string   "title",                             limit: 255
+    t.string   "permission",                        limit: 255
+    t.integer  "author_id",                         limit: 4
+    t.string   "author_type",                       limit: 255
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "image_file_name",                   limit: 255
+    t.string   "image_content_type",                limit: 255
+    t.integer  "image_file_size",                   limit: 4
     t.datetime "image_updated_at"
+    t.string   "certificate_template_file_name",    limit: 255
+    t.string   "certificate_template_content_type", limit: 255
+    t.integer  "certificate_template_file_size",    limit: 4
+    t.datetime "certificate_template_updated_at"
   end
 
   add_index "courses", ["author_type", "author_id"], name: "index_courses_on_author_type_and_author_id", using: :btree
@@ -126,25 +131,26 @@ ActiveRecord::Schema.define(version: 20160327131107) do
   add_index "pages", ["course_id"], name: "index_pages_on_course_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "",    null: false
-    t.string   "encrypted_password",     limit: 255, default: "",    null: false
+    t.string   "email",                  limit: 255, default: "",       null: false
+    t.string   "encrypted_password",     limit: 255, default: "",       null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,     null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,        null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
+    t.boolean  "is_admin",                           default: false
     t.string   "avatar_file_name",       limit: 255
     t.string   "avatar_content_type",    limit: 255
     t.integer  "avatar_file_size",       limit: 4
     t.datetime "avatar_updated_at"
-    t.boolean  "is_admin",                           default: false
+    t.string   "country",                limit: 255, default: "Russia"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
