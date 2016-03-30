@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328154237) do
+ActiveRecord::Schema.define(version: 20160329205303) do
 
   create_table "answers", force: :cascade do |t|
     t.string   "answer_type", limit: 255
@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(version: 20160328154237) do
   end
 
   add_index "courses", ["author_type", "author_id"], name: "index_courses_on_author_type_and_author_id", using: :btree
+
+  create_table "input_user_answers", force: :cascade do |t|
+    t.integer "user_id",          limit: 4
+    t.integer "page_id",          limit: 4
+    t.string  "user_answer_body", limit: 255
+  end
+
+  add_index "input_user_answers", ["page_id"], name: "index_input_user_answers_on_page_id", using: :btree
+  add_index "input_user_answers", ["user_id"], name: "index_input_user_answers_on_user_id", using: :btree
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
     t.integer "unsubscriber_id",   limit: 4
@@ -116,29 +125,38 @@ ActiveRecord::Schema.define(version: 20160328154237) do
   add_index "pages", ["course_id"], name: "index_pages_on_course_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "",    null: false
-    t.string   "encrypted_password",     limit: 255, default: "",    null: false
+    t.string   "email",                  limit: 255, default: "",       null: false
+    t.string   "encrypted_password",     limit: 255, default: "",       null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,     null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,        null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
+    t.boolean  "is_admin",                           default: false
     t.string   "avatar_file_name",       limit: 255
     t.string   "avatar_content_type",    limit: 255
     t.integer  "avatar_file_size",       limit: 4
     t.datetime "avatar_updated_at"
-    t.boolean  "is_admin",                           default: false
+    t.string   "country",                limit: 255, default: "Russia"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "users_answers", force: :cascade do |t|
+    t.integer "user_id",   limit: 4
+    t.integer "answer_id", limit: 4
+  end
+
+  add_index "users_answers", ["answer_id"], name: "index_users_answers_on_answer_id", using: :btree
+  add_index "users_answers", ["user_id"], name: "index_users_answers_on_user_id", using: :btree
 
   create_table "users_organizations", force: :cascade do |t|
     t.boolean "is_org_admin",              default: false

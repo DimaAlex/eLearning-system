@@ -11,6 +11,8 @@ class PagesController < ApplicationController
   def show
     @pages = Page.where(course_id: params[:course_id])
     @user = current_user
+    @input_user_answer = @user.input_user_answers.find_by_page_id(@page.id)
+    @input_user_answer ||= @user.input_user_answers.build
   end
 
   def new

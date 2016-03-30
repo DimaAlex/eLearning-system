@@ -24,14 +24,6 @@
 //= require chartkick
 //= require bxslider
 //= require twitter/typeahead.min
-
-$(document).ready(function() {
-    if ($('textarea').length > 0) {
-        var data = $('textarea');
-        $.each(data, function(i) {
-            CKEDITOR.replace(data[i].id);
-        });
-    }
-});
+//= require_tree .
 
 

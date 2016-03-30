@@ -25,20 +25,26 @@
                 .embed-container
                   = embed(@page.body)
             - else
-                = simple_form_for(@user) do |f|
-                  - if @page.answers.first.answer_type == "Checkbox"
+                - if @page.answers.first.answer_type == "Checkbox"
+                  = simple_form_for(@user) do |f|
                     = f.simple_fields_for :users_answers, @user.users_answers.build do |ui|
                       = f.collection_check_boxes :answer_ids, @page.answers, :id, :answer_body do |i|
                         .collection-check-box
                           = i.check_box
                           = i.label
                     br
-                  - elsif @page.answers.first.answer_type == "Radio"
+                    = f.submit "Ok" , class: "btn btn-primary"
+                - elsif @page.answers.first.answer_type == "Radio"
+                  = simple_form_for(@user) do |f|
                     = f.simple_fields_for :users_answers, @user.users_answers.build do |ui|
                       .radio_type
                         = f.collection_check_boxes :answer_ids, @page.answers, :id, :answer_body do |i|
                           .collection-check-box
                             = i.check_box
                             = i.label
-                    br
-                  = f.submit "Ok" , class: "btn btn-primary"
+                    = f.submit "Ok" , class: "btn btn-primary"
+                - else
+                  = simple_form_for  @input_user_answer do |a|
+                    = a.input :user_answer_body,  label: false, placeholder: "Answer", required: true
+                    = a.input :page_id, :as => :hidden, input_html: { value: @page.id }
+                    = a.submit "Ok" , class: "btn btn-primary"
