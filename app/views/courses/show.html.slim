@@ -15,7 +15,9 @@
             i.glyphicon.glyphicon-user
           div
             - if @user_start_course
-              | Progress
+              .progress
+                .progress-bar.progress-bar-danger.progress-bar-striped style="width: #{@progress}%"
+              =label_tag "#{@progress}% Complete"
             - else
               = link_to "Start course", start_course_path(course_id: @course.id), class: "btn btn-danger"
       .col-md-8

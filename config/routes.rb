@@ -15,8 +15,8 @@ Rails.application.routes.draw do
       get :autocomplete
     end
   end
-
-  match '/courses/:course_id/pages/:id/start_course' => 'pages#start_course', via: [:get, :post], :as => :start_course
+  match '/courses/:id/start_course' => 'courses#start_course', via: [:get, :post], :as => :start_course
+  match '/courses/:course_id/pages/:id/finish_page' => 'pages#finish_page', via: [:get, :post], :as => :finish_page
 
   get 'admin', to: 'admin#index'
   get '/user/:id=', to: 'users#profile', as: 'user_profile'

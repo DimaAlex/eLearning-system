@@ -7,14 +7,8 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_params)
-      flash[:success] =  "Answered"
       @page = @user.answers.last.page
-      next_page = @page.next_page
-      if @page && next_page
-        redirect_to course_page_path(course_id: @page.course.id, id: next_page.id)
-      else
-        redirect_to course_url(@page.course)
-      end
+      redirect_to finish_page_url(course_id: @page.course.id, id: @page.id)
     else
       redirect_to :back
     end

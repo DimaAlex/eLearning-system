@@ -3,7 +3,7 @@
     .right
       = link_to :back, class: "btn btn-default" do
         i.glyphicon.glyphicon-arrow-left Previous
-      = link_to "#", class: "btn btn-danger" do
+      = link_to finish_page_path, class: "btn btn-danger" do
         = "Complete and continue"
         i.glyphicon.glyphicon-arrow-right
     = link_to course_path(@page.course), class: "btn btn-default" do

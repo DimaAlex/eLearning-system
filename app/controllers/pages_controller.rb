@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
-  before_action :set_page, only: [:show, :edit, :update, :destroy, :update]
-  before_action :set_course, only: [:index,:create, :edit, :start_course]
+  before_action :set_page, only: [:show, :edit, :update, :destroy, :update, :finish_page]
+  before_action :set_course, only: [:index,:create, :edit, :finish_page]
 
   def index
     @pages = Page.where(course_id: params[:course_id])
@@ -59,15 +59,18 @@ class PagesController < ApplicationController
     end
   end
 
-  def start_course
+  def finish_page
     @user = current_user
-    user_course = UsersCourse.new(user_id: @user.id, course_id: @course.id)
-    if user_course.save
-      flash[:success] =  "Course is started"
-    else
-      flash[:success] =  "Course is not started"
+    users_course = @user.users_courses.find_by_course_id(@course.id)
+    users_courses_page = UsersCoursesPage.new(users_course_id: users_course.id, page_id: @page_id)
+    if users_courses_page.save
+      next_page = @page.next_page
+      if @page && next_page
+        redirect_to course_page_path(course_id: @page.course.id, id: next_page.id)
+      else
+        redirect_to course_url(@page.course)
+      end
     end
-    redirect_to course_path
   end
 
   private

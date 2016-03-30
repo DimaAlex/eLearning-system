@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330132301) do
+ActiveRecord::Schema.define(version: 20160330143307) do
 
   create_table "answers", force: :cascade do |t|
     t.string   "answer_type", limit: 255
@@ -178,6 +178,16 @@ ActiveRecord::Schema.define(version: 20160330132301) do
 
   add_index "users_courses", ["course_id"], name: "index_users_courses_on_course_id", using: :btree
   add_index "users_courses", ["user_id"], name: "index_users_courses_on_user_id", using: :btree
+
+  create_table "users_courses_pages", force: :cascade do |t|
+    t.integer  "users_course_id", limit: 4
+    t.integer  "page_id",         limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "users_courses_pages", ["page_id"], name: "index_users_courses_pages_on_page_id", using: :btree
+  add_index "users_courses_pages", ["users_course_id"], name: "index_users_courses_pages_on_users_course_id", using: :btree
 
   create_table "users_organizations", force: :cascade do |t|
     t.boolean "is_org_admin",              default: false

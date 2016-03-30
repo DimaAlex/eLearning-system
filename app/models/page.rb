@@ -2,6 +2,8 @@ class Page < ActiveRecord::Base
   belongs_to :course
   has_many :answers, dependent: :destroy
   accepts_nested_attributes_for :answers
+  has_many :users_courses_pages
+  has_many :users_courses, through: :users_courses_pages
   validates :title, presence: true, allow_blank: false
   validates :body, presence: true, on: :update, if: :page_type_lecture?
   validates :body, presence: true, on: :create, if: :page_type_question?

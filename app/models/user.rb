@@ -33,4 +33,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def progress(course)
+    user_course = users_courses.find_by_course_id(course.id)
+    user_course_pages_passed = user_course.users_courses_pages.count
+    all_course_pages = course.pages.count
+    (100 *user_course_pages_passed / all_course_pages)
+  end
+
 end
