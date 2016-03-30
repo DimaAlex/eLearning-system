@@ -63,13 +63,14 @@ class OrganizationsController < ApplicationController
 
   def create_users_to_org
     @organization.users << @users
+    UserMailer.invitation_instractions(@users.last, @organization).deliver_later
 
     redirect_to organization_all_users_path(@organization)
   end
 
   def import
     begin
-      User.import(params[:file])
+      User.import(params[:file], @organization)
       redirect_to organization_all_users_path(@organization)
     rescue
       redirect_to organization_all_users_path(@organization), notice: 'Invalid CSV file format.'

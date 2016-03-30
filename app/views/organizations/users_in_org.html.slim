@@ -9,21 +9,19 @@ table.table-hover
 
 h4 Add users in org
 
-= link_to 'by email', onclick: 'by_email'
+= link_to 'by email', '#', onclick: 'by_email()'
 .pad
-= link_to 'from file', onclick: 'from_file'
+= link_to 'from file', '#', onclick: 'from_file()'
 
-#by_email style="display: none"
+#by_email
   = simple_form_for @organization, url: organization_create_users_path, method: :post do |f|
     = f.select(:users, @users.collect { |u| [u.email, u.id] }, {}, { multiple: true, class: "chosen-select form-control" })
     = f.button :submit, 'Add users', class: 'btn btn-primary btn-raised'
 
-#from_file style="display: none"
+#from_file
   = form_tag import_emails_path(@organization), multipart: true do
     = file_field_tag :file
     = submit_tag 'Import from file', class: 'btn btn-primary btn-raised'
 
 br
 = link_to 'Back', organization_path(@organization), class: 'btn btn-default btn-raised'
-
-/= react_component('UsersForm', items: ['All users','Add users'])

@@ -8,3 +8,7 @@ function from_file() {
     $('#from_file').slideDown();
 }
 
+$( document ).ready(function() {
+    $('#by_email').hide();
+    $('#from_file').hide();
+});
