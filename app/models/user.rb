@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
 
   acts_as_messageable
 
+  has_many :admins_impersonations, foreign_key: "admin_id", dependent: :destroy
+
   def mailboxer_email(object)
     self.email
   end
