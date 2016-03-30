@@ -20,13 +20,14 @@ Rails.application.routes.draw do
   get '/user/:id=', to: 'users#profile', as: 'user_profile'
 
   devise_for :users, controllers: {
-      sessions: 'devise/sessions',
-      registrations: "users/registrations"
+    sessions: 'devise/sessions',
+    registrations: "users/registrations"
   }
 
   get "mailbox/inbox" => "mailbox#inbox", as: :mailbox_inbox
   get "mailbox/sent" => "mailbox#sent", as: :mailbox_sent
   get "mailbox/trash" => "mailbox#trash", as: :mailbox_trash
+
   get "conversations/get_recipients" => "conversations#get_recipients"
 
   resources :conversations do
@@ -38,4 +39,6 @@ Rails.application.routes.draw do
     end
   end
 
+  get "org_admins/:id/impersonate" => "org_admins#impersonate", as: :impersonate
+  get "org_admins/not_impersonate" => "org_admins#stop_impersonate", as: :stop_impersonate
 end

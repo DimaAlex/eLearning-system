@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.3.0'
 
 gem 'rails', '4.2.5'
 
@@ -55,12 +56,14 @@ gem 'bxslider-rails', '~> 4.2', '>= 4.2.5.1'
 
 gem 'will_paginate', '~> 3.0.6'
 
+gem 'pretender'
+gem 'audited', '~> 4.0'
+gem 'faker'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'awesome_print', '1.6.1'
   gem 'pry-rails', '0.3.4'
-  gem 'faker'
   gem 'letter_opener'
 end
 
