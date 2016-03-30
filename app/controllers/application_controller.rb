@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :mailbox, :conversation
 
+  impersonates :user
+
   private
   def mailbox
     @mailbox ||= current_user.mailbox
