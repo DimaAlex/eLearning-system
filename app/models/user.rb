@@ -9,8 +9,11 @@ class User < ActiveRecord::Base
   has_many :organizations, through: :users_organizations
 
   has_many :users_answers
-  has_many :answers, :through => :users_answers
+  has_many :answers, through: :users_answers
   has_many :input_user_answers
+  has_many :users_courses
+  has_many :courses, through: :users_courses
+
   accepts_nested_attributes_for :input_user_answers, allow_destroy: true
   scope :org_admins, -> { joins(:users_organizations).where('users_organizations.is_org_admin  = ?', true) }
   scope :usual_users_in_org, -> { joins(:users_organizations).where('users_organizations.is_org_admin  = ?', false) }

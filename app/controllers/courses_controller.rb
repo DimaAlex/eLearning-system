@@ -10,6 +10,8 @@ class CoursesController < ApplicationController
   end
 
   def show
+    @user = current_user
+    @user_start_course = @user.courses.include?(@course)
   end
 
   def new

@@ -12,9 +12,11 @@ Rails.application.routes.draw do
   resources :courses, only: :index do
     collection do
       post :import
-      get :autocomplete # <= add this line
+      get :autocomplete
     end
   end
+
+  match '/courses/:course_id/pages/:id/start_course' => 'pages#start_course', via: [:get, :post], :as => :start_course
 
   get 'admin', to: 'admin#index'
   get '/user/:id=', to: 'users#profile', as: 'user_profile'

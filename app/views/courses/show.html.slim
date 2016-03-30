@@ -14,7 +14,10 @@
             = "#{@course.author.first_name} #{@course.author.last_name}"
             i.glyphicon.glyphicon-user
           div
-            = link_to "Start course", "#", class: "btn btn-danger"
+            - if @user_start_course
+              | Progress
+            - else
+              = link_to "Start course", start_course_path(course_id: @course.id), class: "btn btn-danger"
       .col-md-8
         .row
           .col-md-10

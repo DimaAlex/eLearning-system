@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329205303) do
+ActiveRecord::Schema.define(version: 20160330132301) do
 
   create_table "answers", force: :cascade do |t|
     t.string   "answer_type", limit: 255
@@ -23,17 +23,6 @@ ActiveRecord::Schema.define(version: 20160329205303) do
   end
 
   add_index "answers", ["page_id"], name: "index_answers_on_page_id", using: :btree
-
-  create_table "certificates", force: :cascade do |t|
-    t.integer  "type",       limit: 4
-    t.integer  "сourses_id", limit: 4
-    t.integer  "users_id",   limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
-  add_index "certificates", ["users_id"], name: "index_certificates_on_users_id", using: :btree
-  add_index "certificates", ["сourses_id"], name: "index_certificates_on_сourses_id", using: :btree
 
   create_table "courses", force: :cascade do |t|
     t.string   "title",              limit: 255
@@ -156,9 +145,20 @@ ActiveRecord::Schema.define(version: 20160329205303) do
     t.integer  "avatar_file_size",       limit: 4
     t.datetime "avatar_updated_at"
     t.string   "country",                limit: 255, default: "Russia"
+    t.string   "invitation_token",       limit: 255
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer  "invitation_limit",       limit: 4
+    t.integer  "invited_by_id",          limit: 4
+    t.string   "invited_by_type",        limit: 255
+    t.integer  "invitations_count",      limit: 4,   default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
+  add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
+  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "users_answers", force: :cascade do |t|
@@ -168,6 +168,16 @@ ActiveRecord::Schema.define(version: 20160329205303) do
 
   add_index "users_answers", ["answer_id"], name: "index_users_answers_on_answer_id", using: :btree
   add_index "users_answers", ["user_id"], name: "index_users_answers_on_user_id", using: :btree
+
+  create_table "users_courses", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "course_id",  limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "users_courses", ["course_id"], name: "index_users_courses_on_course_id", using: :btree
+  add_index "users_courses", ["user_id"], name: "index_users_courses_on_user_id", using: :btree
 
   create_table "users_organizations", force: :cascade do |t|
     t.boolean "is_org_admin",              default: false

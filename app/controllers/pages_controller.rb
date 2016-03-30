@@ -1,8 +1,8 @@
 class PagesController < ApplicationController
   before_action :set_page, only: [:show, :edit, :update, :destroy, :update]
+  before_action :set_course, only: [:index,:create, :edit, :start_course]
 
   def index
-    @course = Course.find(params[:course_id])
     @pages = Page.where(course_id: params[:course_id])
     @page = Page.new
     @page.answers.build
@@ -20,7 +20,6 @@ class PagesController < ApplicationController
   end
 
   def edit
-    @course = Course.find(params[:course_id])
     @answer_type = @page.answers.first.answer_type
     if @page.page_type == "Question" && (@answer_type == "Radio" || @answer_type == "Checkbox")
       (@page.body.to_i-1).times { @page.answers.build }
@@ -28,7 +27,6 @@ class PagesController < ApplicationController
   end
 
   def create
-    @course = Course.find(params[:course_id])
     @page = @course.pages.build(page_params)
 
     respond_to do |format|
@@ -61,9 +59,24 @@ class PagesController < ApplicationController
     end
   end
 
+  def start_course
+    @user = current_user
+    user_course = UsersCourse.new(user_id: @user.id, course_id: @course.id)
+    if user_course.save
+      flash[:success] =  "Course is started"
+    else
+      flash[:success] =  "Course is not started"
+    end
+    redirect_to course_path
+  end
+
   private
   def set_page
     @page = Page.find(params[:id])
+  end
+
+  def set_course
+    @course = Course.find(params[:course_id])
   end
 
   def page_params
