@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.3.0'
 
 gem 'rails', '4.2.5'
 
@@ -20,6 +21,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rspec-rails'
 
 gem 'devise', '~> 3.5', '>= 3.5.6'
+gem 'devise_invitable', '~> 1.5.2'
 gem 'devise-bootstrap-views'
 gem 'slim', '~> 3.0', '>= 3.0.6'
 
@@ -54,12 +56,15 @@ gem 'bxslider-rails', '~> 4.2', '>= 4.2.5.1'
 
 gem 'will_paginate', '~> 3.0.6'
 
+gem 'pretender'
+gem 'audited', '~> 4.0'
+gem 'faker'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'awesome_print', '1.6.1'
   gem 'pry-rails', '0.3.4'
-  gem 'faker'
+  gem 'letter_opener'
 end
 
 group :production do

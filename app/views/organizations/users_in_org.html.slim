@@ -1,0 +1,52 @@
+
+/ = link_to 'by email', onclick: 'by_email'
+/ .pad
+/ = link_to 'from file', onclick: 'from_file'
+
+/ #by_email
+/   = simple_form_for @organization, url: organization_create_users_path, method: :post do |f|
+/     = f.select(:users, @users.collect { |u| [u.email, u.id] }, {}, { multiple: true, class: "chosen-select form-control" })
+/     = f.button :submit, 'Add users', class: 'btn btn-primary btn-raised'
+
+/ #from_file style="display: none"
+/   = form_tag import_emails_path(@organization), multipart: true do
+/     = file_field_tag :file
+/     = submit_tag 'Import from file', class: 'btn btn-primary btn-raised'
+
+.container
+  .row
+    .panel.panel-primary.filterable
+      .panel-heading
+        h3.panel-title
+          =  "Users in #{@organization.title}"
+        .pull-right
+          button.btn.btn-default.btn-xs.btn-filter
+            span.glyphicon.glyphicon-filter
+            |  Filter
+      table.table
+
+        thead
+          tr.filters
+            th
+              input.form-control[type="text" placeholder="First Name" disabled]
+            th
+              input.form-control[type="text" placeholder="Last Name" disabled]
+            th
+              input.form-control[type="text" placeholder="Email" disabled]
+            th
+              em class="fa fa-cog"
+        - @users_in_org.each do |user|
+          tbody
+            tr
+              td
+                = link_to "#{ user.first_name }", user_profile_path(user)
+              td
+                = link_to "#{ user.last_name }", user_profile_path(user)
+              td
+                = link_to "#{ user.email }", user_profile_path(user)
+              td
+                = link_to "Impersonate", impersonate_path(user), class:"fa fa-user"
+
+        = will_paginate @users_in_org
+
+    = link_to 'Back', organization_path(@organization), class: 'btn btn-default btn-raised'

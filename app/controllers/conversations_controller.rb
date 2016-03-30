@@ -6,15 +6,24 @@ class ConversationsController < ApplicationController
 
   def create
     recipients = User.where(id: conversation_params[:recipients])
-    conversation = current_user.send_message(recipients, conversation_params[:body], conversation_params[:subject]).conversation
-    flash[:success] = "Your message was successfully sent!"
-    redirect_to conversation_path(conversation)
+    unless conversation = current_user.send_message(recipients, conversation_params[:body], conversation_params[:subject]).conversation
+      flash[:error] = "Fields can't be blank"
+      redirect_to new_conversation_path
+    else
+      flash[:success] = "Your message was successfully sent!"
+      redirect_to conversation_path(conversation)
+    end
   end
 
   def show
     @receipts = conversation.receipts_for(current_user)
     # mark conversation as read
     conversation.mark_as_read(current_user)
+  end
+
+  def get_recipients
+    @recipients = User.all
+    render json: @recipients
   end
 
   def reply

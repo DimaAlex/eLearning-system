@@ -1,6 +1,6 @@
 class OrganizationsController < ApplicationController
-  before_action :set_organization, only: [:show, :edit, :update, :destroy]
-  before_action :set_org_admins, only: [:create, :update]
+  before_action :set_organization, except: [:index, :new, :create]
+  before_action :set_org_admins, only: [:create, :update, :create_users_to_org]
   before_action :all_users_without_admin, only:  [:new, :edit]
 
   authorize_resource except: [:index, :show]
@@ -23,7 +23,7 @@ class OrganizationsController < ApplicationController
 
   def create
     @organization = Organization.new(organization_params)
-    @org_admins.each do |org_admin|
+    @users.each do |org_admin|
       @organization.users_organizations.build(user_id: org_admin.id, is_org_admin: true)
     end
 
@@ -37,7 +37,7 @@ class OrganizationsController < ApplicationController
   end
 
   def update
-    @org_admins.each do |org_admin|
+    @users.each do |org_admin|
       @organization.users_organizations.build(user_id: org_admin.id, is_org_admin: true)
     end
 
@@ -57,6 +57,26 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def users_in_org
+    @users = User.all - @organization.users
+    @users_in_org = @organization.users.usual_users_in_org.paginate(:page => params[:page], :per_page => 20)
+  end
+
+  def create_users_to_org
+    @organization.users << @users
+
+    redirect_to organization_all_users_path(@organization)
+  end
+
+  def import
+    begin
+      User.import(params[:file])
+      redirect_to organization_all_users_path(@organization)
+    rescue
+      redirect_to organization_all_users_path(@organization), notice: 'Invalid CSV file format.'
+    end
+  end
+
   private
   def set_organization
     @organization = Organization.find(params[:id])
@@ -67,7 +87,7 @@ class OrganizationsController < ApplicationController
   end
 
   def set_org_admins
-    @org_admins = User.where(id: params.require(:organization).permit(users:[])[:users])
+    @users = User.where(id: params.require(:organization).permit(users:[])[:users])
   end
 
   def all_users_without_admin

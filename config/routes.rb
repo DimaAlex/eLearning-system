@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   resources :organizations
+  get 'organizations/:id/all_users', to: 'organizations#users_in_org', as: :organization_all_users
+  post 'organizations/:id/create_users', to: 'organizations#create_users_to_org', as: :organization_create_users
+  post 'organizations/:id/import', to: 'organizations#import', as: :import_emails
 
   resources :courses do
     resources :pages
@@ -19,13 +22,15 @@ Rails.application.routes.draw do
   resources :input_user_answers, only: [:create, :update]
 
   devise_for :users, controllers: {
-      sessions: 'devise/sessions',
-      registrations: "users/registrations"
+    sessions: 'devise/sessions',
+    registrations: "users/registrations"
   }
 
   get "mailbox/inbox" => "mailbox#inbox", as: :mailbox_inbox
   get "mailbox/sent" => "mailbox#sent", as: :mailbox_sent
   get "mailbox/trash" => "mailbox#trash", as: :mailbox_trash
+
+  get "conversations/get_recipients" => "conversations#get_recipients"
 
   resources :conversations do
     member do
@@ -36,4 +41,6 @@ Rails.application.routes.draw do
     end
   end
 
+  get "org_admins/:id/impersonate" => "org_admins#impersonate", as: :impersonate
+  get "org_admins/not_impersonate" => "org_admins#stop_impersonate", as: :stop_impersonate
 end

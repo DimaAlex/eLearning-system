@@ -12,16 +12,20 @@
           li.nav-text-color.header-box
             = link_to 'Courses', courses_path
           li.nav-text-color.header-box
-            = link_to 'Categories', root_path
-            = render 'layouts/categories'
-          li.nav-text-color.header-box
             = link_to 'Companies', organizations_path
             = render 'layouts/companies'
           li.dropdown.nav-text-color
             a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
-              = "#{current_user.first_name} #{current_user.last_name}"
-              img.img-circle
-                = image_tag current_user.avatar.url(:thumb), :class => "avatar-header"
+              - if current_user != true_user
+                |  You (
+                = true_user.first_name
+                | ) are signed in as
+                '
+                = current_user.first_name
+              - else
+                = "#{current_user.first_name} #{current_user.last_name}"
+                img.img-circle
+                  = image_tag current_user.avatar.url(:thumb), :class => "avatar-header"
               span.caret
             - if current_user.is_admin
               ul.dropdown-menu
@@ -39,6 +43,9 @@
                   = link_to 'PROFILE', user_profile_path(:id => current_user)
                 li
                   = link_to 'LOG OUT', destroy_user_session_path, :method => :delete
+                - if current_user != true_user
+                  li
+                    = link_to "Back to admin", stop_impersonate_path
       - else
         ul.nav.navbar-nav.ul-right
           li.nav-text-color.header-box
