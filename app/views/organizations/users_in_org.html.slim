@@ -7,12 +7,12 @@ h4 Add users
 #by_email
   = simple_form_for @organization, url: organization_create_users_path, method: :post do |f|
     = f.select(:users, @users_not_in_org.collect { |u| [u.email, u.id] }, {}, { multiple: true, class: "chosen-select form-control" })
-    = f.button :submit, 'Add users', class: 'btn btn-primary btn-raised'
+    = f.button :submit, 'Add users', class: 'btn btn-primary btn-raised', onclick: 'form_hide()'
 
 #from_file
   = form_tag import_emails_path(@organization), multipart: true do
     = file_field_tag :file
-    = submit_tag 'Import from file', class: 'btn btn-primary btn-raised'
+    = submit_tag 'Import from file', class: 'btn btn-primary btn-raised', onclick: 'form_hide()'
 
 .container
   .row
