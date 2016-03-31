@@ -11,7 +11,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160330133534) do
 
   create_table "admins_impersonations", force: :cascade do |t|
@@ -20,9 +19,6 @@ ActiveRecord::Schema.define(version: 20160330133534) do
     t.datetime "begin_impersonation"
     t.datetime "end_impersonation"
   end
-=======
-ActiveRecord::Schema.define(version: 20160329205303) do
->>>>>>> master
 
   create_table "answers", force: :cascade do |t|
     t.string   "answer_type", limit: 255

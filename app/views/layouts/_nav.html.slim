@@ -27,27 +27,15 @@
                 img.img-circle
                   = image_tag current_user.avatar.url(:thumb), :class => "avatar-header"
               span.caret
-            - if current_user.is_admin
+            - if current_user.present?
               ul.dropdown-menu
-                li
-                  = link_to 'MESSAGES', mailbox_inbox_path
-                li
-                  = link_to 'PROFILE', user_profile_path(:id => current_user)
-                li
-                  = link_to 'LOG OUT', destroy_user_session_path, :method => :delete
-            - else
-              ul.dropdown-menu
-                li
-                  = link_to 'MESSAGES', mailbox_inbox_path
-                li
-                  = link_to 'PROFILE', user_profile_path(:id => current_user)
-                li
-                  = link_to 'LOG OUT', destroy_user_session_path, :method => :delete
+                li = link_to 'MESSAGES', mailbox_inbox_path
+                li = link_to 'PROFILE', user_profile_path(:id => current_user)
+                li = link_to 'LOG OUT', destroy_user_session_path, :method => :delete
                 - if current_user != true_user
-                  li
-                    = link_to "My impersonations", admins_impersonations_path(true_user.id)
-                  li
-                    = link_to "Back to admin", stop_impersonate_path
+                  li = link_to "Back TO ADMIN", stop_impersonate_path
+                - if user_has_impersonations?
+                  li = link_to "MY IMPERSONATIONS", admins_impersonations_path(true_user.id)
       - else
         ul.nav.navbar-nav.ul-right
           li.nav-text-color.header-box
