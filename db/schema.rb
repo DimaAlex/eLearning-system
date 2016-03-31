@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160330133534) do
 
   create_table "admins_impersonations", force: :cascade do |t|
@@ -19,6 +20,9 @@ ActiveRecord::Schema.define(version: 20160330133534) do
     t.datetime "begin_impersonation"
     t.datetime "end_impersonation"
   end
+=======
+ActiveRecord::Schema.define(version: 20160329205303) do
+>>>>>>> master
 
   create_table "answers", force: :cascade do |t|
     t.string   "answer_type", limit: 255
@@ -45,6 +49,15 @@ ActiveRecord::Schema.define(version: 20160330133534) do
   end
 
   add_index "courses", ["author_type", "author_id"], name: "index_courses_on_author_type_and_author_id", using: :btree
+
+  create_table "input_user_answers", force: :cascade do |t|
+    t.integer "user_id",          limit: 4
+    t.integer "page_id",          limit: 4
+    t.string  "user_answer_body", limit: 255
+  end
+
+  add_index "input_user_answers", ["page_id"], name: "index_input_user_answers_on_page_id", using: :btree
+  add_index "input_user_answers", ["user_id"], name: "index_input_user_answers_on_user_id", using: :btree
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
     t.integer "unsubscriber_id",   limit: 4
@@ -158,6 +171,14 @@ ActiveRecord::Schema.define(version: 20160330133534) do
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "users_answers", force: :cascade do |t|
+    t.integer "user_id",   limit: 4
+    t.integer "answer_id", limit: 4
+  end
+
+  add_index "users_answers", ["answer_id"], name: "index_users_answers_on_answer_id", using: :btree
+  add_index "users_answers", ["user_id"], name: "index_users_answers_on_user_id", using: :btree
 
   create_table "users_organizations", force: :cascade do |t|
     t.boolean "is_org_admin",              default: false

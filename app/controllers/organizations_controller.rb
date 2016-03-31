@@ -58,19 +58,20 @@ class OrganizationsController < ApplicationController
   end
 
   def users_in_org
-    @users = User.all - @organization.users
+    @users_not_in_org = User.all - @organization.users
     @users_in_org = @organization.users.usual_users_in_org.paginate(:page => params[:page], :per_page => 20)
   end
 
   def create_users_to_org
     @organization.users << @users
+    UserMailer.invitation_instractions(@users.last, @organization).deliver_later
 
     redirect_to organization_all_users_path(@organization)
   end
 
   def import
     begin
-      User.import(params[:file])
+      User.import(params[:file], @organization)
       redirect_to organization_all_users_path(@organization)
     rescue
       redirect_to organization_all_users_path(@organization), notice: 'Invalid CSV file format.'

@@ -22,9 +22,10 @@ class User < ActiveRecord::Base
     self.email
   end
 
-  def self.import(file)
+  def self.import(file, organization)
     CSV.foreach(file.path) do |email|
       User.invite!(email: email.first)
+      organization.users << User.where(email: email)
     end
   end
 
