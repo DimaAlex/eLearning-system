@@ -8,3 +8,10 @@ function from_file() {
     $('#from_file').slideDown();
 }
 
+function form_hide() {
+    $('#by_email').hide();
+    $('#from_file').hide();
+}
+
+$(document).ready(form_hide);
+$(document).on('page:load', form_hide);

@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   has_many :users_organizations, class_name: 'UsersOrganization'
   has_many :organizations, through: :users_organizations
+  has_many :certificates
 
   has_many :input_user_answers
   has_many :users_courses
@@ -21,13 +22,16 @@ class User < ActiveRecord::Base
 
   acts_as_messageable
 
+  has_many :admins_impersonations, foreign_key: "admin_id", dependent: :destroy
+
   def mailboxer_email(object)
     self.email
   end
 
-  def self.import(file)
+  def self.import(file, organization)
     CSV.foreach(file.path) do |email|
       User.invite!(email: email.first)
+      organization.users << User.where(email: email)
     end
   end
 
