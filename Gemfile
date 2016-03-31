@@ -44,6 +44,7 @@ gem 'mailboxer', '0.13.0'
 gem 'chosen-rails', '1.4.3'
 
 gem 'paperclip', '~> 4.3'
+gem 'pdf-forms', '~> 1.0'
 
 gem 'ckeditor', '~> 4.1'
 gem 'font-awesome-rails'

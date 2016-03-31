@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   get 'admin', to: 'admin#index'
   get '/user/:id=', to: 'users#profile', as: 'user_profile'
+  get '/user/show', to: 'users#show'
 
   devise_for :users, controllers: {
     sessions: 'devise/sessions',

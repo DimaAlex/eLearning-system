@@ -31,29 +31,35 @@ ActiveRecord::Schema.define(version: 20160330133534) do
 
   add_index "answers", ["page_id"], name: "index_answers_on_page_id", using: :btree
 
+  create_table "certificates", force: :cascade do |t|
+    t.integer  "type",       limit: 4
+    t.integer  "сourses_id", limit: 4
+    t.integer  "users_id",   limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "certificates", ["users_id"], name: "index_certificates_on_users_id", using: :btree
+  add_index "certificates", ["сourses_id"], name: "index_certificates_on_сourses_id", using: :btree
+
   create_table "courses", force: :cascade do |t|
-    t.string   "title",              limit: 255
-    t.string   "permission",         limit: 255
-    t.integer  "author_id",          limit: 4
-    t.string   "author_type",        limit: 255
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "image_file_name",    limit: 255
-    t.string   "image_content_type", limit: 255
-    t.integer  "image_file_size",    limit: 4
+    t.string   "title",                             limit: 255
+    t.string   "permission",                        limit: 255
+    t.integer  "author_id",                         limit: 4
+    t.string   "author_type",                       limit: 255
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "image_file_name",                   limit: 255
+    t.string   "image_content_type",                limit: 255
+    t.integer  "image_file_size",                   limit: 4
     t.datetime "image_updated_at"
+    t.string   "certificate_template_file_name",    limit: 255
+    t.string   "certificate_template_content_type", limit: 255
+    t.integer  "certificate_template_file_size",    limit: 4
+    t.datetime "certificate_template_updated_at"
   end
 
   add_index "courses", ["author_type", "author_id"], name: "index_courses_on_author_type_and_author_id", using: :btree
-
-  create_table "input_user_answers", force: :cascade do |t|
-    t.integer "user_id",          limit: 4
-    t.integer "page_id",          limit: 4
-    t.string  "user_answer_body", limit: 255
-  end
-
-  add_index "input_user_answers", ["page_id"], name: "index_input_user_answers_on_page_id", using: :btree
-  add_index "input_user_answers", ["user_id"], name: "index_input_user_answers_on_user_id", using: :btree
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
     t.integer "unsubscriber_id",   limit: 4
@@ -146,11 +152,11 @@ ActiveRecord::Schema.define(version: 20160330133534) do
     t.datetime "updated_at",                                            null: false
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
+    t.boolean  "is_admin",                           default: false
     t.string   "avatar_file_name",       limit: 255
     t.string   "avatar_content_type",    limit: 255
     t.integer  "avatar_file_size",       limit: 4
     t.datetime "avatar_updated_at"
-    t.boolean  "is_admin",                           default: false
     t.string   "country",                limit: 255, default: "Russia"
     t.string   "invitation_token",       limit: 255
     t.datetime "invitation_created_at"
@@ -167,14 +173,6 @@ ActiveRecord::Schema.define(version: 20160330133534) do
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  create_table "users_answers", force: :cascade do |t|
-    t.integer "user_id",   limit: 4
-    t.integer "answer_id", limit: 4
-  end
-
-  add_index "users_answers", ["answer_id"], name: "index_users_answers_on_answer_id", using: :btree
-  add_index "users_answers", ["user_id"], name: "index_users_answers_on_user_id", using: :btree
 
   create_table "users_organizations", force: :cascade do |t|
     t.boolean "is_org_admin",              default: false

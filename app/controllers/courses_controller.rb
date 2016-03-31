@@ -57,7 +57,6 @@ class CoursesController < ApplicationController
   def autocomplete
     render json: Course.search(params[:query], autocomplete: true, limit: 10).map(&:title)
   end
-  
 
   private
     def set_course
@@ -65,6 +64,6 @@ class CoursesController < ApplicationController
     end
 
     def course_params
-      params.require(:course).permit(:title,:image, :permission)
+      params.require(:course).permit(:title, :image, :permission, :certificate_template)
     end
 end

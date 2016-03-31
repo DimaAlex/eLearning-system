@@ -16,6 +16,7 @@
             = render 'layouts/companies'
           li.dropdown.nav-text-color
             a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
+
               - if current_user != true_user
                 |  You (
                 = true_user.first_name
@@ -26,6 +27,7 @@
                 = "#{current_user.first_name} #{current_user.last_name}"
                 img.img-circle
                   = image_tag current_user.avatar.url(:thumb), :class => "avatar-header"
+
               span.caret
             - if current_user.present?
               ul.dropdown-menu
