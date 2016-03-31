@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require chosen-jquery
 //= require scaffold
-//= require func
+//= require choise_recipients
 //= require timeago.jquery
 //= require bootstrap-sprockets
 //= require turbolinks

@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :registerable,
+  require 'csv'
+
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :courses, as: :author
 
@@ -15,7 +17,17 @@ class User < ActiveRecord::Base
 
   acts_as_messageable
 
+  has_many :admins_impersonations, foreign_key: "admin_id", dependent: :destroy
+
   def mailboxer_email(object)
     self.email
   end
+
+  def self.import(file, organization)
+    CSV.foreach(file.path) do |email|
+      User.invite!(email: email.first)
+      organization.users << User.where(email: email)
+    end
+  end
+
 end

@@ -11,6 +11,6 @@
     - else
       = f.select(:users, (@organization.users.usual_users_in_org).collect {|p| [ p.email, p.id ] }, {}, { multiple: true , class:  "chosen-select form-control"  })
 
-    = f.submit class: 'btn btn-success'
+    = f.submit class: 'btn btn-success btn-raised'
     .pad
-    = link_to 'Back', organizations_path, class: 'btn btn-danger btn-raised'
+    = link_to 'Back', organization_path(@organization), class: 'btn btn-danger btn-raised'
