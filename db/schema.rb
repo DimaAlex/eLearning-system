@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329205303) do
+ActiveRecord::Schema.define(version: 20160330133534) do
+
+  create_table "admins_impersonations", force: :cascade do |t|
+    t.integer  "user_id",             limit: 4
+    t.integer  "admin_id",            limit: 4
+    t.datetime "begin_impersonation"
+    t.datetime "end_impersonation"
+  end
 
   create_table "answers", force: :cascade do |t|
     t.string   "answer_type", limit: 255
@@ -144,6 +151,7 @@ ActiveRecord::Schema.define(version: 20160329205303) do
     t.integer  "avatar_file_size",       limit: 4
     t.datetime "avatar_updated_at"
     t.boolean  "is_admin",                           default: false
+    t.string   "country",                limit: 255, default: "Russia"
     t.string   "invitation_token",       limit: 255
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -152,7 +160,6 @@ ActiveRecord::Schema.define(version: 20160329205303) do
     t.integer  "invited_by_id",          limit: 4
     t.string   "invited_by_type",        limit: 255
     t.integer  "invitations_count",      limit: 4,   default: 0
-    t.string   "country",                limit: 255, default: "Russia"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

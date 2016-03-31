@@ -41,4 +41,7 @@ Rails.application.routes.draw do
 
   get "org_admins/:id/impersonate" => "org_admins#impersonate", as: :impersonate
   get "org_admins/not_impersonate" => "org_admins#stop_impersonate", as: :stop_impersonate
+
+  get "admins_impersonations/:id/index" => "admins_impersonations#index", as: :admins_impersonations
+
 end
