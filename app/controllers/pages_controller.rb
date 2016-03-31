@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
-  before_action :set_page, only: [:show, :edit, :update, :destroy, :update, :finish_page]
+  before_action :set_page, only: [:show, :edit, :update, :destroy, :update, :finish_page, :check_user]
   before_action :set_course, only: [:index,:create, :edit, :finish_page]
+  before_action :check_user, only: [:show, :edit]
 
   def index
     @pages = Page.where(course_id: params[:course_id])
@@ -13,6 +14,7 @@ class PagesController < ApplicationController
     @user = current_user
     @input_user_answer = @user.input_user_answers.find_by_page_id(@page.id)
     @input_user_answer ||= @user.input_user_answers.build
+    @progress = @user.progress(@page.course)
   end
 
   def new
@@ -41,9 +43,6 @@ class PagesController < ApplicationController
   end
 
   def update
-    if @page.page_type == "Question" && @page.answers.first.answer_type == "Input"
-      Answer.create(page_id: @page.id, is_right: false)
-    end
     if @page.update(page_params)
       redirect_to course_pages_path
     else
@@ -62,7 +61,8 @@ class PagesController < ApplicationController
   def finish_page
     @user = current_user
     users_course = @user.users_courses.find_by_course_id(@course.id)
-    users_courses_page = UsersCoursesPage.new(users_course_id: users_course.id, page_id: @page_id)
+    users_courses_page = users_course.users_courses_pages.find_by_page_id(@page.id)
+    users_courses_page ||= UsersCoursesPage.new(users_course_id: users_course.id, page_id: @page.id)
     if users_courses_page.save
       next_page = @page.next_page
       if @page && next_page
@@ -74,6 +74,21 @@ class PagesController < ApplicationController
   end
 
   private
+
+  def check_user
+    @user = current_user
+    if @user
+      @user_start_course = @user.courses.include?(@page.course)
+      unless @user_start_course || @page.course.author == @user
+        flash[:danger] = "You should start course to see page"
+        redirect_to course_path(@page.course)
+      end
+    else
+      flash[:danger] = "You should log in"
+      redirect_to root_path
+    end
+  end
+
   def set_page
     @page = Page.find(params[:id])
   end

@@ -11,8 +11,11 @@
   .panel-body
     .container
       .col-md-4
-        h3
-          = @page.course.title
+        .page-header
+          h2
+            = @page.course.title
+          - unless @page.course.author == @user
+            = render 'courses/progress'
         = render "pages/pages", pages: @pages
       .col-md-8
         .row
@@ -25,26 +28,12 @@
                 .embed-container
                   = embed(@page.body)
             - else
+              = simple_form_for @input_user_answer do |ui|
                 - if @page.answers.first.answer_type == "Checkbox"
-                  = simple_form_for(@user) do |f|
-                    = f.simple_fields_for :users_answers, @user.users_answers.build do |ui|
-                      = f.collection_check_boxes :answer_ids, @page.answers, :id, :answer_body do |i|
-                        .collection-check-box
-                          = i.check_box
-                          = i.label
-                    br
-                    = f.submit "Ok" , class: "btn btn-primary"
+                  = ui.input :answer_id, as: :check_boxes, collection: @page.answers, label_method: :answer_body, value_method: :id
                 - elsif @page.answers.first.answer_type == "Radio"
-                  = simple_form_for(@user) do |f|
-                    = f.simple_fields_for :users_answers, @user.users_answers.build do |ui|
-                      .radio_type
-                        = f.collection_check_boxes :answer_ids, @page.answers, :id, :answer_body do |i|
-                          .collection-check-box
-                            = i.check_box
-                            = i.label
-                    = f.submit "Ok" , class: "btn btn-primary"
+                  = ui.input :answer_id, as: :radio_buttons, collection: @page.answers, label_method: :answer_body, value_method: :id
                 - else
-                  = simple_form_for  @input_user_answer do |a|
-                    = a.input :user_answer_body,  label: false, placeholder: "Answer", required: true
-                    = a.input :page_id, :as => :hidden, input_html: { value: @page.id }
-                    = a.submit "Ok" , class: "btn btn-primary"
+                  = ui.input :user_answer_body, label: false, placeholder: "Answer", required: true
+                = ui.input :page_id, :as => :hidden, input_html: {value: @page.id}
+                = ui.submit "Ok", class: "btn btn-primary"

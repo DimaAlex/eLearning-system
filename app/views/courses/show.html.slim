@@ -9,17 +9,17 @@
           = image_tag @course.image.url(:medium)
           h1
             = @course.title
-          = label_tag "Created by: "
-          .pad
-            = "#{@course.author.first_name} #{@course.author.last_name}"
-            i.glyphicon.glyphicon-user
+          .page-header
+            = label_tag "Created by: "
+            .pad
+              = "#{@course.author.first_name} #{@course.author.last_name}"
+              i.glyphicon.glyphicon-user
           div
-            - if @user_start_course
-              .progress
-                .progress-bar.progress-bar-danger.progress-bar-striped style="width: #{@progress}%"
-              =label_tag "#{@progress}% Complete"
-            - else
-              = link_to "Start course", start_course_path(course_id: @course.id), class: "btn btn-danger"
+            - unless @course.author == @user
+              - if @user_start_course
+                = render 'progress'
+              - else
+                = link_to "Start course", start_course_path(course_id: @course.id), class: "btn btn-danger"
       .col-md-8
         .row
           .col-md-10

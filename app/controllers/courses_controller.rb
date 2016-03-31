@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy, :start_course]
+  before_action :check_user, only: [:new, :edit, :create, :destroy, :start_course]
 
   def index
     if params[:query].present?
@@ -11,7 +12,7 @@ class CoursesController < ApplicationController
 
   def show
     @user = current_user
-    @user_start_course = @user.courses.include?(@course)
+    @user_start_course = @user.courses.include?(@course) if @user
     if @user_start_course
       @progress = @user.progress(@course)
     end
@@ -75,6 +76,14 @@ class CoursesController < ApplicationController
   end
 
   private
+
+    def check_user
+      unless current_user
+        flash[:danger] =  "You should log in"
+        redirect_to root_path
+      end
+    end
+
     def set_course
       @course = Course.find(params[:id])
     end

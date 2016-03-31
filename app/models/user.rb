@@ -8,8 +8,6 @@ class User < ActiveRecord::Base
   has_many :users_organizations, class_name: 'UsersOrganization'
   has_many :organizations, through: :users_organizations
 
-  has_many :users_answers
-  has_many :answers, through: :users_answers
   has_many :input_user_answers
   has_many :users_courses
   has_many :courses, through: :users_courses
@@ -34,10 +32,16 @@ class User < ActiveRecord::Base
   end
 
   def progress(course)
-    user_course = users_courses.find_by_course_id(course.id)
-    user_course_pages_passed = user_course.users_courses_pages.count
-    all_course_pages = course.pages.count
-    (100 *user_course_pages_passed / all_course_pages)
+    unless course.author == self
+      user_course = users_courses.find_by_course_id(course.id)
+      user_course_pages_passed = user_course.users_courses_pages.count
+      all_course_pages = course.pages.count
+      (100 *user_course_pages_passed / all_course_pages)
+    end
   end
 
+  def create_answers(page)
+    page.answers
+
+  end
 end
