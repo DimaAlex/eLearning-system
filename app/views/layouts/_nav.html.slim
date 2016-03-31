@@ -45,6 +45,8 @@
                   = link_to 'LOG OUT', destroy_user_session_path, :method => :delete
                 - if current_user != true_user
                   li
+                    = link_to "My impersonations", admins_impersonations_path(true_user.id)
+                  li
                     = link_to "Back to admin", stop_impersonate_path
       - else
         ul.nav.navbar-nav.ul-right
