@@ -15,6 +15,7 @@ class CoursesController < ApplicationController
     @user_start_course = @user.courses.include?(@course) if @user
     if @user_start_course
       @progress = @user.progress(@course)
+      @passed_pages_ids = @user.passed_pages_ids(@course)
     end
   end
 

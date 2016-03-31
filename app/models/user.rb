@@ -44,8 +44,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def create_answers(page)
-    page.answers
-
+  def passed_pages_ids(course)
+    users_courses.find_by_course_id(course.id).users_courses_pages.pluck(:page_id)
   end
 end

@@ -1,6 +1,10 @@
 table.table.table-hover
   - pages.each do |page|
     tr
+      td width="5%"
+        .passed-sign-color
+          - if passed_pages_ids && passed_pages_ids.include?(page.id)
+            i.glyphicon.glyphicon-ok-sign
       td width="10%"
         - if page.page_type == "Lecture"
           i.glyphicon.glyphicon-file

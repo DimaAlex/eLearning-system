@@ -15,6 +15,7 @@ class PagesController < ApplicationController
     @input_user_answer = @user.input_user_answers.find_by_page_id(@page.id)
     @input_user_answer ||= @user.input_user_answers.build
     @progress = @user.progress(@page.course)
+    @passed_pages_ids = @user.passed_pages_ids(@page.course)
   end
 
   def new

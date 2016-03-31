@@ -16,7 +16,7 @@
             = @page.course.title
           - unless @page.course.author == @user
             = render 'courses/progress'
-        = render "pages/pages", pages: @pages
+        = render "pages/pages", pages: @pages, passed_pages_ids: @passed_pages_ids
       .col-md-8
         .row
           .col-md-10
