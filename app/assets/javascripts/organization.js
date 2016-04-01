@@ -13,5 +13,10 @@ function form_hide() {
     $('#from_file').hide();
 }
 
+function form_slideUp() {
+    $('#by_email').slideUp();
+    $('#from_file').slideUp();
+}
+
 $(document).ready(form_hide);
 $(document).on('page:load', form_hide);
