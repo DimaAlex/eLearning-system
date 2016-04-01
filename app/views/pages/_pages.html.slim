@@ -1,12 +1,16 @@
-.list-group
+table.table.table-hover
   - pages.each do |page|
-    .list-group-item
-      span.h4
-        = page.title
-        span.right
-          - if page.page_type == "Lecture"
-            i.glyphicon.glyphicon-file
-          - elsif page.page_type == "Video"
-            i.glyphicon.glyphicon-film
-          - else
-            i.glyphicon.glyphicon-question-sign
+    tr
+      td width="5%"
+        .passed-sign-color
+          - if passed_pages_ids && passed_pages_ids.include?(page.id)
+            i.glyphicon.glyphicon-ok-sign
+      td width="10%"
+        - if page.page_type == "Lecture"
+          i.glyphicon.glyphicon-file
+        - elsif page.page_type == "Video"
+          i.glyphicon.glyphicon-film
+        - else
+          i.glyphicon.glyphicon-question-sign
+      td
+        =link_to page.title, course_page_path(page.course, page)

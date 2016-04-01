@@ -16,12 +16,16 @@ Rails.application.routes.draw do
   resources :courses, only: :index do
     collection do
       post :import
-      get :autocomplete # <= add this line
+      get :autocomplete
     end
   end
+  match '/courses/:id/start_course' => 'courses#start_course', via: [:get, :post], :as => :start_course
+  match '/courses/:course_id/pages/:id/finish_page' => 'pages#finish_page', via: [:get, :post], :as => :finish_page
 
   get 'admin', to: 'admin#index'
   get '/user/:id=', to: 'users#profile', as: 'user_profile'
+  resources :input_user_answers, only: [:create, :update]
+  get '/user/show', to: 'users#show'
 
   devise_for :users, controllers: {
     sessions: 'devise/sessions',
@@ -45,4 +49,7 @@ Rails.application.routes.draw do
 
   get "org_admins/:id/impersonate" => "org_admins#impersonate", as: :impersonate
   get "org_admins/not_impersonate" => "org_admins#stop_impersonate", as: :stop_impersonate
+
+  get "admins_impersonations/:id/index" => "admins_impersonations#index", as: :admins_impersonations
+
 end
