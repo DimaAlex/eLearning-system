@@ -1,19 +1,22 @@
-h2.title-box
-  = 'Organizations'
-.col-lg-6.col-lg-offset-3
-  - @organizations.each do |organization|
+.col-lg-12
+  .col-lg-2.col-lg-offset-1
+    h2.title-box
+      = 'Organizations'
+    br
+      - if can? :new, @organization
+        = link_to 'New Organization', new_organization_path, class: 'btn btn-info btn-raise'
+  .col-lg-6.col-lg-offset-1
+    - @organizations.each do |organization|
 
-    .well
-      .media-left
-        = image_tag organization.image.url(:thumb), class: "pull-left"
-      .media-body
-        h4.media-heading
-          = organization.title
-        br
-        = "Phone: #{organization.phone}"
-        br
+      .well
+        .media-left
+          = image_tag organization.image.url(:thumb), class: 'pull-left'
+        .media-body
+          h4.media-heading
+            = organization.title
+          br
+          = "Phone: #{organization.phone}"
+          br
+          = link_to 'Show', organization, class: 'pad btn btn-primary'
+    = will_paginate @organizations
 
-        = link_to 'Show', organization, class: "pad btn btn-primary"
-  br
-  - if can? :new, @organization
-    = link_to 'New Organization', new_organization_path, class: 'btn btn-info btn-raise'

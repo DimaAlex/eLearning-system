@@ -10,7 +10,7 @@
           .col-sm-6
             = u.text_field :answer_body, class: 'form-control'
           - if @answer_type == "Input"
-             = u.input :is_right, inline_label: "Is right?", as: :hidden, :input_html => { value: true }
+              = u.input :is_right, inline_label: "Is right?", as: :hidden, :input_html => { value: true }
           - else
             - if @answer_type == "Checkbox"
               .col-sm-2

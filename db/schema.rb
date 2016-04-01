@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160327131107) do
+ActiveRecord::Schema.define(version: 20160331062849) do
+
+  create_table "admins_impersonations", force: :cascade do |t|
+    t.integer  "user_id",             limit: 4
+    t.integer  "admin_id",            limit: 4
+    t.datetime "begin_impersonation"
+    t.datetime "end_impersonation"
+  end
 
   create_table "answers", force: :cascade do |t|
     t.string   "answer_type", limit: 255
@@ -24,20 +31,46 @@ ActiveRecord::Schema.define(version: 20160327131107) do
 
   add_index "answers", ["page_id"], name: "index_answers_on_page_id", using: :btree
 
+  create_table "certificates", force: :cascade do |t|
+    t.integer  "type",       limit: 4
+    t.integer  "сourses_id", limit: 4
+    t.integer  "users_id",   limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "certificates", ["users_id"], name: "index_certificates_on_users_id", using: :btree
+  add_index "certificates", ["сourses_id"], name: "index_certificates_on_сourses_id", using: :btree
+
   create_table "courses", force: :cascade do |t|
-    t.string   "title",              limit: 255
-    t.string   "permission",         limit: 255
-    t.integer  "author_id",          limit: 4
-    t.string   "author_type",        limit: 255
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "image_file_name",    limit: 255
-    t.string   "image_content_type", limit: 255
-    t.integer  "image_file_size",    limit: 4
+    t.string   "title",                             limit: 255
+    t.string   "permission",                        limit: 255
+    t.integer  "author_id",                         limit: 4
+    t.string   "author_type",                       limit: 255
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "image_file_name",                   limit: 255
+    t.string   "image_content_type",                limit: 255
+    t.integer  "image_file_size",                   limit: 4
     t.datetime "image_updated_at"
+    t.string   "certificate_template_file_name",    limit: 255
+    t.string   "certificate_template_content_type", limit: 255
+    t.integer  "certificate_template_file_size",    limit: 4
+    t.datetime "certificate_template_updated_at"
   end
 
   add_index "courses", ["author_type", "author_id"], name: "index_courses_on_author_type_and_author_id", using: :btree
+
+  create_table "input_user_answers", force: :cascade do |t|
+    t.integer "user_id",          limit: 4
+    t.integer "page_id",          limit: 4
+    t.string  "user_answer_body", limit: 255
+    t.integer "answer_id",        limit: 4
+  end
+
+  add_index "input_user_answers", ["answer_id"], name: "index_input_user_answers_on_answer_id", using: :btree
+  add_index "input_user_answers", ["page_id"], name: "index_input_user_answers_on_page_id", using: :btree
+  add_index "input_user_answers", ["user_id"], name: "index_input_user_answers_on_user_id", using: :btree
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
     t.integer "unsubscriber_id",   limit: 4
@@ -94,10 +127,10 @@ ActiveRecord::Schema.define(version: 20160327131107) do
 
   create_table "organizations", force: :cascade do |t|
     t.string   "title",              limit: 255
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "phone",              limit: 255
-    t.string   "description",        limit: 255
+    t.text     "description",        limit: 65535
     t.string   "image_file_name",    limit: 255
     t.string   "image_content_type", limit: 255
     t.integer  "image_file_size",    limit: 4
@@ -116,29 +149,61 @@ ActiveRecord::Schema.define(version: 20160327131107) do
   add_index "pages", ["course_id"], name: "index_pages_on_course_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "",    null: false
-    t.string   "encrypted_password",     limit: 255, default: "",    null: false
+    t.string   "email",                  limit: 255, default: "",       null: false
+    t.string   "encrypted_password",     limit: 255, default: "",       null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,     null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,        null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
-    t.boolean  "is_admin",                           default: false
     t.string   "avatar_file_name",       limit: 255
     t.string   "avatar_content_type",    limit: 255
     t.integer  "avatar_file_size",       limit: 4
     t.datetime "avatar_updated_at"
+    t.boolean  "is_admin",                           default: false
+    t.string   "invitation_token",       limit: 255
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer  "invitation_limit",       limit: 4
+    t.integer  "invited_by_id",          limit: 4
+    t.string   "invited_by_type",        limit: 255
+    t.integer  "invitations_count",      limit: 4,   default: 0
+    t.string   "country",                limit: 255, default: "Russia"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
+  add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
+  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "users_courses", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "course_id",  limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "users_courses", ["course_id"], name: "index_users_courses_on_course_id", using: :btree
+  add_index "users_courses", ["user_id"], name: "index_users_courses_on_user_id", using: :btree
+
+  create_table "users_courses_pages", force: :cascade do |t|
+    t.integer  "users_course_id", limit: 4
+    t.integer  "page_id",         limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "users_courses_pages", ["page_id"], name: "index_users_courses_pages_on_page_id", using: :btree
+  add_index "users_courses_pages", ["users_course_id"], name: "index_users_courses_pages_on_users_course_id", using: :btree
 
   create_table "users_organizations", force: :cascade do |t|
     t.boolean "is_org_admin",              default: false

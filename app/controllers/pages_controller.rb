@@ -1,14 +1,21 @@
 class PagesController < ApplicationController
-  before_action :set_page, only: [:show, :edit, :update, :destroy, :update]
+  before_action :set_page, only: [:show, :edit, :update, :destroy, :update, :finish_page, :check_user]
+  before_action :set_course, only: [:index,:create, :edit, :finish_page]
+  before_action :check_user, only: [:show, :edit]
 
   def index
-    @course = Course.find(params[:course_id])
     @pages = Page.where(course_id: params[:course_id])
     @page = Page.new
     @page.answers.build
   end
 
   def show
+    @pages = Page.where(course_id: params[:course_id])
+    @user = current_user
+    @input_user_answer = @user.input_user_answers.find_by_page_id(@page.id)
+    @input_user_answer ||= @user.input_user_answers.build
+    @progress = @user.progress(@page.course)
+    @passed_pages_ids = @user.passed_pages_ids(@page.course) unless @page.course.author == @user
   end
 
   def new
@@ -16,15 +23,13 @@ class PagesController < ApplicationController
   end
 
   def edit
-    @course = Course.find(params[:course_id])
     @answer_type = @page.answers.first.answer_type
-    if @page.page_type == "Question" && @page.body!=nil
+    if @page.page_type == "Question" && (@answer_type == "Radio" || @answer_type == "Checkbox")
       (@page.body.to_i-1).times { @page.answers.build }
     end
   end
 
   def create
-    @course = Course.find(params[:course_id])
     @page = @course.pages.build(page_params)
 
     respond_to do |format|
@@ -54,9 +59,54 @@ class PagesController < ApplicationController
     end
   end
 
+  def finish_page
+    @user = current_user
+    if @course.author == @user
+      to_next_page
+    else
+      users_course = @user.users_courses.find_by_course_id(@course.id)
+      users_courses_page = users_course.users_courses_pages.find_by_page_id(@page.id)
+      users_courses_page ||= UsersCoursesPage.new(users_course_id: users_course.id, page_id: @page.id)
+      if users_courses_page.save
+        to_next_page
+      else
+          redirect_to course_url(@page.course)
+      end
+    end
+  end
+
+  def to_next_page
+    next_page = @page.next_page
+    if @page && next_page
+      redirect_to course_page_path(course_id: @page.course.id, id: next_page.id)
+    else
+      redirect_to course_url(@page.course)
+    end
+  end
+
+
   private
+
+  def check_user
+    @user = current_user
+    if @user
+      @user_start_course = @user.courses.include?(@page.course)
+      unless @user_start_course || @page.course.author == @user
+        flash[:danger] = "You should start course to see page"
+        redirect_to course_path(@page.course)
+      end
+    else
+      flash[:danger] = "You should log in"
+      redirect_to root_path
+    end
+  end
+
   def set_page
     @page = Page.find(params[:id])
+  end
+
+  def set_course
+    @course = Course.find(params[:course_id])
   end
 
   def page_params
