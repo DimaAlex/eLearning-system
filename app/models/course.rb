@@ -4,6 +4,8 @@ class Course < ActiveRecord::Base
   has_one :certificate
 
   validates :title, presence: true, allow_blank: false
+  has_many :users_courses
+  has_many :users, through: :users_courses
 
   searchkick autocomplete: ['title']
 

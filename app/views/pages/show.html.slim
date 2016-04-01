@@ -1,0 +1,39 @@
+.panel.panel-default
+  .page-header
+    .right
+      = link_to :back, class: "btn btn-default" do
+        i.glyphicon.glyphicon-arrow-left Previous
+      = link_to finish_page_path, class: "btn btn-danger" do
+        = "Complete and continue"
+        i.glyphicon.glyphicon-arrow-right
+    = link_to course_path(@page.course), class: "btn btn-default" do
+      i.glyphicon.glyphicon-circle-arrow-left
+  .panel-body
+    .container
+      .col-md-4
+        .page-header
+          h2
+            = @page.course.title
+          - unless @page.course.author == @user
+            = render 'courses/progress'
+        = render "pages/pages", pages: @pages, passed_pages_ids: @passed_pages_ids
+      .col-md-8
+        .row
+          .col-md-10
+            h2.text-center
+              = @page. title
+            - if @page.page_type == "Lecture"
+              = raw(@page.body)
+            - elsif @page.page_type == "Video"
+                .embed-container
+                  = embed(@page.body)
+            - else
+              = simple_form_for @input_user_answer do |ui|
+                - if @page.answers.first.answer_type == "Checkbox"
+                  = ui.input :answer_id, as: :check_boxes, collection: @page.answers, label_method: :answer_body, value_method: :id
+                - elsif @page.answers.first.answer_type == "Radio"
+                  = ui.input :answer_id, as: :radio_buttons, collection: @page.answers, label_method: :answer_body, value_method: :id
+                - else
+                  = ui.input :user_answer_body, label: false, placeholder: "Answer", required: true
+                = ui.input :page_id, :as => :hidden, input_html: {value: @page.id}
+                = ui.submit "Ok", class: "btn btn-primary"
