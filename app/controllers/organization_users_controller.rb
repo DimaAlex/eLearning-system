@@ -2,18 +2,26 @@ class OrganizationUsersController < ApplicationController
   before_action :set_organization
 
   def add_users_to_org
-    @users_not_in_org = User.all - @organization.users
+    if can? :write, @organization
+      @users_not_in_org = User.all - @organization.users
+    else
+      redirect_to organization_path(@organization), notice: "You can't do this."
+    end
   end
 
   def add_org_admins_to_org
-    @users_without_admin = User.where(is_admin: false) - @organization.users.org_admins
+    if can? :write, @organization
+      @users_without_admin = User.where(is_admin: false) - @organization.users.org_admins
+    else
+      redirect_to organization_path(@organization), notice: "You can't do this."
+    end
   end
 
   def create_users_in_org
     @users = User.where(id: params.require(:organization).permit(users:[])[:users])
 
     @organization.users << @users
-    UserMailer.invitation_instractions(@users.last, @organization).deliver_later # for last user
+    @users.each { |user| UserMailer.invitation_instractions(user, @organization).deliver_later }
 
     redirect_to organization_path(@organization), notice: 'Users added.'
   end
@@ -30,7 +38,11 @@ class OrganizationUsersController < ApplicationController
   end
 
   def users_in_org
-    @users_in_org = @organization.users.usual_users_in_org.paginate(:page => params[:page], :per_page => 20)
+    if can? :write, @organization
+      @users_in_org = @organization.users.usual_users_in_org.paginate(:page => params[:page], :per_page => 20)
+    else
+      redirect_to organization_path(@organization), notice: "You can't do this."
+    end
   end
 
   def import_users_from_file
