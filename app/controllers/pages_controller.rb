@@ -15,7 +15,7 @@ class PagesController < ApplicationController
     @input_user_answer = @user.input_user_answers.find_by_page_id(@page.id)
     @input_user_answer ||= @user.input_user_answers.build
     @progress = @user.progress(@page.course)
-    @passed_pages_ids = @user.passed_pages_ids(@page.course)
+    @passed_pages_ids = @user.passed_pages_ids(@page.course) unless @page.course.author == @user
   end
 
   def new
@@ -61,18 +61,29 @@ class PagesController < ApplicationController
 
   def finish_page
     @user = current_user
-    users_course = @user.users_courses.find_by_course_id(@course.id)
-    users_courses_page = users_course.users_courses_pages.find_by_page_id(@page.id)
-    users_courses_page ||= UsersCoursesPage.new(users_course_id: users_course.id, page_id: @page.id)
-    if users_courses_page.save
-      next_page = @page.next_page
-      if @page && next_page
-        redirect_to course_page_path(course_id: @page.course.id, id: next_page.id)
+    if @course.author == @user
+      to_next_page
+    else
+      users_course = @user.users_courses.find_by_course_id(@course.id)
+      users_courses_page = users_course.users_courses_pages.find_by_page_id(@page.id)
+      users_courses_page ||= UsersCoursesPage.new(users_course_id: users_course.id, page_id: @page.id)
+      if users_courses_page.save
+        to_next_page
       else
-        redirect_to course_url(@page.course)
+          redirect_to course_url(@page.course)
       end
     end
   end
+
+  def to_next_page
+    next_page = @page.next_page
+    if @page && next_page
+      redirect_to course_page_path(course_id: @page.course.id, id: next_page.id)
+    else
+      redirect_to course_url(@page.course)
+    end
+  end
+
 
   private
 
