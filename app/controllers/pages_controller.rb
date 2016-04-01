@@ -61,7 +61,7 @@ class PagesController < ApplicationController
 
   def finish_page
     @user = current_user
-    if @course.author == @user
+    if @course.can_pass?(@user)
       to_next_page
     else
       users_course = @user.users_courses.find_by_course_id(@course.id)

@@ -1,6 +1,7 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy, :start_course]
   before_action :check_user, only: [:new, :edit, :create, :destroy, :start_course]
+  before_action :set_user, only: [:show, :new, :start_course]
 
   def index
     if params[:query].present?
@@ -21,6 +22,7 @@ class CoursesController < ApplicationController
 
   def new
     @course = Course.new
+    @organizations_user_org_admin= @user.users_organizations.where(is_org_admin: true).map {|x| x.organization}
   end
 
   def edit
@@ -28,7 +30,9 @@ class CoursesController < ApplicationController
 
   def create
     @course = Course.new(course_params)
-    @course.author = current_user
+    if @course.author_type == "User" && @course.author_id==nil
+      @course.author = current_user
+    end
 
     respond_to do |format|
       if @course.save
@@ -66,7 +70,6 @@ class CoursesController < ApplicationController
   end
 
   def start_course
-    @user = current_user
     user_course = UsersCourse.new(user_id: @user.id, course_id: @course.id)
     if user_course.save
       flash[:success] =  "Course is started"
@@ -77,6 +80,10 @@ class CoursesController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = current_user
+  end
 
     def check_user
       unless current_user
@@ -90,6 +97,6 @@ class CoursesController < ApplicationController
     end
 
     def course_params
-      params.require(:course).permit(:title, :image, :permission, :certificate_template)
+      params.require(:course).permit(:title, :image, :permission, :certificate_template, :author_type, :author_id)
     end
 end
