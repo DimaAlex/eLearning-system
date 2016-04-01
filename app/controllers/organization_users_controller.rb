@@ -6,7 +6,7 @@ class OrganizationUsersController < ApplicationController
   end
 
   def add_org_admins_to_org
-    @users_without_admin = User.where(is_admin: false)
+    @users_without_admin = User.where(is_admin: false) - @organization.users.org_admins
   end
 
   def create_users_in_org

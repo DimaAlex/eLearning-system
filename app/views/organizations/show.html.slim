@@ -31,5 +31,6 @@
       = link_to 'Back', organizations_path, class: 'btn btn-default btn-raised'
       .pad
       = link_to 'Add users', organization_add_users_to_org_path(@organization), class: 'btn btn-warning btn-raised'
-      .pad
-      = link_to 'Add admins of organization', organization_add_org_admins_to_org_path(@organization), class: 'btn btn-info btn-raised'
+      - if can? :manage, @organization
+        .pad
+        = link_to 'Add admins of organization', organization_add_org_admins_to_org_path(@organization), class: 'btn btn-info btn-raised'
