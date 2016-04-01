@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
-  resources :organizations
-  get 'organizations/:id/all_users', to: 'organizations#users_in_org', as: :organization_all_users
-  post 'organizations/:id/create_users', to: 'organizations#create_users_to_org', as: :organization_create_users
-  post 'organizations/:id/import', to: 'organizations#import', as: :import_emails
+  resources :organizations do
+    get 'all_users', to: 'organization_users#users_in_org'
+    get 'add_users_to_org', to: 'organization_users#add_users_to_org'
+    get 'add_org_admins_to_org', to: 'organization_users#add_org_admins_to_org'
+    post 'create_users', to: 'organization_users#create_users_in_org'
+    post 'create_org_admins', to: 'organization_users#create_org_admins_in_org'
+    post 'import', to: 'organization_users#import_users_from_file', as: 'import_users'
+  end
 
   resources :courses do
     resources :pages

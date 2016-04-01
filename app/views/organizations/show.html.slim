@@ -1,6 +1,6 @@
 .row
-  .col-lg-10
-    .col-lg-10.col-lg-offset-2.well
+  .col-lg-12
+    .col-lg-10.col-lg-offset-1.well
       .row
         h2.col-sm-offset-1
           = @organization.title
@@ -28,4 +28,8 @@
           = link_to 'Edit', edit_organization_path(@organization), class: 'btn btn-danger btn-raised'
         .pad
         = link_to 'Show users in organization', organization_all_users_path(@organization), class: 'btn btn-primary btn-raised'
-  = link_to 'Back', organizations_path, class: 'btn btn-default btn-raised'
+      = link_to 'Back', organizations_path, class: 'btn btn-default btn-raised'
+      .pad
+      = link_to 'Add users', organization_add_users_to_org_path(@organization), class: 'btn btn-warning btn-raised'
+      .pad
+      = link_to 'Add admins of organization', organization_add_org_admins_to_org_path(@organization), class: 'btn btn-info btn-raised'
