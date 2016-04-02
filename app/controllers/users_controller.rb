@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+
   def show
     @user = current_user
     respond_to do |format|

@@ -9,17 +9,22 @@
           = image_tag @course.image.url(:medium)
           h1
             = @course.title
-          = label_tag "Created by: "
-          .pad
-            = "#{@course.author.first_name} #{@course.author.last_name}"
-            i.glyphicon.glyphicon-user
+          .page-header
+            = label_tag "Created by: "
+            .pad
+              = "#{@course.author.first_name} #{@course.author.last_name}"
+              i.glyphicon.glyphicon-user
           div
-            = link_to "Start course", "#", class: "btn btn-danger"
+            - unless @course.author == @user
+              - if @user_start_course
+                = render 'progress'
+              - else
+                = link_to "Start course", start_course_path(course_id: @course.id), class: "btn btn-danger"
       .col-md-8
         .row
-          .col-md-12
+          .col-md-10
             h2.text-center
               = "Class Curriculum"
         .row
-          .col-md-offset-2.col-md-8
-            =render "pages/pages", pages: @course.pages
+          .col-md-offset-1.col-md-9
+            = render "pages/pages", pages: @course.pages, passed_pages_ids: @passed_pages_ids

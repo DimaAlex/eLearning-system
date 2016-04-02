@@ -1,0 +1,6 @@
+= simple_form_for @organization, url: organization_create_org_admins_path, method: :post do |f|
+  strong Choose admin(s) for organization
+  = f.select(:users, @users_without_admin.collect { |p| [p.email, p.id] }, {}, {multiple: true, class: "chosen-select form-control"})
+  = f.submit 'Add organization admin(s)', class: 'btn btn-primary btn-raised'
+
+= link_to 'Back', organization_path(@organization), class: 'btn btn-default btn-raised'

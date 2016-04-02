@@ -2,6 +2,8 @@ class Page < ActiveRecord::Base
   belongs_to :course
   has_many :answers, dependent: :destroy
   accepts_nested_attributes_for :answers
+  has_many :users_courses_pages
+  has_many :users_courses, through: :users_courses_pages
   validates :title, presence: true, allow_blank: false
   validates :body, presence: true, on: :update, if: :page_type_lecture?
   validates :body, presence: true, on: :create, if: :page_type_question?
@@ -20,6 +22,14 @@ class Page < ActiveRecord::Base
 
   def page_type_lecture?
     page_type == "Lecture"
+  end
+
+  def next_page
+    course = self.course
+    index = course.pages.index(self)
+    if (course.pages.count - 1)!=index
+      course.pages[index + 1]
+    end
   end
 
 end

@@ -62,7 +62,7 @@ gem 'pretender'
 gem 'audited', '~> 4.0'
 gem 'faker'
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'factory_girl_rails', '~> 4.6'
   gem 'byebug'
   gem 'awesome_print', '1.6.1'
   gem 'pry-rails', '0.3.4'
