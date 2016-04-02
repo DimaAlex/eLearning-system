@@ -10,6 +10,10 @@
           h1
             = @course.title
           .page-header
+            = label_tag "Type: "
+            .pad
+              = @course.permission
+            br
             = label_tag "Created by: "
             .pad
               -if @course.author_type == "User"

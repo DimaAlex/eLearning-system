@@ -36,15 +36,17 @@ class User < ActiveRecord::Base
   end
 
   def progress(course)
-    unless course.author == self
-      user_course = users_courses.find_by_course_id(course.id)
-      user_course_pages_passed = user_course.users_courses_pages.count
-      all_course_pages = course.pages.count
-      (100 *user_course_pages_passed / all_course_pages)
-    end
+    user_course = users_courses.find_by_course_id(course.id)
+    user_course_pages_passed = user_course.users_courses_pages.count
+    all_course_pages = course.pages.count
+    (100 *user_course_pages_passed / all_course_pages)
   end
 
   def passed_pages_ids(course)
     users_courses.find_by_course_id(course.id).users_courses_pages.pluck(:page_id)
+  end
+
+  def member_of_organization?(organization)
+    users_organizations.map {|x| x.organization}.include?(organization)
   end
 end

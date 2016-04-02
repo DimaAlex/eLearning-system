@@ -14,7 +14,7 @@ class CoursesController < ApplicationController
   def show
     @user = current_user
     @user_start_course = @user.courses.include?(@course) if @user
-    if @user_start_course
+    if @user_start_course && !@course.can_pass?(@user)
       @progress = @user.progress(@course)
       @passed_pages_ids = @user.passed_pages_ids(@course)
     end
@@ -70,6 +70,21 @@ class CoursesController < ApplicationController
   end
 
   def start_course
+    if @course.permission == "Public"
+      can_start_course
+    elsif @course.permission == "In organization"
+      if @user.member_of_organization?(@course.author)
+        can_start_course
+      else
+        flash[:success] =  "Only members of the organization is available to start course"
+        redirect_to course_path
+      end
+    end
+  end
+
+  private
+
+  def can_start_course
     user_course = UsersCourse.new(user_id: @user.id, course_id: @course.id)
     if user_course.save
       flash[:success] =  "Course is started"
@@ -78,8 +93,6 @@ class CoursesController < ApplicationController
     end
     redirect_to course_path
   end
-
-  private
 
   def set_user
     @user = current_user

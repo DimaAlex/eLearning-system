@@ -14,8 +14,10 @@ class PagesController < ApplicationController
     @user = current_user
     @input_user_answer = @user.input_user_answers.find_by_page_id(@page.id)
     @input_user_answer ||= @user.input_user_answers.build
-    @progress = @user.progress(@page.course)
-    @passed_pages_ids = @user.passed_pages_ids(@page.course) unless @page.course.author == @user
+    unless @page.course.can_pass?(@user)
+      @progress = @user.progress(@page.course)
+      @passed_pages_ids = @user.passed_pages_ids(@page.course)
+    end
   end
 
   def new
@@ -91,7 +93,7 @@ class PagesController < ApplicationController
     @user = current_user
     if @user
       @user_start_course = @user.courses.include?(@page.course)
-      unless @user_start_course || @page.course.author == @user
+      unless @user_start_course || @page.course.can_pass?(@user)
         flash[:danger] = "You should start course to see page"
         redirect_to course_path(@page.course)
       end

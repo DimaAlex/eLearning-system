@@ -8,7 +8,7 @@
     = f.input :permission, label: false, as: :radio_buttons,
             collection: ['Public', 'In organization', 'Individual'],
             checked: 'Public'
-    - if @organizations_user_org_admin
+    - if !@organizations_user_org_admin.empty?
       = f.label "Author"
       = f.input :author_type, label: false, as: :radio_buttons,
               collection: ['Organization','User'],
