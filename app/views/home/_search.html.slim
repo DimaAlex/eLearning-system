@@ -1,10 +1,10 @@
 .search-container.panel.panel-default
 p.slogon.col-lg-7
   | SERVICE #1 FOR EDUCATION
-.col-lg-12
+.col-lg-12.search-block-end
   h1.col-lg-8.col-lg-offset-2.search-form
     = form_tag courses_path, class: "form-inline", method: :get do
       .form-group.has-error.label-floating.col-lg-9
-        = text_field_tag :query, params[:query], class: "form-control form-field-search", id: "course_search", autocomplete: "off"
+        = text_field_tag :query, params[:query], class: "form-control form-field-search",  autocomplete: "off"
       = submit_tag "Search", class: "btn brn-raised btn-danger col-lg-2"
 

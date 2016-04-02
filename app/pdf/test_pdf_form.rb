@@ -3,7 +3,7 @@ class TestPdfForm < FillablePdfForm
   def initialize(user, course = Course.last)
     @user = user
     @course = course
-    super()
+    super(@course)
   end
 
   protected

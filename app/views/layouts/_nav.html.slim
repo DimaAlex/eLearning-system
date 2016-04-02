@@ -40,11 +40,10 @@
                 - else
                   li = link_to 'LOG OUT', destroy_user_session_path, :method => :delete
 
-
       - else
         ul.nav.navbar-nav.ul-right
           li.nav-text-color.header-box
-            = link_to 'Categories', root_path
+            = link_to 'Courses', root_path
             = render 'layouts/categories'
           li.nav-text-color.header-box
             = link_to 'Companies', organizations_path
