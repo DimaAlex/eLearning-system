@@ -28,6 +28,8 @@
             - unless @course.can_pass?(@user)
               - if @user_start_course
                 = render 'progress'
+                - if @progress == 100
+                  = render 'courses/estimation'
               - else
                 = link_to "Start course", start_course_path(course_id: @course.id), class: "btn btn-danger"
       .col-md-8

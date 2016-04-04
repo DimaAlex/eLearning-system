@@ -142,6 +142,7 @@ body{
   filter: blur(3px);
   -webkit-filter: blur(3px);
   -moz-filter: blur(3px);
+  margin-bottom: 0;
 }
 
 .search-image{
@@ -159,7 +160,7 @@ body{
 
 .search-form{
   position: absolute;
-  top: -150px;
+  top: -100px;
   z-index: 120;
   color: red;
   font-size: 40px;
@@ -173,6 +174,7 @@ body{
 
 .slogon{
   position: relative;
+  text-align: center;
   top: -230px;
   left: 240px;
   font-size: 40px;
@@ -228,6 +230,7 @@ body{
 
 .part-of-us{
   height: 430px;
+  margin-top: 0;
 }
 
 .image-courses{
@@ -265,4 +268,14 @@ body{
   font-size: 35px;
   padding-top: 37px;
   text-align: center;
+}
+
+.search-block-end{
+  position: relative;
+  top: -60px;
+}
+
+.header-title-top-part{
+  top: -35px;
+  margin-bottom: 0;
 }

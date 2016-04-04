@@ -4,7 +4,7 @@ class AdminsImpersonationsController < ApplicationController
   before_action :set_impersonation, only: [:destroy]
 
   def index
-    @impersonations = @user.admins_impersonations.ordered.paginate(:page => params[:page], :per_page => 5)
+    @impersonations = @user.admins_impersonations.ordered.paginate(page: params[:page], per_page: 5)
   end
 
   def destroy

@@ -11,7 +11,7 @@
         hr/
       .col-md-4.text-center
         img.img-circle.avatar.avatar-original
-          = image_tag @user.avatar.url(:medium)
+          = image_tag @user.avatar.url(:medium), class: 'img-ciricle'
       .col-md-8
         .row
           .col-md-12
@@ -25,6 +25,11 @@
               | Email:
             .pad
             = @user.email
+            br
+            span.text-muted
+              | Country:
+            .pad
+            = @user.country
             br
               br
                 small.text-muted

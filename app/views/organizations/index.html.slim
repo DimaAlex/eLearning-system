@@ -18,5 +18,5 @@
           = "Phone: #{organization.phone}"
           br
           = link_to 'Show', organization, class: 'pad btn btn-primary'
-    = will_paginate @organizations
+    = will_paginate @organizations, inner_window: 1, renderer: BootstrapPagination::Rails
 
