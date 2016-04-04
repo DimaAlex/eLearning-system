@@ -33,6 +33,7 @@ gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem 'bootstrap-material-design', '~> 0.2.2'
 gem 'twitter-typeahead-rails', '~> 0.11.1'
+gem 'nouislider-rails', '~> 8.2', '>= 8.2.1'
 
 gem 'simple_form', '~> 3.2.1'
 gem 'cancancan', '~> 1.10'
@@ -54,6 +55,7 @@ gem 'puma'
 gem 'chartist-rails'
 gem 'chartkick', '~> 1.4', '>= 1.4.2'
 gem 'bxslider-rails', '~> 4.2', '>= 4.2.5.1'
+gem 'rangesliderjs-rails', '~> 2.0', '>= 2.0.5'
 
 gem 'will_paginate', '~> 3.0.6'
 gem 'will_paginate-bootstrap'
@@ -77,4 +79,3 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
-

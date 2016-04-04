@@ -3,7 +3,8 @@ class FillablePdfForm
   attr_writer :template_path
   attr_reader :attributes
 
-  def initialize
+  def initialize(course)
+    @course = course
     fill_out
   end
 
@@ -18,7 +19,7 @@ class FillablePdfForm
   end
 
   def template_path
-    @template_path ||= "#{Rails.root}/public/system/courses/certificate_templates/000/000/014/original/#{self.class.name.gsub('Pdf', '').underscore}.pdf" # makes assumption about template file path unless otherwise specified
+    @template_path ||= "#{Rails.root}/public/system/courses/certificate_templates/000/000/0#{@course.id}/original/#{self.class.name.gsub('Pdf', '').underscore}.pdf" # makes assumption about template file path unless otherwise specified
   end
 
   protected
