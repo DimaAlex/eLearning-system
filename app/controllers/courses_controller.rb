@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :start_course]
-  before_action :check_user, only: [:new, :edit, :create, :destroy, :start_course]
-  before_action :set_user, only: [:show, :new, :start_course]
+  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :check_user, only: [:new, :edit, :create, :destroy]
+  before_action :set_user, only: [:show, :new]
 
   def index
     if params[:query].present?
@@ -13,7 +13,8 @@ class CoursesController < ApplicationController
 
   def show
     @user = current_user
-    @user_start_course = @user.courses.include?(@course) if @user
+    @user_start_course = @user.users_courses.find_by_course_id(@course.id) if @user
+    @user_start_course = @user_start_course..is_started if @user_start_course
     if @user_start_course && !@course.can_pass?(@user)
       @progress = @user.progress(@course)
       @passed_pages_ids = @user.passed_pages_ids(@course)
@@ -30,13 +31,17 @@ class CoursesController < ApplicationController
 
   def create
     @course = Course.new(course_params)
-    if @course.author_type == "User" && @course.author_id==nil
+    if @course.author_type == "User"
       @course.author = current_user
     end
 
     respond_to do |format|
       if @course.save
+        if @course.permission == "Individual"
+          format.html { redirect_to course_add_users_individual_course_path(@course), notice: 'Course was successfully created.' }
+        else
         format.html { redirect_to course_pages_path(@course), notice: 'Course was successfully created.' }
+        end
         format.json { render :show, status: :created, location: @course }
       else
         format.html { render :new}
@@ -69,30 +74,7 @@ class CoursesController < ApplicationController
     render json: Course.search(params[:query], autocomplete: true, limit: 10).map(&:title)
   end
 
-  def start_course
-    if @course.permission == "Public"
-      can_start_course
-    elsif @course.permission == "In organization"
-      if @user.member_of_organization?(@course.author)
-        can_start_course
-      else
-        flash[:success] =  "Only members of the organization is available to start course"
-        redirect_to course_path
-      end
-    end
-  end
-
   private
-
-  def can_start_course
-    user_course = UsersCourse.new(user_id: @user.id, course_id: @course.id)
-    if user_course.save
-      flash[:success] =  "Course is started"
-    else
-      flash[:success] =  "Course is not started"
-    end
-    redirect_to course_path
-  end
 
   def set_user
     @user = current_user

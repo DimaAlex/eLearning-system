@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
     user_course = users_courses.find_by_course_id(course.id)
     user_course_pages_passed = user_course.users_courses_pages.count
     all_course_pages = course.pages.count
-    (100 *user_course_pages_passed / all_course_pages)
+    (100 *user_course_pages_passed / all_course_pages) if all_course_pages!=0
   end
 
   def passed_pages_ids(course)
@@ -47,6 +47,6 @@ class User < ActiveRecord::Base
   end
 
   def member_of_organization?(organization)
-    users_organizations.map {|x| x.organization}.include?(organization)
+    organizations.include?(organization)
   end
 end
