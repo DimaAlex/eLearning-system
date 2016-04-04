@@ -4,6 +4,6 @@
       - unless @pages.empty?
         h2
           = "Class Curriculum"
-      = render "pages", pages: @pages
+      = render "pages", pages: @pages, passed_pages_ids: nil
     .col-md-6
       = render "page_form"
