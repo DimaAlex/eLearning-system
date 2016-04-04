@@ -58,7 +58,7 @@ gem 'bxslider-rails', '~> 4.2', '>= 4.2.5.1'
 gem 'rangesliderjs-rails', '~> 2.0', '>= 2.0.5'
 
 gem 'will_paginate', '~> 3.0.6'
-
+gem 'will_paginate-bootstrap'
 gem 'pretender'
 gem 'audited', '~> 4.0'
 gem 'faker'
