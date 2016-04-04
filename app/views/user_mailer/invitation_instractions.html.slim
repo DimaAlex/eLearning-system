@@ -1,7 +1,8 @@
 p
   = t("devise.mailer.invitation_instructions.hello", email: @user.email)
 p
-  = t("devise.mailer.invitation_instructions.someone_invited_you", url: @organization.title)
+  = "#{ @current_user.first_name } #{ @current_user.last_name } has invited you to #{ @organization.title }"
+  |, you can accept it through the link below."
 p
   = link_to @organization.title, organization_url(@organization)
 p
