@@ -25,9 +25,8 @@
                 = current_user.first_name
               - else
                 = "#{current_user.first_name} #{current_user.last_name}"
-                img.img-circle
-                  = image_tag current_user.avatar.url(:thumb), :class => "avatar-header"
-
+              img.img-circle
+                = image_tag current_user.avatar.url(:thumb), :class => "avatar-header"
               span.caret
             - if current_user.present?
               ul.dropdown-menu
@@ -39,8 +38,6 @@
                   li = link_to "BACK TO ADMIN", stop_impersonate_path
                 - else
                   li = link_to 'LOG OUT', destroy_user_session_path, :method => :delete
-
-
       - else
         ul.nav.navbar-nav.ul-right
           li.nav-text-color.header-box
