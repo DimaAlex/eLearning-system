@@ -55,6 +55,7 @@ gem 'puma'
 gem 'chartist-rails'
 gem 'chartkick', '~> 1.4', '>= 1.4.2'
 gem 'bxslider-rails', '~> 4.2', '>= 4.2.5.1'
+gem 'rangesliderjs-rails', '~> 2.0', '>= 2.0.5'
 
 gem 'will_paginate', '~> 3.0.6'
 
@@ -78,4 +79,3 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
-

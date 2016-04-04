@@ -25,6 +25,5 @@
 //= require bxslider
 //= require twitter/typeahead.min
 //= require nouislider
+//= require rangeslider
 //= require_tree .
-
-
