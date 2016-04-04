@@ -1,8 +1,7 @@
 class UserMailer < ApplicationMailer
-  def invitation_instractions(user, current_user, organization)
-    @user = user
+  def invitation_instractions(email, organization)
+    @email = email
     @organization  = organization
-    @current_user = current_user
-    mail(to: @user.email, subject: 'Invitation instructions')
+    mail(to: @email, subject: 'Invitation instructions')
   end
 end

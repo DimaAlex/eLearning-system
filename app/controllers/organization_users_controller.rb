@@ -29,7 +29,7 @@ class OrganizationUsersController < ApplicationController
       @organization.users << uniq_users
 
       uniq_users.each do |user|
-        UserMailer.invitation_instractions(user, current_user, @organization).deliver_later
+        UserMailer.invitation_instractions(user, @organization).deliver_later
       end
 
       redirect_to organization_path(@organization), notice: 'User(s) added.'
@@ -50,7 +50,7 @@ class OrganizationUsersController < ApplicationController
 
   def users_in_org
     if can? :write, @organization
-      @users_in_org = @organization.users.usual_users_in_org.paginate(:page => params[:page], :per_page => 20)
+      @users_in_org = @organization.users.not_org_admins.paginate(:page => params[:page], :per_page => 20)
     else
       redirect_to organization_path(@organization), notice: "You can't do this."
     end
@@ -59,9 +59,9 @@ class OrganizationUsersController < ApplicationController
   def import_users_from_file
     begin
       User.import(params[:file], @organization)
-      redirect_to organization_path(@organization), notice: 'Users added.'
+      redirect_to organization_path(@organization), notice: 'User(s) added.'
     rescue
-      redirect_to organization_path(@organization), notice: 'Invalid CSV file format.'
+      redirect_to organization_add_users_to_org_path(@organization), notice: 'Invalid CSV file format.'
     end
   end
 

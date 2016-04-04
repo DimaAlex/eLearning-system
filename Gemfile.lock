@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (4.10.0)
     actionmailer (4.2.5)
       actionpack (= 4.2.5)
       actionview (= 4.2.5)
@@ -123,6 +124,8 @@ GEM
     elasticsearch-transport (1.0.15)
       faraday
       multi_json
+    email_validator (1.6.0)
+      activemodel
     erubis (2.7.0)
     execjs (2.6.0)
     factory_girl (4.5.0)
@@ -337,6 +340,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   audited (~> 4.0)
   awesome_print (= 1.6.1)
   bootstrap-material-design (~> 0.2.2)
@@ -352,6 +356,7 @@ DEPENDENCIES
   devise (~> 3.5, >= 3.5.6)
   devise-bootstrap-views
   devise_invitable (~> 1.5.2)
+  email_validator
   factory_girl_rails (~> 4.6)
   faker
   figaro

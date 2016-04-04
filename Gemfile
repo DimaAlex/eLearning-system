@@ -60,6 +60,10 @@ gem 'will_paginate', '~> 3.0.6'
 gem 'pretender'
 gem 'audited', '~> 4.0'
 gem 'faker'
+
+gem 'aasm'
+gem 'email_validator'
+
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.6'
   gem 'byebug'

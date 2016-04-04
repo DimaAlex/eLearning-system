@@ -7,8 +7,12 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.is_admin
       can :manage, :all
+      cannot :follow, Organization
     else
       can :read, Organization
+      can :follow, Organization
+      #can :follow, Organization, id: User.joins(:users_organizations).where.not(users_organizations: { user_id: user.id }).pluck(:organization_id)
+      #can :leave, Organization, id: UsersOrganization.where(user_id: user.id, is_org_admin: false).pluck(:organization_id)
       can :write, Organization, id: UsersOrganization.where(user_id: user.id, is_org_admin: true).pluck(:organization_id)
     end
 
