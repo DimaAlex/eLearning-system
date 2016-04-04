@@ -5,10 +5,10 @@
     = f.label "Title"
     = f.input :title,label: false, autofocus: true, class: 'form-control'
     = f.label "Permission"
-    = f.input :permission, label: false, as: :radio_buttons,
-            collection: ['Public', 'In organization', 'Individual'],
-            checked: 'Public'
     - if !@organizations_user_org_admin.empty?
+      = f.input :permission, label: false, as: :radio_buttons,
+              collection: ['Public', 'In organization', 'Individual'],
+              checked: 'Public'
       = f.label "Author"
       = f.input :author_type, label: false, as: :radio_buttons,
               collection: ['Organization','User'],
@@ -17,6 +17,9 @@
         = f.label "Select organization"
         = f.input :author_id, label: false, as: :select, collection: @organizations_user_org_admin,selected: @organizations_user_org_admin.first
     -else
+      = f.input :permission, label: false, as: :radio_buttons,
+              collection: ['Public', 'Individual'],
+              checked: 'Public'
       = f.input :author, as: :hidden, :input_html => { value: @user }
     = f.label "Add image to course"
     = f.file_field :image
