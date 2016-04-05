@@ -1,0 +1,9 @@
+- courses.each do |course|
+  .panel.panel-default
+    .panel-body
+      .col-md-3
+        = image_tag course.image.url(:thumb)
+      .col-md-8
+        h4
+          = link_to course.title, course_path(course)
+        = render "courses/progress", progress: @user.progress(course)
