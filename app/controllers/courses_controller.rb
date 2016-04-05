@@ -44,9 +44,21 @@ class CoursesController < ApplicationController
         end
         format.json { render :show, status: :created, location: @course }
       else
-        format.html { render :new}
+        format.html { render :new }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def create_users_courses
+    user_with_course = UsersCourse.where(user_id: params[:course][:user_id], course_id: params[:course][:course_id].to_i)
+    if user_with_course.empty?
+      @estimation = UsersCourse.new(user_course_params)
+      @estimation.save
+      redirect_to :back
+    else
+      user_with_course.first.update(estimation: params[:course][:estimation])
+      redirect_to :back
     end
   end
 
@@ -98,4 +110,9 @@ class CoursesController < ApplicationController
     def course_params
       params.require(:course).permit(:title, :image, :permission, :certificate_template, :author_type, :author_id)
     end
+
+    def user_course_params
+      params.require(:course).permit(:user_id, :course_id, :estimation)
+    end
+
 end
