@@ -14,7 +14,8 @@ class Course < ActiveRecord::Base
 
   has_attached_file :certificate_template,
                     :path => ":rails_root/public/system/courses/:attachment/000/000/0:id/:style/:normalized_video_file_name",
-                    :url => "/system/:attachment/:id/:style/:normalized_video_file_name"
+                    :url => "/system/:attachment/:id/:style/:normalized_video_file_name",
+                    :default_url => ":rails_root/public/system/test_form.pdf"
 
   Paperclip.interpolates :normalized_video_file_name do |attachment, style|
     attachment.instance.normalized_video_file_name
@@ -26,4 +27,7 @@ class Course < ActiveRecord::Base
 
   validates_attachment :certificate_template, :content_type => { :content_type => %w(application/pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document) }
 
+  def can_pass?(user)
+    author == user || (author_type == "Organization" && author.is_org_admin?(user))
+  end
 end

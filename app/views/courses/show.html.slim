@@ -10,14 +10,26 @@
           h1
             = @course.title
           .page-header
+            = label_tag "Type: "
+            .pad
+              = @course.permission
+            br
             = label_tag "Created by: "
             .pad
-              = "#{@course.author.first_name} #{@course.author.last_name}"
-              i.glyphicon.glyphicon-user
+              -if @course.author_type == "User"
+                = link_to user_profile_path(@course.author), class: "btn btn-default" do
+                  = "#{@course.author.first_name} #{@course.author.last_name}"
+                  i.glyphicon.glyphicon-user
+              -else
+                = link_to organization_path(@course.author), class: "btn btn-default" do
+                  = @course.author.title
+                  i.glyphicon.glyphicon-home
           div
-            - unless @course.author == @user
+            - unless @course.can_pass?(@user)
               - if @user_start_course
                 = render 'progress'
+                - if @progress == 100
+                  = render 'courses/estimation'
               - else
                 = link_to "Start course", start_course_path(course_id: @course.id), class: "btn btn-danger"
       .col-md-8

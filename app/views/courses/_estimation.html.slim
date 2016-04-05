@@ -1,0 +1,44 @@
+.col-lg-12
+  button.btn.btn-danger data-toggle="modal" data-target="#modal-1" Finish
+
+.modal.fade#modal-1
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close aria-hidden="true" data-dismiss="modal" type="button"  ×
+        h4.modal-title Please evaluate the course
+      .modal-body.range-input
+        = form_for Course.new, url: { action: "create_users_courses" } do |f|
+          = f.range_field :estimation, min: "-10", max: "10", step: "1", value: "0"
+          = f.hidden_field :course_id, :value => @course.id
+          = f.hidden_field :user_id, :value => current_user.id
+          .modal-footer
+            button.btn.btn-default.btn-close data-dismiss="modal" type="button" Close
+            = f.submit "Save", class: "btn btn-raised btn-danger"
+
+javascript:
+  var valueBubble = '<output class="rangeslider__value-bubble" />';
+
+  function updateValueBubble(pos, value, context) {
+  pos = pos || context.position;
+  value = value || context.value;
+  var $valueBubble = $('.rangeslider__value-bubble', context.$range);
+  var tempPosition = pos + context.grabPos;
+  var position = (tempPosition <= context.handleDimension) ? context.handleDimension : (tempPosition >= context.maxHandlePos) ? context.maxHandlePos : tempPosition;
+
+  if ($valueBubble.length) {
+    $valueBubble[0].style.left = Math.ceil(position) + 'px';
+    $valueBubble[0].innerHTML = value;
+  }
+  }
+
+  $('input[type="range"]').rangeslider({
+  polyfill: false,
+  onInit: function() {
+    this.$range.append($(valueBubble));
+    updateValueBubble(null, null, this);
+  },
+  onSlide: function(pos, value) {
+    updateValueBubble(pos, value, this);
+  }
+  });

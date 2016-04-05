@@ -18,3 +18,8 @@ end
   organization = Organization.create(title: Faker::Company.name, phone: Faker::PhoneNumber.cell_phone, description: Faker::Lorem.paragraph(2))
   organization.save
 end
+
+20.times do |i|
+  imper = AdminsImpersonation.create(user_id: 1, admin_id: 31)
+  imper.save
+end
