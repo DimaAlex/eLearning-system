@@ -4,4 +4,10 @@ class UserMailer < ApplicationMailer
     @organization  = organization
     mail(to: @user.email, subject: 'Invitation instructions')
   end
+
+  def invitation_to_course(user, course)
+    @user = user
+    @course = course
+    mail(to: @user.email, subject: 'Invitation to individual course')
+  end
 end

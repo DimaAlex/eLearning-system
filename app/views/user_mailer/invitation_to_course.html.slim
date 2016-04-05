@@ -1,0 +1,8 @@
+p
+  = t("devise.mailer.invitation_instructions.hello", email: @user.email)
+p
+    = t("devise.mailer.invitation_instructions.someone_invited_you", url: @course.title)
+p
+  = link_to @course.title, course_url(@course)
+p
+  = t("devise.mailer.invitation_instructions.ignore").html_safe
