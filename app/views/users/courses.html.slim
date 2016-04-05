@@ -1,0 +1,12 @@
+body
+  .container.marketing
+    .row
+      - @courses.each do |course|
+        .col-lg-4
+          .well
+            = image_tag course.image.url(:medium), class: "img img-circle"
+            h2
+              = course.title
+              p
+              a.btn.btn-danger[href=course_path(course) role="button"]
+                | View details »
