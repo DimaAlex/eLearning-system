@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330211825) do
+ActiveRecord::Schema.define(version: 20160402144125) do
 
   create_table "admins_impersonations", force: :cascade do |t|
     t.integer  "user_id",             limit: 4
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 20160330211825) do
     t.integer  "course_id",  limit: 4
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.boolean  "is_started"
   end
 
   add_index "users_courses", ["course_id"], name: "index_users_courses_on_course_id", using: :btree

@@ -1,6 +1,7 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :start_course]
-  before_action :check_user, only: [:new, :edit, :create, :destroy, :start_course]
+  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :check_user, only: [:new, :edit, :create, :destroy]
+  before_action :set_user, only: [:show, :new]
 
   def index
     if params[:query].present?
@@ -12,8 +13,9 @@ class CoursesController < ApplicationController
 
   def show
     @user = current_user
-    @user_start_course = @user.courses.include?(@course) if @user
-    if @user_start_course
+    @user_start_course = @user.users_courses.find_by_course_id(@course.id) if @user
+    @user_start_course = @user_start_course.is_started if @user_start_course
+    if @user_start_course && !@course.can_pass?(@user)
       @progress = @user.progress(@course)
       @passed_pages_ids = @user.passed_pages_ids(@course)
     end
@@ -21,6 +23,7 @@ class CoursesController < ApplicationController
 
   def new
     @course = Course.new
+    @organizations_user_org_admin= @user.users_organizations.where(is_org_admin: true).map {|x| x.organization}
   end
 
   def edit
@@ -28,11 +31,17 @@ class CoursesController < ApplicationController
 
   def create
     @course = Course.new(course_params)
-    @course.author = current_user
+    if @course.author_type == "User"
+      @course.author = current_user
+    end
 
     respond_to do |format|
       if @course.save
+        if @course.permission == "Individual"
+          format.html { redirect_to course_add_users_individual_course_path(@course), notice: 'Course was successfully created.' }
+        else
         format.html { redirect_to course_pages_path(@course), notice: 'Course was successfully created.' }
+        end
         format.json { render :show, status: :created, location: @course }
       else
         format.html { render :new}
@@ -69,18 +78,11 @@ class CoursesController < ApplicationController
     send_file TestPdfForm.new(@user).export, type: 'application/pdf'
   end
 
-  def start_course
-    @user = current_user
-    user_course = UsersCourse.new(user_id: @user.id, course_id: @course.id)
-    if user_course.save
-      flash[:success] =  "Course is started"
-    else
-      flash[:success] =  "Course is not started"
-    end
-    redirect_to course_path
-  end
-
   private
+
+  def set_user
+    @user = current_user
+  end
 
     def check_user
       unless current_user
@@ -94,6 +96,6 @@ class CoursesController < ApplicationController
     end
 
     def course_params
-      params.require(:course).permit(:title, :image, :permission, :certificate_template)
+      params.require(:course).permit(:title, :image, :permission, :certificate_template, :author_type, :author_id)
     end
 end

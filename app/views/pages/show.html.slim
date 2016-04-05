@@ -14,7 +14,7 @@
         .page-header
           h2
             = @page.course.title
-          - unless @page.course.author == @user
+          - unless @page.course.can_pass?(@user)
             = render 'courses/progress'
         = render "pages/pages", pages: @pages, passed_pages_ids: @passed_pages_ids
       .col-md-8

@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   resources :courses do
     resources :pages
+    get 'add_users_individual_course', to: 'users_courses#add_users_individual_course'
+    post 'create_users_individual_course', to: 'users_courses#create_users_individual_course'
   end
   root to: 'home#index'
 
@@ -19,7 +21,8 @@ Rails.application.routes.draw do
       get :autocomplete
     end
   end
-  match '/courses/:id/start_course' => 'courses#start_course', via: [:get, :post], :as => :start_course
+
+  match '/courses/:id/start_course' => 'users_courses#start_course', via: [:get, :post], :as => :start_course
   match '/courses/:course_id/pages/:id/finish_page' => 'pages#finish_page', via: [:get, :post], :as => :finish_page
 
   get 'admin', to: 'admin#index'
