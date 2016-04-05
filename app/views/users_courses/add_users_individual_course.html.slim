@@ -1,0 +1,4 @@
+= simple_form_for @course, url: course_create_users_individual_course_url(@course), method: :post do |f|
+  = f.label "Choose users"
+  = f.select(:users, @users_not_in_list.collect { |u| [u.email, u.id] }, {}, {multiple: true, class: "chosen-select form-control"})
+  = f.button :submit, 'Add users', class: 'btn btn-primary btn-raised', onclick: 'form_slideUp()'

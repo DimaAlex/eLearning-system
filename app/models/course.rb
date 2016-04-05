@@ -27,4 +27,7 @@ class Course < ActiveRecord::Base
 
   validates_attachment :certificate_template, :content_type => { :content_type => %w(application/pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document) }
 
+  def can_pass?(user)
+    author == user || (author_type == "Organization" && author.is_org_admin?(user))
+  end
 end

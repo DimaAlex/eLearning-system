@@ -191,6 +191,7 @@ ActiveRecord::Schema.define(version: 20160404091802) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "estimation", limit: 4
+    t.boolean  "is_started"
   end
 
   add_index "users_courses", ["course_id"], name: "index_users_courses_on_course_id", using: :btree
