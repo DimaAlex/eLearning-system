@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :courses, as: :author
 
   has_many :users_organizations, class_name: 'UsersOrganization'
+  has_many :invitations, :class_name => 'User', :as => :invited_by
   has_many :organizations, through: :users_organizations
   has_many :certificates
 
@@ -34,17 +35,18 @@ class User < ActiveRecord::Base
     CSV.foreach(file.path) do |email|
       if EmailValidator.valid?(email.first)
         user = User.find_by_email(email.first)
-
         if user
-          uo = UsersOrganization.new(user_id: user.id, organization_id: organization.id, state: :invited)
-          if uo.save
-            UserMailer.invitation_instractions(email.first, organization).deliver_later
-          end
-
+          UserMailer.invitation_instractions(user.email, organization).deliver_later
+        else
+          User.invite!(email: email.first)
         end
+
+        if organization.users.exclude?(user)
+          organization.users_organizations.create(user_id: User.find_by_email(email.first).id, state: :invited)
+        end
+        
       end
 
-      #organization.users << user
     end
   end
 

@@ -23,10 +23,14 @@ class OrganizationUsersController < ApplicationController
     if @users.empty?
       redirect_to organization_add_users_to_org_path(@organization), notice: 'There is no users to add in organization.'
     else
-      uniq_users = []
-      @users.each { |user| uniq_users << user unless @organization.users.include?(user) }
+      uniq_users = @users - @organization.users
+      users_org = []
 
-      @organization.users << uniq_users
+      uniq_users.each do |user|
+        users_org << { user_id: user.id, state: :invited }
+      end
+
+      @organization.users_organizations.create(users_org)
 
       uniq_users.each do |user|
         UserMailer.invitation_instractions(user, @organization).deliver_later
@@ -40,12 +44,24 @@ class OrganizationUsersController < ApplicationController
   def create_org_admins_in_org
     @org_admins = User.where(id: params.require(:organization).permit(users:[])[:users])
 
-    @org_admins.each do |org_admin|
-      oa = @organization.users_organizations.build(user_id: org_admin.id, is_org_admin: true)
-      oa.save
+    if @org_admins.empty?
+      redirect_to organization_add_org_admins_to_org_path(@organization), notice: 'There is no users to add.'
+    else
+      uniq_users = []
+      @org_admins.each do |admin|
+        if @organization.users.include?(admin)
+          uo = @organization.users_organizations.find_by_user_id(admin.id)
+          uo.update_attributes(is_org_admin: true)
+        else
+          uniq_users << { user_id: admin.id, is_org_admin: true }
+        end
+      end
+
+      @organization.users_organizations.create(uniq_users)
+
+      redirect_to organization_path(@organization), notice: 'Admin(s) of organization added.'
     end
 
-    redirect_to organization_path(@organization)
   end
 
   def users_in_org
@@ -68,6 +84,6 @@ class OrganizationUsersController < ApplicationController
   private
 
   def set_organization
-    @organization = Organization.find(params[:organization_id])
+    @organization = Organization.includes(:users).find(params[:organization_id])
   end
 end
