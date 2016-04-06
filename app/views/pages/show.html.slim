@@ -15,7 +15,7 @@
           h2
             = @page.course.title
           - unless @page.course.can_pass?(@user)
-            = render 'courses/progress'
+            = render 'courses/progress', progress: @progress
         = render "pages/pages", pages: @pages, passed_pages_ids: @passed_pages_ids
       .col-md-8
         .row
