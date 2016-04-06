@@ -3,9 +3,19 @@ Rails.application.routes.draw do
     get 'all_users', to: 'organization_users#users_in_org'
     get 'add_users_to_org', to: 'organization_users#add_users_to_org'
     get 'add_org_admins_to_org', to: 'organization_users#add_org_admins_to_org'
+
     post 'create_users', to: 'organization_users#create_users_in_org'
     post 'create_org_admins', to: 'organization_users#create_org_admins_in_org'
     post 'import', to: 'organization_users#import_users_from_file', as: 'import_users'
+
+    put 'accept', to: 'invitation#accept_on_invite', as: 'invitation_accept'
+    put 'reject', to: 'invitation#reject_on_invite', as: 'invitation_reject'
+
+    post 'follow', to: 'invitation#follow_on_organization'
+    post 'leave', to: 'invitation#leave_organization'
+
+    put '/user/:user_id/accept_request', to: 'invitation#accept_request_on_entrance', as: 'accept_request'
+    put '/user/:user_id/reject_request', to: 'invitation#reject_request_on_entrance', as: 'reject_request'
   end
 
   resources :courses do

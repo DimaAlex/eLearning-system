@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :courses, as: :author
 
   has_many :users_organizations, class_name: 'UsersOrganization'
+  has_many :invitations, :class_name => 'User', :as => :invited_by
   has_many :organizations, through: :users_organizations
   has_many :certificates
 
@@ -15,7 +16,10 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :input_user_answers, allow_destroy: true
   scope :org_admins, -> { joins(:users_organizations).where('users_organizations.is_org_admin  = ?', true) }
-  scope :usual_users_in_org, -> { joins(:users_organizations).where('users_organizations.is_org_admin  = ?', false) }
+  scope :not_org_admins, -> { joins(:users_organizations).where('users_organizations.is_org_admin  = ?', false) }
+  scope :invited_users, -> { joins(:users_organizations).where('users_organizations.state  = ?', :invited) }
+  scope :followed_users, -> { joins(:users_organizations).where('users_organizations.state  = ?', :followed) }
+  scope :in_organization, -> { joins(:users_organizations).where('users_organizations.state  = ?', :in_organization) }
 
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "38x38>", avatar:"20x20" }, default_url: ":style/missing_avatar.jpg"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
@@ -30,8 +34,20 @@ class User < ActiveRecord::Base
 
   def self.import(file, organization)
     CSV.foreach(file.path) do |email|
-      User.invite!(email: email.first)
-      organization.users << User.where(email: email)
+      if EmailValidator.valid?(email.first)
+        user = User.find_by_email(email.first)
+        if user
+          UserMailer.invitation_instractions(user.email, organization).deliver_later
+        else
+          User.invite!(email: email.first)
+        end
+
+        if organization.users.exclude?(user)
+          organization.users_organizations.create(user_id: User.find_by_email(email.first).id, state: :invited)
+        end
+
+      end
+
     end
   end
 
