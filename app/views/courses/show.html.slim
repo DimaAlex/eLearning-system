@@ -9,6 +9,12 @@
           = image_tag @course.image.url(:medium)
           h1
             = @course.title
+            = link_to course_like_course_path(@course), method: :post, class: "btn btn-default" do
+              .star
+                -if @is_liked && @is_liked == true
+                  i.glyphicon.glyphicon-star
+                -else
+                  i.glyphicon.glyphicon-star-empty
           .page-header
             = label_tag "Type: "
             .pad
