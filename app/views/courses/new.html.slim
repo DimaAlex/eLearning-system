@@ -20,7 +20,7 @@
       = f.input :permission, label: false, as: :radio_buttons,
               collection: ['Public', 'Individual'],
               checked: 'Public'
-      = f.input :author, as: :hidden, :input_html => { value: @user }
+      = f.input :author_type, as: :hidden, :input_html => { value: "User" }
     = f.label "Add image to course"
     = f.file_field :image
     br

@@ -1,4 +1,6 @@
-= render 'home/search'
-- unless user_signed_in?
+- if user_signed_in?
+  = render 'home/user_courses'
+- else
+  = render 'home/search'
   = render 'home/geo'
 

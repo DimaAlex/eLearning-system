@@ -1,0 +1,19 @@
+- if courses.empty?
+   h4
+     = "No courses"
+- else
+  h4
+    = note
+  - courses.each do |course|
+    .panel.panel-default
+      .panel-body
+        .col-md-3
+          = image_tag course.image.url(:thumb)
+        .col-md-8
+          h4
+            = link_to course.title, course_path(course)
+          - if @user.course_finished?(course)
+            .timestamp
+              = "Курс закончен #{@user.users_courses.find_by_course_id(course.id).updated_at.strftime("%d.%m.%Y в %I:%M %p")}"
+          - else
+            = render "courses/progress", progress: @user.progress(course)
