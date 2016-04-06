@@ -2,11 +2,26 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$(document).ready ->
+home_page = ->
+  $('#finished-courses').hide()
+
+  $(document).on 'click', '#current_courses_button', ->
+    $('#finished-courses').hide()
+    $('#current-courses').show()
+    return
+
+  $(document).on 'click', '#finished_courses_button', ->
+    $('#finished-courses').show()
+    $('#current-courses').hide()
+    return
+
   $('.dropdown-toggle').dropdown()
   return
 
-$ ->
-  $('#course_search').typeahead
-    name: "course"
-    remote: "/courses/autocomplete?query=%QUERY"
+  $ ->
+    $('#course_search').typeahead
+      name: "course"
+      remote: "/courses/autocomplete?query=%QUERY"
+
+$(document).ready home_page
+$(document).on 'page:load', home_page

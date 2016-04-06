@@ -39,7 +39,22 @@ class User < ActiveRecord::Base
     user_course = users_courses.find_by_course_id(course.id)
     user_course_pages_passed = user_course.users_courses_pages.count
     all_course_pages = course.pages.count
-    (100 *user_course_pages_passed / all_course_pages) if all_course_pages!=0
+    progress = (100 *user_course_pages_passed / all_course_pages) if all_course_pages!=0
+    check_finish(user_course, progress)
+  end
+
+  def check_finish(user_course, progress)
+    if progress == 100
+      user_course.is_started = false
+      user_course.is_finished = true
+      user_course.save
+    end
+    progress
+  end
+
+  def course_finished?(course)
+    user_course = users_courses.find_by_course_id(course.id)
+    user_course.is_finished
   end
 
   def passed_pages_ids(course)

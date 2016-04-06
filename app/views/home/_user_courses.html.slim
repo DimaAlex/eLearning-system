@@ -3,9 +3,11 @@
     h2
       = "My courses"
     .btn-group
-      = link_to "Current", "#", class: "btn btn-default"
-      = link_to "Finished", "#", class: "btn btn-default"
+      = link_to "Current", "#", id: "current_courses_button", class: "btn btn-default"
+      = link_to "Finished", "#", id: "finished_courses_button", class: "btn btn-default"
       = link_to "#", class: "btn btn-default" do
         i.glyphicon.glyphicon-star
     #current-courses
-      = render "home/list_of_courses", courses: @current_courses
+      = render "home/list_of_courses", courses: @current_courses, note: "Current courses"
+    #finished-courses
+      = render "home/list_of_courses", courses: @finished_courses, note: "Finished courses"
