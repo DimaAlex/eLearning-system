@@ -15,5 +15,5 @@
           - if @user.course_finished?(course)
             .timestamp
               = "Курс закончен #{@user.users_courses.find_by_course_id(course.id).updated_at.strftime("%d.%m.%Y в %I:%M %p")}"
-          - else
+          - elsif started
             = render "courses/progress", progress: @user.progress(course)

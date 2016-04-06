@@ -5,9 +5,11 @@
     .btn-group
       = link_to "Current", "#", id: "current_courses_button", class: "btn btn-default"
       = link_to "Finished", "#", id: "finished_courses_button", class: "btn btn-default"
-      = link_to "#", class: "btn btn-default" do
+      = link_to "#",id: "liked_courses_button", class: "btn btn-default" do
         i.glyphicon.glyphicon-star
     #current-courses
-      = render "home/list_of_courses", courses: @current_courses, note: "Current courses"
+      = render "home/list_of_courses", courses: @current_courses, note: "Current courses", started: true
     #finished-courses
-      = render "home/list_of_courses", courses: @finished_courses, note: "Finished courses"
+      = render "home/list_of_courses", courses: @finished_courses, note: "Finished courses", started: false
+    #liked-courses
+      = render "home/list_of_courses", courses: @liked_courses, note: "Liked courses", started: false
