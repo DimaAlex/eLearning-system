@@ -26,7 +26,8 @@ Rails.application.routes.draw do
   match '/courses/:course_id/pages/:id/finish_page' => 'pages#finish_page', via: [:get, :post], :as => :finish_page
 
   get 'admin', to: 'admin#index'
-  get '/user/:id=', to: 'users#profile', as: 'user_profile'
+  get '/user/:id', to: 'users#profile', as: 'user_profile'
+  get 'user/courses/:id', to: 'users#courses', as: 'users_courses'
   resources :input_user_answers, only: [:create, :update]
   get '/user/show', to: 'users#show'
 
@@ -49,6 +50,9 @@ Rails.application.routes.draw do
       post :empty_trash
     end
   end
+
+  resources :estimation
+  post "create_users_courses/:id" => "courses#create_users_courses", as: :create_users_courses
 
   get "org_admins/:id/impersonate" => "org_admins#impersonate", as: :impersonate
   get "org_admins/not_impersonate" => "org_admins#stop_impersonate", as: :stop_impersonate
