@@ -10,4 +10,8 @@ module UserHelper
   def user_in_organization?(organization)
     organization.users.in_organization.include?(current_user)
   end
+
+  def state(user, organization)
+    user.users_organizations.find_by_organization_id(organization.id)
+  end
 end

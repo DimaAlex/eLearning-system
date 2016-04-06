@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   scope :org_admins, -> { joins(:users_organizations).where('users_organizations.is_org_admin  = ?', true) }
   scope :not_org_admins, -> { joins(:users_organizations).where('users_organizations.is_org_admin  = ?', false) }
   scope :invited_users, -> { joins(:users_organizations).where('users_organizations.state  = ?', :invited) }
+  scope :followed_users, -> { joins(:users_organizations).where('users_organizations.state  = ?', :followed) }
   scope :in_organization, -> { joins(:users_organizations).where('users_organizations.state  = ?', :in_organization) }
 
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "38x38>", avatar:"20x20" }, default_url: ":style/missing_avatar.jpg"
@@ -44,7 +45,7 @@ class User < ActiveRecord::Base
         if organization.users.exclude?(user)
           organization.users_organizations.create(user_id: User.find_by_email(email.first).id, state: :invited)
         end
-        
+
       end
 
     end

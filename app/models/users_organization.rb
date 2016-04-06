@@ -14,10 +14,12 @@ class UsersOrganization < ActiveRecord::Base
 
     event :accept do
       transitions :from => :invited, :to => :in_organization
+      transitions :from => :followed, :to => :in_organization
     end
 
     event :reject do
-      transitions :from => :rejected, :to => :in_organization
+      transitions :from => :invited, :to => :rejected
+      transitions :from => :followed, :to => :rejected
     end
 
     event :leave do

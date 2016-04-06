@@ -31,6 +31,21 @@ class InvitationController < ApplicationController
     end
   end
 
+  def accept_request_on_entrance
+    uo = UsersOrganization.where(user_id: params[:user_id], organization_id: current_organization.id).distinct
+    uo.first.accept!
+
+    redirect_to organization_all_users_path(current_organization)
+  end
+
+  def reject_request_on_entrance
+    uo = UsersOrganization.where(user_id: params[:user_id], organization_id: current_organization.id).distinct
+    uo.first.reject!
+
+    redirect_to organization_all_users_path(current_organization)
+  end
+
+
   private
 
   def current_organization
