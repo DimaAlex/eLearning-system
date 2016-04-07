@@ -11,7 +11,7 @@ class OrganizationUsersController < ApplicationController
 
   def add_org_admins_to_org
     if can? :write, @organization
-      @users_without_admin = User.where(is_admin: false) - @organization.users.org_admins
+      @users_without_admin = User.where(is_admin: false) - @organization.users.org_admins - User.invitation_not_accepted
     else
       redirect_to organization_path(@organization), notice: "You can't do this."
     end
@@ -33,7 +33,7 @@ class OrganizationUsersController < ApplicationController
       @organization.users_organizations.create(users_org)
 
       uniq_users.each do |user|
-        UserMailer.invitation_instractions(user, @organization).deliver_later
+        UserMailer.invitation_instractions(user.email, @organization).deliver_later
       end
 
       redirect_to organization_path(@organization), notice: 'User(s) added.'
