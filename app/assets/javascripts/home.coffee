@@ -25,3 +25,4 @@ home_page = ->
 
 $(document).ready home_page
 $(document).on 'page:load', home_page
+
