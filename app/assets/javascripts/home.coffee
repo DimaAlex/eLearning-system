@@ -5,6 +5,10 @@
 home_page = ->
   $('#finished-courses').hide()
 
+  $('.carousel').carousel({
+    interval: 3000
+    })
+
   $(document).on 'click', '#current_courses_button', ->
     $('#finished-courses').hide()
     $('#current-courses').show()
