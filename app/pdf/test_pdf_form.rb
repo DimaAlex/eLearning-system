@@ -1,6 +1,6 @@
 class TestPdfForm < FillablePdfForm
 
-  def initialize(user, course = Course.last)
+  def initialize(user, course)
     @user = user
     @course = course
     super(@course)

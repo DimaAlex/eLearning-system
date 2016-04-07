@@ -1,0 +1,16 @@
+.col-lg-12
+  button.btn.btn-danger data-toggle="modal" data-target="#modal-1" Certificate
+
+.modal.fade#modal-1
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close aria-hidden="true" data-dismiss="modal" type="button"  ×
+        h4.modal-title Hello
+      .modal-body
+        = form_for Course.new, url: { action: "course_result" } do |f|
+          = f.hidden_field :course_id, :value => @course.id
+          = f.hidden_field :user_id, :value => current_user.id
+          .modal-footer
+            button.btn.btn-default.btn-close data-dismiss="modal" type="button" Close
+            = f.submit "Save", class: "btn btn-raised btn-danger"

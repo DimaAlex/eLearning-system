@@ -15,6 +15,10 @@ class CoursesController < ApplicationController
     @user = current_user
     @user_start_course = @user.users_courses.find_by_course_id(@course.id) if @user
     @user_start_course = @user_start_course.is_started if @user_start_course
+    @user_finish_course = @user.users_courses.find_by_course_id(@course.id) if @user
+    @user_finish_course = @user_finish_course.is_finished if @user_finish_course
+    @user_estimation = @user.users_courses.find_by_course_id(@course.id) if @user
+    @user_estimation = @user_estimation.estimation if @user_estimation
     if @user_start_course && !@course.can_pass?(@user)
       @progress = @user.progress(@course)
       @passed_pages_ids = @user.passed_pages_ids(@course)
@@ -62,6 +66,12 @@ class CoursesController < ApplicationController
     end
   end
 
+  def course_result
+    @user_certificate = User.find(params[:course][:user_id])
+    @course_certificate = Course.find(params[:course][:course_id])
+    pdf_source = TestPdfForm.new(@user_certificate, @course_certificate).export
+  end
+
   def update
     respond_to do |format|
       if @course.update(course_params)
@@ -86,9 +96,6 @@ class CoursesController < ApplicationController
     render json: Course.search(params[:query], autocomplete: true, limit: 10).map(&:title)
   end
 
-  def issue_сertificate
-    send_file TestPdfForm.new(@user).export, type: 'application/pdf'
-  end
 
   private
 
