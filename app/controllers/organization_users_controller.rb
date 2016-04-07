@@ -18,12 +18,12 @@ class OrganizationUsersController < ApplicationController
   end
 
   def create_users_in_org
-    @users = User.where(id: params.require(:organization).permit(users:[])[:users])
+    users = User.where(id: params.require(:organization).permit(users:[])[:users])
 
-    if @users.empty?
+    if users.empty?
       redirect_to organization_add_users_to_org_path(@organization), notice: 'There is no users to add in organization.'
     else
-      uniq_users = @users - @organization.users
+      uniq_users = users - @organization.users
       users_org = []
 
       uniq_users.each do |user|
@@ -42,13 +42,13 @@ class OrganizationUsersController < ApplicationController
   end
 
   def create_org_admins_in_org
-    @org_admins = User.where(id: params.require(:organization).permit(users:[])[:users])
+    org_admins = User.where(id: params.require(:organization).permit(users:[])[:users])
 
-    if @org_admins.empty?
+    if org_admins.empty?
       redirect_to organization_add_org_admins_to_org_path(@organization), notice: 'There is no users to add.'
     else
       uniq_users = []
-      @org_admins.each do |admin|
+      org_admins.each do |admin|
         if @organization.users.include?(admin)
           uo = @organization.users_organizations.find_by_user_id(admin.id)
           uo.update_attributes(is_org_admin: true)
