@@ -4,19 +4,28 @@
 
 home_page = ->
   $('#finished-courses').hide()
+  $('#liked-courses').hide()
+
 
   $('.carousel').carousel({
     interval: 3000
     })
 
-  $(document).on 'click', '#current_courses_button', ->
+  $(document).on 'change', '#current_courses_button', ->
     $('#finished-courses').hide()
     $('#current-courses').show()
+    $('#liked-courses').hide()
     return
 
-  $(document).on 'click', '#finished_courses_button', ->
+  $(document).on 'change', '#finished_courses_button', ->
     $('#finished-courses').show()
     $('#current-courses').hide()
+    $('#liked-courses').hide()
+    return
+  $(document).on 'change', '#liked_courses_button', ->
+    $('#finished-courses').hide()
+    $('#current-courses').hide()
+    $('#liked-courses').show()
     return
 
   $('.dropdown-toggle').dropdown()
