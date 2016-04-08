@@ -1,8 +1,6 @@
 class OrganizationsController < ApplicationController
   before_action :set_organization, except: [:index, :new, :create]
 
-  authorize_resource except: [:index, :show]
-
   def index
     @organizations = Organization.paginate(page: params[:page], per_page: 5)
   end
@@ -56,15 +54,6 @@ class OrganizationsController < ApplicationController
     UserMailer.invitation_instractions(@users.last, @organization).deliver_later
 
     redirect_to organization_all_users_path(@organization)
-  end
-
-  def import
-    begin
-      User.import(params[:file], @organization)
-      redirect_to organization_all_users_path(@organization)
-    rescue
-      redirect_to organization_all_users_path(@organization), notice: 'Invalid CSV file format.'
-    end
   end
 
   private
