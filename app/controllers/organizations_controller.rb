@@ -5,7 +5,6 @@ class OrganizationsController < ApplicationController
 
   def index
     @organizations = Organization.paginate(page: params[:page], per_page: 5)
-    @organization = Organization.new
   end
 
   def show
