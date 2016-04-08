@@ -62,6 +62,9 @@ gem 'will_paginate-bootstrap'
 gem 'pretender'
 gem 'audited', '~> 4.0'
 gem 'faker'
+
+gem 'simplecov', require: false, group: :test
+
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.6'
   gem 'byebug'
