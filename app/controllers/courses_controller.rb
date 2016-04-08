@@ -14,11 +14,12 @@ class CoursesController < ApplicationController
   def show
     @user = current_user
     @user_start_course = @user.users_courses.find_by_course_id(@course.id) if @user
-    @user_start_course = @user_start_course.is_started if @user_start_course
     if @user_start_course && !@course.can_pass?(@user)
       @progress = @user.progress(@course)
       @passed_pages_ids = @user.passed_pages_ids(@course)
     end
+    @is_liked = @user.users_courses.find_by_course_id(@course.id)
+    @is_liked = @is_liked.is_liked if @is_liked
   end
 
   def new

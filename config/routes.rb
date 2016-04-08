@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resources :pages
     get 'add_users_individual_course', to: 'users_courses#add_users_individual_course'
     post 'create_users_individual_course', to: 'users_courses#create_users_individual_course'
+    post 'like_course', to: 'users_courses#like_course'
   end
   root to: 'home#index'
 
