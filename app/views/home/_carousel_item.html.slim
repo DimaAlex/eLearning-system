@@ -2,7 +2,7 @@
   .col-md-4
     br
     -if c1
-      .well
+      .well.carousel-well
         = image_tag c1.image.url(:thumb), class: "img img-circle"
         h2
           = c1.title
@@ -12,7 +12,7 @@
   .col-md-4
     br
     -if c2
-      .well
+      .well.carousel-well
         = image_tag c2.image.url(:thumb), class: "img img-circle"
         h2
           = c2.title
@@ -22,7 +22,7 @@
   .col-md-4
     br
     -if c3
-      .well
+      .well.carousel-well
         = image_tag c3.image.url(:thumb), class: "img img-circle"
         h2
           = c3.title

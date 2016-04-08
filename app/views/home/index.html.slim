@@ -1,6 +1,7 @@
 - if user_signed_in?
   = render 'home/user_courses'
-  = render 'public_courses_slider'
+  = render partial: 'courses_slider', locals: { courses: @public_courses, title: "Public Courses:" }
+  = render partial: 'courses_slider', locals: { courses: @popular_courses, title: "Popular Courses:" }
 - else
   = render 'home/search'
   = render 'home/geo'

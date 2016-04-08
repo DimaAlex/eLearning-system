@@ -1,13 +1,13 @@
 .row
   .col-md-offset-4.col-md-4
     h1
-      = "Public Courses:"
+      = title
 #myCarousel.carousel.slide
   .carousel-inner
     .item.active
-      - @public_courses.last(3).each_slice(3) do |c1, c2, c3|
+      - courses.last(3).each_slice(3) do |c1, c2, c3|
         = render partial: 'carousel_item', locals: { c1: c1, c2: c2,  c3:c3 }
-    - @public_courses.each_slice(3) do |c1, c2, c3|
+    - courses.each_slice(3) do |c1, c2, c3|
       = render partial: 'carousel_item', locals: { c1: c1, c2: c2,  c3:c3 }
   a.left.carousel-control[href="#myCarousel" role="button" data-slide="prev"]
     span.icon-prev[aria-hidden="true"]
