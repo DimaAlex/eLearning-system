@@ -73,6 +73,10 @@ class User < ActiveRecord::Base
     user_course.is_finished
   end
 
+  def courses_with_status(status)
+    users_courses.where("#{status}=?", true).map {|x| x.course}
+  end
+
   def passed_pages_ids(course)
     users_courses.find_by_course_id(course.id).users_courses_pages.pluck(:page_id)
   end

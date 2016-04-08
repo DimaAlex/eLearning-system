@@ -24,20 +24,8 @@
     = f.label "Add image to course"
     = f.file_field :image
     br
-    
-    .form-group
-      = f.label "Permission", class: 'col-sm-2 control-label'
-      .col-sm-6
-        = f.input :permission, label: false, as: :radio_buttons,
-                collection: ['Public', 'In organization', 'Individual'],
-                checked: 'Public'
-    .form-group
-      .col-sm-offset-2.col-sm-6
-        = f.file_field :image
-    .form-group
-      .col-sm-offset-2.col-sm-6
-        = f.label "Add certificate to course"
-        = f.file_field :certificate_template
+    = f.label "Add certificate to course"
+    = f.file_field :certificate_template
 
-        = link_to "Back", :back, class: "btn btn-default"
-        = f.submit "Create", class: "btn btn-primary"
+    = link_to "Back", :back, class: "btn btn-default"
+    = f.submit "Create", class: "btn btn-primary"

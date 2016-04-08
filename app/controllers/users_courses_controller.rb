@@ -1,5 +1,6 @@
 class UsersCoursesController < ApplicationController
-  before_action :set_course_and_user, only:[:start_course, :add_users_individual_course, :create_users_individual_course]
+  before_action :set_course_and_user, only:[:start_course, :add_users_individual_course,
+                                            :create_users_individual_course, :like_course]
 
   def start_course
     if @course.permission == "Public"
@@ -32,6 +33,17 @@ class UsersCoursesController < ApplicationController
     @users.each { |user| UserMailer.invitation_to_course(user, @course).deliver_later }
 
     redirect_to course_pages_url(@course), notice: 'Users added.'
+  end
+
+  def like_course
+    user_course = @user.users_courses.find_by_course_id(@course.id)
+    if user_course
+      user_course.is_liked == true ? user_course.is_liked = false : user_course.is_liked = true
+    else
+      user_course = @user.users_courses.build(course_id: @course.id, is_liked: true)
+    end
+    user_course.save
+    redirect_to :back
   end
 
   private
