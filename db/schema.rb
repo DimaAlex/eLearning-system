@@ -210,9 +210,10 @@ ActiveRecord::Schema.define(version: 20160406135050) do
   add_index "users_courses_pages", ["users_course_id"], name: "index_users_courses_pages_on_users_course_id", using: :btree
 
   create_table "users_organizations", force: :cascade do |t|
-    t.boolean "is_org_admin",              default: false
+    t.boolean "is_org_admin",                default: false
     t.integer "user_id",         limit: 4
     t.integer "organization_id", limit: 4
+    t.string  "state",           limit: 255
   end
 
   add_index "users_organizations", ["organization_id"], name: "index_users_organizations_on_organization_id", using: :btree
