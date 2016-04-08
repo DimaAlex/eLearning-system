@@ -59,17 +59,18 @@ class CoursesController < ApplicationController
     if user_with_course.empty?
       @estimation = UsersCourse.new(user_course_params)
       @estimation.save
+      check_certificate
       redirect_to :back
     else
       user_with_course.first.update(estimation: params[:course][:estimation])
+      check_certificate
       redirect_to :back
     end
   end
 
   def course_result
-    @user_certificate = User.find(params[:course][:user_id])
-    @course_certificate = Course.find(params[:course][:course_id])
-    pdf_source = TestPdfForm.new(@user_certificate, @course_certificate).export
+    sleep 2.0
+    redirect_to :back
   end
 
   def update
@@ -96,8 +97,15 @@ class CoursesController < ApplicationController
     render json: Course.search(params[:query], autocomplete: true, limit: 10).map(&:title)
   end
 
-
   private
+
+  def check_certificate
+    @user_certificate = User.find(params[:course][:user_id])
+    @course_certificate = Course.find(params[:course][:course_id])
+    pdf_source = TestPdfForm.new(@user_certificate, @course_certificate).export
+    @user_course = UsersCourse.where(user_id: params[:course][:user_id], course_id: params[:course][:course_id])
+    @user_course.first.update(certificate: pdf_source)
+  end
 
   def set_user
     @user = current_user

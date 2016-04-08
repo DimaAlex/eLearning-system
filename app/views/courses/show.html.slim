@@ -23,6 +23,7 @@
                 = render 'progress', progress: @progress
                 - if @user_finish_course
                   - if @user_estimation
+                    .col-lg-12
                     = render 'courses/result'
                   - else
                     = render 'courses/estimation'
