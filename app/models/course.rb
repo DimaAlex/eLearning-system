@@ -27,7 +27,11 @@ class Course < ActiveRecord::Base
 
   validates_attachment :certificate_template, :content_type => { :content_type => %w(application/pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document) }
 
-  def can_pass?(user)
+  def is_author?(user)
     author == user || (author_type == "Organization" && author.is_org_admin?(user))
+  end
+
+  def users_with_status(status)
+    users_courses.where("#{status}=?", true).count
   end
 end

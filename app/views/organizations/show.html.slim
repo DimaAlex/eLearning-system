@@ -43,6 +43,7 @@
         - if can? :write, @organization
           .pad
           = link_to 'Show users in organization', organization_all_users_path(@organization), class: 'btn btn-primary btn-raised'
+          = link_to "Report", report_path(@organization), class: "btn btn-danger"
       = link_to 'Back', organizations_path, class: 'btn btn-default btn-raised'
 
       - if can? :write, @organization

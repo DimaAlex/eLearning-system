@@ -1,0 +1,20 @@
+table.table.table-hover
+  tr
+    td
+      = "Title"
+    td
+      = "% of users in organization"
+    td
+      = "Users started course"
+    td
+      = "Users finished course"
+  - @courses.each do |course|
+    tr
+      td
+        = link_to course.title, course_path(course)
+      td
+        = @organization.proceent_of_users_in_org_start(course)
+      td
+        = course.users_with_status("is_started")
+      td
+        = course.users_with_status("is_finished")

@@ -22,7 +22,7 @@
             br
             = render "courses/author", course: @course
           div
-            - unless @course.can_pass?(@user)
+            - unless @course.is_author?(@user)
               - if @user_start_course && @user_start_course.is_started
                 = render 'progress', progress: @progress
                 - if @progress == 100

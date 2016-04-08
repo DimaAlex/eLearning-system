@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     end
   end
 
+  match '/organizations/:id/report' => 'organizations#report', via: [:get, :post], :as => :report
   match '/courses/:id/start_course' => 'users_courses#start_course', via: [:get, :post], :as => :start_course
   match '/courses/:course_id/pages/:id/finish_page' => 'pages#finish_page', via: [:get, :post], :as => :finish_page
 

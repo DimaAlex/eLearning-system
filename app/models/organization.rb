@@ -8,4 +8,16 @@ class Organization < ActiveRecord::Base
   def is_org_admin?(user)
     users_organizations.where(is_org_admin: true).pluck(:user_id).include?(user.id)
   end
+
+  def courses
+    courses = Course.where(author_type: "Organization")
+    courses.where(author_id: self.id)
+  end
+
+  def proceent_of_users_in_org_start(course)
+    all_users = users.count
+    users_start = course.users_courses.where(is_started: true)
+    users_start << course.users_courses.where(is_finished: true)
+    users_start.count * 100 / all_users if all_users
+  end
 end

@@ -14,7 +14,7 @@ class CoursesController < ApplicationController
   def show
     @user = current_user
     @user_start_course = @user.users_courses.find_by_course_id(@course.id) if @user
-    if @user_start_course && !@course.can_pass?(@user)
+    if @user_start_course && !@course.is_author?(@user)
       @progress = @user.progress(@course)
       @passed_pages_ids = @user.passed_pages_ids(@course)
     end
