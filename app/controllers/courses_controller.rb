@@ -13,6 +13,7 @@ class CoursesController < ApplicationController
 
   def show
     @user = current_user
+    @mark = UsersCourse.where(user_id: current_user.id, course_id: @course.id)
     @user_start_course = @user.users_courses.find_by_course_id(@course.id) if @user
     if @user_start_course && !@course.can_pass?(@user)
       @progress = @user.progress(@course)
