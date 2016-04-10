@@ -47,7 +47,7 @@ class Course < ActiveRecord::Base
         when "Radio"
           correct_answers_count += check_radio(input_user_answer)
         else
-          correct_answers_count += check_checkbox(input_user_answer)
+          correct_answers_count += check_checkbox(input_user_answer, page.id)
       end
     end
 
@@ -71,8 +71,25 @@ class Course < ActiveRecord::Base
     end
   end
 
-  def self.check_checkbox(answer)
+  def self.check_checkbox(answer, page_id)
 
+    tmp_system_answer = Answer.where(page_id: page_id, is_right: true)
+
+    if tmp_system_answer.count != answer.count
+      0
+    else
+      counter = 0
+      tmp_system_answer.each_index do |index|
+        if tmp_system_answer[index].id != answer[index].answer_id
+          counter += 1
+        end
+      end
+      if counter == 0
+        1
+      else
+        0
+      end
+    end
   end
 
 end
