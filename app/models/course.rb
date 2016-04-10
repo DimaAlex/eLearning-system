@@ -31,7 +31,43 @@ class Course < ActiveRecord::Base
     author == user || (author_type == "Organization" && author.is_org_admin?(user))
   end
 
-  def percent
+  def self.percent(course_id, user)
+    pages_id = Page.where(course_id: course_id, page_type: "Question")
+    question_count = pages_id.count
+    correct_answers_count = 0.0
+
+    pages_id.each do |page|
+      system_answer = Answer.where(page_id: page.id)
+
+      input_user_answer = InputUserAnswer.where(page_id: page.id, user_id: user.id)
+
+      case system_answer.first.answer_type
+        when "Input"
+          correct_answers_count += check_input
+        when "Radio"
+          correct_answers_count += check_radio(input_user_answer)
+        else
+          correct_answers_count += check_checkbox
+      end
+    end
+
+    correct_answers_count / question_count * 100
+  end
+
+  def check_input
+    
+  end
+
+  def self.check_radio(answer)
+    result = Answer.find(answer.first.answer_id)
+    if result.is_right
+      1
+    else
+      0
+    end
+  end
+
+  def check_checkbox
 
   end
 
