@@ -43,19 +43,23 @@ class Course < ActiveRecord::Base
 
       case system_answer.first.answer_type
         when "Input"
-          correct_answers_count += check_input
+          correct_answers_count += check_input(input_user_answer)
         when "Radio"
           correct_answers_count += check_radio(input_user_answer)
         else
-          correct_answers_count += check_checkbox
+          correct_answers_count += check_checkbox(input_user_answer)
       end
     end
 
     correct_answers_count / question_count * 100
   end
 
-  def check_input
-    
+  def self.check_input(answer)
+    if answer.first.answer_id.nil?
+      0
+    else
+      1
+    end
   end
 
   def self.check_radio(answer)
@@ -67,7 +71,7 @@ class Course < ActiveRecord::Base
     end
   end
 
-  def check_checkbox
+  def self.check_checkbox(answer)
 
   end
 
