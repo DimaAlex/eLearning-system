@@ -30,4 +30,9 @@ class Course < ActiveRecord::Base
   def can_pass?(user)
     author == user || (author_type == "Organization" && author.is_org_admin?(user))
   end
+
+  def percent
+
+  end
+
 end

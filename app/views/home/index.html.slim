@@ -1,5 +1,24 @@
 - if user_signed_in?
-  = render 'home/user_courses'
+  .row
+    .col-md-offset-3.col-md-7
+      h2
+        = "My courses"
+      .btn-group data-toggle="buttons"
+        label.btn.btn-danger.active
+          input#current_courses_button autocomplete="off" checked="" name="options" type="radio"
+            | Current
+        label.btn.btn-danger
+          input#finished_courses_button autocomplete="off" name="options" type="radio"
+            | Finished
+        label.btn.btn-danger
+          input#liked_courses_button autocomplete="off" name="options" type="radio"
+            i.glyphicon.glyphicon-star
+      #current-courses
+        = render "home/list_of_courses", courses: @current_courses, note: "Current courses", started: true, param_names: "current_page"
+      #finished-courses
+        = render "home/list_of_courses", courses: @finished_courses, note: "Finished courses", started: false, param_names: "finished_page"
+      #liked-courses
+        = render "home/list_of_courses", courses: @liked_courses, note: "Liked courses", started: false, param_names: "liked_page"
 - else
   = render 'home/search'
   = render 'home/geo'

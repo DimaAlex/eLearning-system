@@ -9,6 +9,12 @@
           = image_tag @course.image.url(:medium)
           h1
             = @course.title
+            = link_to course_like_course_path(@course), method: :post, class: "btn btn-default" do
+              .star
+                -if @is_liked && @is_liked == true
+                  i.glyphicon.glyphicon-star
+                -else
+                  i.glyphicon.glyphicon-star-empty
           .page-header
             = label_tag "Type: "
             .pad
@@ -17,18 +23,15 @@
             = render "courses/author", course: @course
           div
             - unless @course.can_pass?(@user)
-              - if @user_start_course
+              - if @user_start_course && @user_start_course.is_started
                 = render 'progress', progress: @progress
-              - elsif @user_finish_course
-                = render 'progress', progress: @progress
-                - if @user_finish_course
-                  - if @user_estimation
-                    .col-lg-12
-                    = render 'courses/result'
-                  - else
-                    = render 'courses/estimation'
+                - if @progress == 100
+                  = render 'courses/estimation'
+              - elsif @user_start_course && @user_start_course.is_finished
+                h3
+                  = "Course is finished"
               - else
-                  = link_to "Start course", start_course_path(course_id: @course.id), class: "btn btn-danger"
+                = link_to "Start course", start_course_path(course_id: @course.id), class: "btn btn-danger"
       .col-md-8
         .row
           .col-md-10
