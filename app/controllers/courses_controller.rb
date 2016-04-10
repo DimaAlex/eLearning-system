@@ -54,19 +54,17 @@ class CoursesController < ApplicationController
   def create_users_courses
     user_with_course = UsersCourse.where(user_id: params[:course][:user_id], course_id: params[:course][:course_id].to_i)
 
-    @percent = Course.percent(params[:course][:course_id], current_user)
-
-    p "AAAAAAA"
-    p @percent
-    p "AAAAAAA"
+    percent = Course.percent(params[:course][:course_id], current_user)
+    if percent >= 90
+      check_certificate
+    end
 
     if user_with_course.empty?
       @estimation = UsersCourse.new(user_course_params)
       @estimation.save
-
       redirect_to :back
     else
-      user_with_course.first.update(estimation: params[:course][:estimation])
+      user_with_course.first.update(estimation: params[:course][:estimation], mark: percent.to_i)
       redirect_to :back
     end
   end
