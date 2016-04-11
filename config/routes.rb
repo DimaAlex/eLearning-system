@@ -64,6 +64,7 @@ Rails.application.routes.draw do
 
   resources :estimation
   post "create_users_courses/:id" => "courses#create_users_courses", as: :create_users_courses
+  post "course_result/:id" => "courses#course_result", as: :course_result
 
   get "org_admins/:id/impersonate" => "org_admins#impersonate", as: :impersonate
   get "org_admins/not_impersonate" => "org_admins#stop_impersonate", as: :stop_impersonate
