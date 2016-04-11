@@ -62,7 +62,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.for(:sign_up) << :organizations
 
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:first_name, :last_name,
-     :email, :password, :password_confirmation, :current_password, :avatar) }
+     :email, :birthdate, :password, :password_confirmation, :current_password, :avatar) }
   end
 
   def destroy_impersonation
