@@ -9,10 +9,15 @@ class OrganizationsController < ApplicationController
   end
 
   def new
-    @organization = Organization.new
+    if can? :manage, Organization
+      @organization = Organization.new
+    else
+      redirect_to organizations_path, alert: "You can't do this."
+    end
   end
 
   def edit
+    redirect_to organization_path(@organization), alert: "You can't do this." if cannot? :write, @organization
   end
 
   def create
@@ -47,22 +52,6 @@ class OrganizationsController < ApplicationController
   def users_in_org
     @users_not_in_org = User.all - @organization.users
     @users_in_org = @organization.users.usual_users_in_org.paginate(page: params[:page], per_page: 20)
-  end
-
-  def create_users_to_org
-    @organization.users << @users
-    UserMailer.invitation_instractions(@users.last, @organization).deliver_later
-
-    redirect_to organization_all_users_path(@organization)
-  end
-
-  def import
-    begin
-      User.import(params[:file], @organization)
-      redirect_to organization_all_users_path(@organization)
-    rescue
-      redirect_to organization_all_users_path(@organization), notice: 'Invalid CSV file format.'
-    end
   end
 
   def courses_in_org
