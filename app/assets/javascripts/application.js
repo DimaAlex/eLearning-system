@@ -26,4 +26,7 @@
 //= require twitter/typeahead.min
 //= require nouislider
 //= require rangeslider
+//= require react
+//= require react_ujs
+//= require components
 //= require_tree .

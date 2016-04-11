@@ -19,6 +19,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'rspec-rails'
+gem 'react-rails', '~> 1.6', '>= 1.6.2'
 
 gem 'devise', '~> 3.5', '>= 3.5.6'
 gem 'devise_invitable', '~> 1.5.2'
