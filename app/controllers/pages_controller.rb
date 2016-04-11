@@ -25,13 +25,16 @@ class PagesController < ApplicationController
   end
 
   def edit
-    @answer_type = @page.answers.first.answer_type
-    if @page.page_type == "Question" && (@answer_type == "Radio" || @answer_type == "Checkbox")
-      (@page.body.to_i-1).times { @page.answers.build }
+    unless @page.answers.empty?
+      @answer_type = @page.answers.first.answer_type
+      if @page.page_type == "Question" && (@answer_type == "Radio" || @answer_type == "Checkbox")
+        (@page.body.to_i-1).times { @page.answers.build }
+      end
     end
   end
 
   def create
+    binding.pry
     @page = @course.pages.build(page_params)
 
     respond_to do |format|

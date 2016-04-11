@@ -6,11 +6,6 @@ home_page = ->
   $('#finished-courses').hide()
   $('#liked-courses').hide()
 
-
-  $('.carousel').carousel({
-    interval: 3000
-    })
-
   $(document).on 'change', '#current_courses_button', ->
     $('#finished-courses').hide()
     $('#current-courses').show()

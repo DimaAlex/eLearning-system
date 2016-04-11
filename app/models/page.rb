@@ -12,8 +12,10 @@ class Page < ActiveRecord::Base
                       if: :page_type_video?
 
   def page_type_question?
-    @answer_type = answers.first.answer_type
-    page_type == "Question" && (@answer_type == "Radio" || @answer_type == "Checkbox")
+    unless answers.empty?
+      @answer_type = answers.first.answer_type
+      page_type == "Question" && (@answer_type == "Radio" || @answer_type == "Checkbox")
+    end
   end
 
   def page_type_video?
