@@ -34,7 +34,6 @@ class PagesController < ApplicationController
   end
 
   def create
-    binding.pry
     @page = @course.pages.build(page_params)
 
     respond_to do |format|

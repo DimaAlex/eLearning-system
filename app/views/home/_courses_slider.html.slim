@@ -3,18 +3,18 @@
     .col-md-offset-4.col-md-4
       h1
         = title
-  #myCarousel.carousel.slide
+  div.carousel.slide[id="#{id}"]
     .carousel-inner
       .item.active
         - courses.last(3).each_slice(3) do |c1, c2, c3|
           = render partial: 'carousel_item', locals: { c1: c1, c2: c2,  c3:c3 }
       - courses.each_slice(3) do |c1, c2, c3|
         = render partial: 'carousel_item', locals: { c1: c1, c2: c2,  c3:c3 }
-    a.left.carousel-control[href="#myCarousel" role="button" data-slide="prev"]
+    a.left.carousel-control[href="##{id}" role="button" data-slide="prev"]
       span.icon-prev[aria-hidden="true"]
       span.sr-only
         | Previous
-    a.right.carousel-control[href="#myCarousel" role="button" data-slide="next"]
+    a.right.carousel-control[href="##{id}" role="button" data-slide="next"]
       span.icon-next[aria-hidden="true"]
       span.sr-only
         | Next

@@ -9,6 +9,8 @@ class HomeController < ApplicationController
       @current_courses = @user.courses_with_status("is_started").paginate(page: params[:current_page], per_page: 2)
       @finished_courses = @user.courses_with_status("is_finished").paginate(page: params[:page], per_page: 2)
       @liked_courses =  @user.courses_with_status("is_liked").paginate(page: params[:liked_page], per_page: 2)
+      @org_courses = Course.where(permission: 'Public').where(author_type: "Organization")
     end
   end
+
 end
