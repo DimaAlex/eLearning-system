@@ -40,9 +40,10 @@
               td= @organization.phone
         - if can? :write, @organization
           = link_to 'Edit', edit_organization_path(@organization), class: 'btn btn-danger btn-raised'
-        - if can? :write, @organization
           .pad
           = link_to 'Show users in organization', organization_all_users_path(@organization), class: 'btn btn-primary btn-raised'
+        .pad
+        = link_to 'Courses', organization_courses_path(@organization), class: 'btn btn-success btn-raised'
       = link_to 'Back', organizations_path, class: 'btn btn-default btn-raised'
 
       - if can? :write, @organization

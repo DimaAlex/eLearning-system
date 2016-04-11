@@ -1,8 +1,6 @@
 class OrganizationsController < ApplicationController
   before_action :set_organization, except: [:index, :new, :create]
 
-  authorize_resource except: [:index, :show]
-
   def index
     @organizations = Organization.paginate(page: params[:page], per_page: 5)
   end
@@ -65,6 +63,10 @@ class OrganizationsController < ApplicationController
     rescue
       redirect_to organization_all_users_path(@organization), notice: 'Invalid CSV file format.'
     end
+  end
+
+  def courses_in_org
+    @courses = @organization.courses.paginate(page: params[:page], per_page: 4)
   end
 
   private
