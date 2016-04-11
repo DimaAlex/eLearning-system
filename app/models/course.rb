@@ -30,4 +30,66 @@ class Course < ActiveRecord::Base
   def can_pass?(user)
     author == user || (author_type == "Organization" && author.is_org_admin?(user))
   end
+
+  def self.percent(course_id, user)
+    pages_id = Page.where(course_id: course_id, page_type: "Question")
+    question_count = pages_id.count
+    correct_answers_count = 0.0
+
+    pages_id.each do |page|
+      system_answer = Answer.where(page_id: page.id)
+
+      input_user_answer = InputUserAnswer.where(page_id: page.id, user_id: user.id)
+
+      case system_answer.first.answer_type
+        when "Input"
+          correct_answers_count += check_input(input_user_answer)
+        when "Radio"
+          correct_answers_count += check_radio(input_user_answer)
+        else
+          correct_answers_count += check_checkbox(input_user_answer, page.id)
+      end
+    end
+
+    correct_answers_count / question_count * 100
+  end
+
+  def self.check_input(answer)
+    if answer.first.answer_id.nil?
+      0
+    else
+      1
+    end
+  end
+
+  def self.check_radio(answer)
+    result = Answer.find(answer.first.answer_id)
+    if result.is_right
+      1
+    else
+      0
+    end
+  end
+
+  def self.check_checkbox(answer, page_id)
+
+    tmp_system_answer = Answer.where(page_id: page_id, is_right: true)
+
+    if tmp_system_answer.count != answer.count
+      0
+    else
+      counter = 0
+      tmp_system_answer.each_index do |index|
+        if tmp_system_answer[index].id != answer[index].answer_id
+          counter += 1
+        end
+      end
+      if counter == 0
+        1
+      else
+        0
+      end
+    end
+  end
+
 end
