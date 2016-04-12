@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
   end
 
   def courses_with_status(status)
-    users_courses.where("#{status}=?", true).map {|x| x.course}
+    users_courses.where("#{status}=?", true).sort_by(&:updated_at).reverse.map {|x| x.course}
   end
 
   def passed_pages_ids(course)
