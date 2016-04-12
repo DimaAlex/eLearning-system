@@ -167,6 +167,8 @@ GEM
       activerecord (>= 3.0.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    groupdate (2.5.2)
+      activesupport (>= 3)
     hashie (3.4.3)
     hpricot (0.8.6)
     html2slim (0.2.0)
@@ -395,6 +397,7 @@ DEPENDENCIES
   faker
   figaro
   font-awesome-rails
+  groupdate (~> 2.5, >= 2.5.2)
   html2slim (~> 0.2.0)
   jbuilder (~> 2.0)
   jquery-rails
