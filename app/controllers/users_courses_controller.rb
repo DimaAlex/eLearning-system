@@ -3,23 +3,30 @@ class UsersCoursesController < ApplicationController
                                             :create_users_individual_course, :like_course]
 
   def start_course
-    if @course.permission == "Public"
-      can_start_course
-    elsif @course.permission == "In organization"
-      if @user.member_of_organization?(@course.author)
+    user_course = @user.users_courses.find_by_course_id(@course.id)
+    if user_course
+      user_course.is_started = true
+      user_course.save
+      started(user_course)
+    else
+      if @course.permission == "Public"
         can_start_course
-      else
-        flash[:success] =  "Only members of the organization is available to start course"
-        redirect_to course_path
-      end
-    elsif @course.permission == "Individual"
-      if @user
-        start_individual_course
-      else
-        flash[:success] =  "Log in to start course"
-        redirect_to new_user_registration_url
-      end
+      elsif @course.permission == "In organization"
+        if @user.member_of_organization?(@course.author)
+          can_start_course
+        else
+          flash[:success] =  "Only members of the organization is available to start course"
+          redirect_to course_path
+        end
+      elsif @course.permission == "Individual"
+        if @user
+          start_individual_course
+        else
+          flash[:success] =  "Log in to start course"
+          redirect_to new_user_registration_url
+        end
 
+      end
     end
   end
 

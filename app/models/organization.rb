@@ -10,4 +10,35 @@ class Organization < ActiveRecord::Base
   def is_org_admin?(user)
     users_organizations.where(is_org_admin: true).pluck(:user_id).include?(user.id)
   end
+
+  def courses
+    courses = Course.where(author_type: "Organization")
+    courses.where(author_id: self.id)
+  end
+
+  def proceent_of_users_in_org_start(course)
+    all_users_without_admins = users_organizations.where(is_org_admin: false).count
+    users_start = course.users_courses.where(is_started: true)
+    users_start << course.users_courses.where(is_finished: true)
+    all_users_without_admins != 0 ? (users_start.count * 100 / all_users_without_admins) : 0
+  end
+
+  def started_courses
+    started_courses_count = courses.map {|x| x.users_courses.where(is_started: true).count}.sum
+    count_percent(started_courses_count)
+  end
+
+  def success_finished_courses
+    success_count = courses.map {|x| x.users_courses.where(mark: 90..100).count}.sum
+    count_percent(success_count)
+  end
+
+  def unsuccess_finished_courses
+    unsuccess_count = courses.map {|x| x.users_courses.where(mark: 0..89).count}.sum
+    count_percent(unsuccess_count)
+  end
+
+  def count_percent(sum)
+    courses.count == 0 ? sum.to_f / courses.count.to_f * 100 : 0
+  end
 end

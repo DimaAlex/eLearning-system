@@ -58,6 +58,16 @@ class OrganizationsController < ApplicationController
     @courses = @organization.courses.paginate(page: params[:page], per_page: 4)
   end
 
+  def report
+    @user = current_user
+    if @organization.is_org_admin?(@user)
+      @courses = @organization.courses.paginate(page: params[:page], per_page: 10)
+    else
+      flash[:danger] =  "You have no access to report of this organization"
+      redirect_to organization_path(@organization)
+    end
+  end
+
   private
   def set_organization
     @organization = Organization.find(params[:id])
