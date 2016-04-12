@@ -24,6 +24,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'organizations/:id/courses', to: 'organizations#courses_in_org', as: 'organization_courses'
+
+
   resources :courses do
     resources :pages
     get 'add_users_individual_course', to: 'users_courses#add_users_individual_course'
@@ -34,6 +37,7 @@ Rails.application.routes.draw do
 
 
 
+  match '/organizations/:id/report' => 'organizations#report', via: [:get, :post], :as => :report
   match '/courses/:id/start_course' => 'users_courses#start_course', via: [:get, :post], :as => :start_course
   match '/courses/:course_id/pages/:id/finish_page' => 'pages#finish_page', via: [:get, :post], :as => :finish_page
 

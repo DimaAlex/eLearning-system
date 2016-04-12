@@ -11,6 +11,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
     request.referrer
   end
 
+  def new
+    super do |resource|
+      @organizations = Organization.all
+    end
+  end
+
+  def create
+    super do |user|
+      organizations = Organization.where(id: params.require(:user).permit(organizations: [])[:organizations])
+      organizations.each do |org|
+        UsersOrganization.create(user_id: user.id, organization_id: org.id, state: :followed)
+      end
+    end
+  end
+
   def update
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
@@ -44,8 +59,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
   def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) << :organizations
+
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:first_name, :last_name,
-     :email, :password, :password_confirmation, :current_password, :avatar) }
+     :email, :birthdate, :password, :password_confirmation, :current_password, :avatar) }
   end
 
   def destroy_impersonation

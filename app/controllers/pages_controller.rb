@@ -14,7 +14,7 @@ class PagesController < ApplicationController
     @user = current_user
     @input_user_answer = @user.input_user_answers.find_by_page_id(@page.id)
     @input_user_answer ||= @user.input_user_answers.build
-    unless @page.course.can_pass?(@user)
+    unless @page.course.is_author?(@user)
       @progress = @user.progress(@page.course)
       @passed_pages_ids = @user.passed_pages_ids(@page.course)
     end
@@ -35,7 +35,7 @@ class PagesController < ApplicationController
 
   def create
     @page = @course.pages.build(page_params)
-
+    @page.answers.destroy_all if @page.page_type == "Lecture" || @page.page_type == "Video"
     respond_to do |format|
       if @page.save
         format.html { redirect_to edit_course_page_path(id: @page.id) }
@@ -65,7 +65,7 @@ class PagesController < ApplicationController
 
   def finish_page
     @user = current_user
-    if @course.can_pass?(@user)
+    if @course.is_author?(@user)
       to_next_page
     else
       users_course = @user.users_courses.find_by_course_id(@course.id)
@@ -95,7 +95,7 @@ class PagesController < ApplicationController
     @user = current_user
     if @user
       @user_start_course = @user.courses.include?(@page.course)
-      unless @user_start_course || @page.course.can_pass?(@user)
+      unless @user_start_course || @page.course.is_author?(@user)
         flash[:danger] = "You should start course to see page"
         redirect_to course_path(@page.course)
       end

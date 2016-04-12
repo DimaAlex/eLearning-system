@@ -8,7 +8,6 @@ class Ability
       cannot :follow, Organization
     else
       can :read, Organization
-      can :follow, Organization, id: Organization.where('id NOT IN (?)', user.organization_ids.join(',')).select(:id).map(&:id) #organizations that not contain user
       can :write, Organization, id: UsersOrganization.where(user_id: user.id, is_org_admin: true).pluck(:organization_id)
     end
 
