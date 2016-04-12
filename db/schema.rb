@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160411194010) do
+ActiveRecord::Schema.define(version: 20160412094159) do
 
   create_table "admins_impersonations", force: :cascade do |t|
     t.integer  "user_id",             limit: 4
@@ -163,11 +163,12 @@ ActiveRecord::Schema.define(version: 20160411194010) do
     t.datetime "updated_at",                                            null: false
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
+    t.boolean  "is_admin",                           default: false
     t.string   "avatar_file_name",       limit: 255
     t.string   "avatar_content_type",    limit: 255
     t.integer  "avatar_file_size",       limit: 4
     t.datetime "avatar_updated_at"
-    t.boolean  "is_admin",                           default: false
+    t.string   "country",                limit: 255, default: "Russia"
     t.string   "invitation_token",       limit: 255
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -176,7 +177,6 @@ ActiveRecord::Schema.define(version: 20160411194010) do
     t.integer  "invited_by_id",          limit: 4
     t.string   "invited_by_type",        limit: 255
     t.integer  "invitations_count",      limit: 4,   default: 0
-    t.string   "country",                limit: 255, default: "Russia"
     t.date     "birthdate"
   end
 
@@ -187,16 +187,17 @@ ActiveRecord::Schema.define(version: 20160411194010) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "users_courses", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4
-    t.integer  "course_id",   limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.integer  "user_id",       limit: 4
+    t.integer  "course_id",     limit: 4
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.integer  "estimation",    limit: 4
     t.boolean  "is_started"
-    t.integer  "estimation",  limit: 4
     t.boolean  "is_finished"
+    t.string   "certificate",   limit: 255
     t.boolean  "is_liked"
-    t.string   "certificate", limit: 255
-    t.integer  "mark",        limit: 4
+    t.integer  "mark",          limit: 4
+    t.string   "status_course", limit: 255, default: "In Progress"
   end
 
   add_index "users_courses", ["course_id"], name: "index_users_courses_on_course_id", using: :btree
