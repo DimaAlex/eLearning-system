@@ -31,31 +31,37 @@ class Course < ActiveRecord::Base
     author == user || (author_type == "Organization" && author.is_org_admin?(user))
   end
 
-  def users_with_status(status)
-    users_courses.where("#{status}=?", true).count
+  def users_try_course
+    users_courses.where("is_started", true).count +  users_courses.where("is_finished", true).count
+  end
+
+  def average_users_mark
+
   end
 
   def self.percent(course_id, user)
     pages_id = Page.where(course_id: course_id, page_type: "Question")
     question_count = pages_id.count
     correct_answers_count = 0.0
+    if question_count == 0
+      100
+    else
+      pages_id.each do |page|
+        system_answer = Answer.where(page_id: page.id)
 
-    pages_id.each do |page|
-      system_answer = Answer.where(page_id: page.id)
+        input_user_answer = InputUserAnswer.where(page_id: page.id, user_id: user.id)
 
-      input_user_answer = InputUserAnswer.where(page_id: page.id, user_id: user.id)
-
-      case system_answer.first.answer_type
-        when "Input"
-          correct_answers_count += check_input(input_user_answer)
-        when "Radio"
-          correct_answers_count += check_radio(input_user_answer)
-        else
-          correct_answers_count += check_checkbox(input_user_answer, page.id)
+        case system_answer.first.answer_type
+          when "Input"
+            correct_answers_count += check_input(input_user_answer)
+          when "Radio"
+            correct_answers_count += check_radio(input_user_answer)
+          else
+            correct_answers_count += check_checkbox(input_user_answer, page.id)
+        end
       end
+      correct_answers_count / question_count * 100
     end
-
-    correct_answers_count / question_count * 100
   end
 
   def self.check_input(answer)
