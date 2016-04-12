@@ -1,13 +1,13 @@
 class InvitationController < ApplicationController
   def accept_on_invite
-    uo = UsersOrganization.where(user_id: current_user.id, organization_id: current_organization.id).distinct
+    uo = UsersOrganization.where(user_id: current_user.id, organization_id: current_organization.id).limit(1)
     uo.first.accept!
 
     redirect_to organization_path(current_organization)
   end
 
   def reject_on_invite
-    uo = UsersOrganization.where(user_id: current_user.id, organization_id: current_organization.id).distinct
+    uo = UsersOrganization.where(user_id: current_user.id, organization_id: current_organization.id).limit(1)
     uo.first.reject!
 
     redirect_to organization_path(current_organization)
@@ -23,7 +23,7 @@ class InvitationController < ApplicationController
   end
 
   def leave_organization
-    uo = UsersOrganization.where(user_id: current_user.id, organization_id: current_organization.id).distinct
+    uo = UsersOrganization.where(user_id: current_user.id, organization_id: current_organization.id).limit(1)
     if uo.first.leave!
       redirect_to organization_path(current_organization), notice: 'You left organization.'
     else
@@ -32,14 +32,14 @@ class InvitationController < ApplicationController
   end
 
   def accept_request_on_entrance
-    uo = UsersOrganization.where(user_id: params[:user_id], organization_id: current_organization.id).distinct
+    uo = UsersOrganization.where(user_id: params[:user_id], organization_id: current_organization.id).limit(1)
     uo.first.accept!
 
     redirect_to organization_all_users_path(current_organization)
   end
 
   def reject_request_on_entrance
-    uo = UsersOrganization.where(user_id: params[:user_id], organization_id: current_organization.id).distinct
+    uo = UsersOrganization.where(user_id: params[:user_id], organization_id: current_organization.id).limit(1)
     uo.first.reject!
 
     redirect_to organization_all_users_path(current_organization)

@@ -11,19 +11,19 @@ class OrganizationUsersController < ApplicationController
 
   def add_org_admins_to_org
     if can? :write, @organization
-      @users_without_admin = User.where(is_admin: false) - @organization.users.org_admins
+      @users_without_admin = User.where(is_admin: false) - @organization.users.org_admins - User.invitation_not_accepted
     else
       redirect_to organization_path(@organization), notice: "You can't do this."
     end
   end
 
   def create_users_in_org
-    @users = User.where(id: params.require(:organization).permit(users:[])[:users])
+    users = User.where(id: params.require(:organization).permit(users:[])[:users])
 
-    if @users.empty?
+    if users.empty?
       redirect_to organization_add_users_to_org_path(@organization), notice: 'There is no users to add in organization.'
     else
-      uniq_users = @users - @organization.users
+      uniq_users = users - @organization.users
       users_org = []
 
       uniq_users.each do |user|
@@ -33,7 +33,7 @@ class OrganizationUsersController < ApplicationController
       @organization.users_organizations.create(users_org)
 
       uniq_users.each do |user|
-        UserMailer.invitation_instractions(user, @organization).deliver_later
+        UserMailer.invitation_instractions(user.email, @organization).deliver_later
       end
 
       redirect_to organization_path(@organization), notice: 'User(s) added.'
@@ -42,13 +42,13 @@ class OrganizationUsersController < ApplicationController
   end
 
   def create_org_admins_in_org
-    @org_admins = User.where(id: params.require(:organization).permit(users:[])[:users])
+    org_admins = User.where(id: params.require(:organization).permit(users:[])[:users])
 
-    if @org_admins.empty?
+    if org_admins.empty?
       redirect_to organization_add_org_admins_to_org_path(@organization), notice: 'There is no users to add.'
     else
       uniq_users = []
-      @org_admins.each do |admin|
+      org_admins.each do |admin|
         if @organization.users.include?(admin)
           uo = @organization.users_organizations.find_by_user_id(admin.id)
           uo.update_attributes(is_org_admin: true)
