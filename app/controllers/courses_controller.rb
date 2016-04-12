@@ -7,7 +7,7 @@ class CoursesController < ApplicationController
     if params[:query].present?
       @courses = Course.search(params[:query])
     else
-      @courses = Course.all
+      @courses = []
     end
   end
 
@@ -37,7 +37,6 @@ class CoursesController < ApplicationController
     if @course.author_type == "User"
       @course.author = current_user
     end
-
     respond_to do |format|
       if @course.save
         if @course.permission == "Individual"
