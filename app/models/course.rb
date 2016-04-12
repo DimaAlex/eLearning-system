@@ -31,6 +31,7 @@ class Course < ActiveRecord::Base
     author == user || (author_type == "Organization" && author.is_org_admin?(user))
   end
 
+
   def self.percent(course_id, user)
     pages_id = Page.where(course_id: course_id, page_type: "Question")
     question_count = pages_id.count

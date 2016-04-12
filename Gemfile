@@ -19,6 +19,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'rspec-rails'
+gem 'react-rails', '~> 1.6', '>= 1.6.2'
 
 gem 'devise', '~> 3.5', '>= 3.5.6'
 gem 'devise_invitable', '~> 1.5.2'
@@ -67,6 +68,9 @@ gem 'aasm'
 gem 'email_validator'
 
 gem 'sidekiq'
+
+gem 'momentjs-rails', '~> 2.9',  :github => 'derekprior/momentjs-rails'
+gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.6'
