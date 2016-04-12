@@ -18,6 +18,12 @@ Rails.application.routes.draw do
     put '/user/:user_id/reject_request', to: 'invitation#reject_request_on_entrance', as: 'reject_request'
   end
 
+  resources :courses, only: :index do
+    collection do
+      get :autocomplete
+    end
+  end
+
   resources :courses do
     resources :pages
     get 'add_users_individual_course', to: 'users_courses#add_users_individual_course'
@@ -26,12 +32,7 @@ Rails.application.routes.draw do
   end
   root to: 'home#index'
 
-  resources :courses, only: :index do
-    collection do
-      post :import
-      get :autocomplete
-    end
-  end
+
 
   match '/courses/:id/start_course' => 'users_courses#start_course', via: [:get, :post], :as => :start_course
   match '/courses/:course_id/pages/:id/finish_page' => 'pages#finish_page', via: [:get, :post], :as => :finish_page
