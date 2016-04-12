@@ -27,7 +27,7 @@ class FillablePdfForm
   end
 
   def default_template
-    @template_path = "#{Rails.root}/public/system/#{self.class.name.gsub('Pdf', '').underscore}.pdf" # makes assumption about template file path unless otherwise specified
+    @template_path = "#{Rails.root}/public/#{self.class.name.gsub('Pdf', '').underscore}.pdf" # makes assumption about template file path unless otherwise specified
   end
 
   protected
