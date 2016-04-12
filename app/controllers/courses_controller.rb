@@ -14,6 +14,7 @@ class CoursesController < ApplicationController
   def show
     @user = current_user
     @mark = UsersCourse.where(user_id: current_user.id, course_id: @course.id)
+
     @user_start_course = @user.users_courses.find_by_course_id(@course.id) if @user
     if @user_start_course && !@course.is_author?(@user)
       @progress = @user.progress(@course)
@@ -57,7 +58,10 @@ class CoursesController < ApplicationController
 
     percent = Course.percent(params[:course][:course_id], current_user)
     if percent >= 90
+      status = "Success"
       check_certificate
+    else
+      status = "Unsuccess"
     end
 
     if user_with_course.empty?
@@ -65,7 +69,7 @@ class CoursesController < ApplicationController
       @estimation.save
       redirect_to :back
     else
-      user_with_course.first.update(estimation: params[:course][:estimation], mark: percent.to_i)
+      user_with_course.first.update(estimation: params[:course][:estimation], mark: percent.to_i, status_course: status)
       redirect_to :back
     end
   end
