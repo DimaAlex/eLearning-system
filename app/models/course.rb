@@ -74,11 +74,7 @@ class Course < ActiveRecord::Base
   end
 
   def self.check_input(answer)
-    if answer.first.answer_id.nil?
-      0
-    else
-      1
-    end
+    (answer.first && answer.first.answer_id.nil?) ? 0 : 1
   end
 
   def self.check_radio(answer)

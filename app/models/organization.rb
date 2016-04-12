@@ -17,10 +17,10 @@ class Organization < ActiveRecord::Base
   end
 
   def proceent_of_users_in_org_start(course)
-    all_users = users.count
+    all_users_without_admins = users_organizations.where(is_org_admin: false).count
     users_start = course.users_courses.where(is_started: true)
     users_start << course.users_courses.where(is_finished: true)
-    all_users ? (users_start.count * 100 / all_users) : 0
+    all_users_without_admins != 0 ? (users_start.count * 100 / all_users_without_admins) : 0
   end
 
   def started_courses
