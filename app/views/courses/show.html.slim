@@ -29,7 +29,11 @@
                   = render 'courses/estimation'
               - elsif @user_start_course && @user_start_course.is_finished
                 h3
-                  = "Course is finished"
+                  - if @mark.first.mark < 90
+                      = "Course is finished unsuccessfully :("
+                  - else
+                      = "Course is finished successfully :)"
+
               - else
                 = link_to "Start course", start_course_path(course_id: @course.id), class: "btn btn-danger"
       .col-md-8

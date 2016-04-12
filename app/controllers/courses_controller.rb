@@ -13,6 +13,7 @@ class CoursesController < ApplicationController
 
   def show
     @user = current_user
+    @mark = UsersCourse.where(user_id: current_user.id, course_id: @course.id)
     @user_start_course = @user.users_courses.find_by_course_id(@course.id) if @user
     if @user_start_course && !@course.is_author?(@user)
       @progress = @user.progress(@course)
@@ -53,12 +54,18 @@ class CoursesController < ApplicationController
 
   def create_users_courses
     user_with_course = UsersCourse.where(user_id: params[:course][:user_id], course_id: params[:course][:course_id].to_i)
+
+    percent = Course.percent(params[:course][:course_id], current_user)
+    if percent >= 90
+      check_certificate
+    end
+
     if user_with_course.empty?
       @estimation = UsersCourse.new(user_course_params)
       @estimation.save
       redirect_to :back
     else
-      user_with_course.first.update(estimation: params[:course][:estimation])
+      user_with_course.first.update(estimation: params[:course][:estimation], mark: percent.to_i)
       redirect_to :back
     end
   end
@@ -87,11 +94,15 @@ class CoursesController < ApplicationController
     render json: Course.search(params[:query], autocomplete: true, limit: 10).map(&:title)
   end
 
-  def issue_сertificate
-    send_file TestPdfForm.new(@user).export, type: 'application/pdf'
-  end
-
   private
+
+  def check_certificate
+    @user_certificate = User.find(params[:course][:user_id])
+    @course_certificate = Course.find(params[:course][:course_id])
+    pdf_source = TestPdfForm.new(@user_certificate, @course_certificate).export
+    @user_course = UsersCourse.where(user_id: params[:course][:user_id], course_id: params[:course][:course_id])
+    @user_course.first.update(certificate: pdf_source)
+  end
 
   def set_user
     @user = current_user

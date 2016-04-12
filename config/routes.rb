@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     put '/user/:user_id/reject_request', to: 'invitation#reject_request_on_entrance', as: 'reject_request'
   end
 
+  get 'organizations/:id/courses', to: 'organizations#courses_in_org', as: 'organization_courses'
+
   resources :courses do
     resources :pages
     get 'add_users_individual_course', to: 'users_courses#add_users_individual_course'
@@ -65,6 +67,7 @@ Rails.application.routes.draw do
 
   resources :estimation
   post "create_users_courses/:id" => "courses#create_users_courses", as: :create_users_courses
+  post "course_result/:id" => "courses#course_result", as: :course_result
 
   get "org_admins/:id/impersonate" => "org_admins#impersonate", as: :impersonate
   get "org_admins/not_impersonate" => "org_admins#stop_impersonate", as: :stop_impersonate

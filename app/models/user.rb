@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
   has_many :courses, through: :users_courses
 
   accepts_nested_attributes_for :input_user_answers, allow_destroy: true
-  scope :org_admins, -> { joins(:users_organizations).where('users_organizations.is_org_admin  = ?', true) }
-  scope :not_org_admins, -> { joins(:users_organizations).where('users_organizations.is_org_admin  = ?', false) }
+  scope :org_admins, -> { joins(:users_organizations).where('users_organizations.is_org_admin  = ?', true).distinct }
+  scope :not_org_admins, -> { joins(:users_organizations).where('users_organizations.is_org_admin  = ?', false).distinct  }
   scope :invited_users, -> { joins(:users_organizations).where('users_organizations.state  = ?', :invited) }
   scope :followed_users, -> { joins(:users_organizations).where('users_organizations.state  = ?', :followed) }
   scope :in_organization, -> { joins(:users_organizations).where('users_organizations.state  = ?', :in_organization) }
