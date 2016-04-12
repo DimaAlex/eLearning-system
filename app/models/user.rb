@@ -39,15 +39,13 @@ class User < ActiveRecord::Base
         if user
           UserMailer.invitation_instractions(user.email, organization).deliver_later
         else
-          User.invite!(email: email.first)
+          User.invite!(email: email.first, users_organizations: [ UsersOrganization.new(organization_id: organization.id, state: :invited)])
         end
-
-        if organization.users.exclude?(user)
-          organization.users_organizations.create(user_id: User.find_by_email(email.first).id, state: :invited)
-        end
-
       end
 
+      if organization.users.exclude?(user)
+        organization.users_organizations.create(user_id: User.find_by_email(email.first).id, state: :invited)
+      end
     end
   end
 
