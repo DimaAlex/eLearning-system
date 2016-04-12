@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :courses, as: :author
 
-  has_many :users_organizations, class_name: 'UsersOrganization'
+  has_many :users_organizations, class_name: 'UsersOrganization', dependent: :destroy
   has_many :invitations, :class_name => 'User', :as => :invited_by
   has_many :organizations, through: :users_organizations
   has_many :certificates
