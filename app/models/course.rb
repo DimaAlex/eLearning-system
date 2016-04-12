@@ -36,7 +36,16 @@ class Course < ActiveRecord::Base
   end
 
   def average_users_mark
+    marks = users_courses.pluck(:mark)
+    marks.compact.empty? ? 0 : marks.sum / marks.count.to_f
+  end
 
+  def finished_with_success
+    users_courses.where(mark: 90..100).count
+  end
+
+  def finished_badly
+    users_courses.where(mark: 0..89).count
   end
 
   def self.percent(course_id, user)
