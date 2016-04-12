@@ -67,6 +67,9 @@ gem 'faker'
 gem 'aasm'
 gem 'email_validator'
 
+gem 'momentjs-rails', '~> 2.9',  :github => 'derekprior/momentjs-rails'
+gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
+
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.6'
   gem 'byebug'
