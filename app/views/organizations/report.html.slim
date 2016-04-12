@@ -1,0 +1,45 @@
+.container
+  .row
+    .panel.panel-primary.filterable
+      .panel-heading
+        h3.panel-title
+          =  "Courses in #{@organization.title}"
+        .pull-right
+          button.btn.btn-default.btn-xs.btn-filter
+            span.glyphicon.glyphicon-filter
+            |  Filter
+      table.table
+
+        thead
+          tr.filters
+            th
+              input.form-control[type="text" placeholder="Title" disabled]
+            th
+              input.form-control[type="text" placeholder="% of users in organization" disabled]
+            th
+              input.form-control[type="text" placeholder="Users started course" disabled]
+            th
+              input.form-control[type="text" placeholder="N finished with success" disabled]
+            th
+              input.form-control[type="text" placeholder="N finished badly" disabled]
+            th
+              input.form-control[type="text" placeholder="Average mark" disabled]
+        - @courses.each do |course|
+          tbody
+            tr
+              td
+                = link_to course.title, course_path(course)
+              td
+                = @organization.proceent_of_users_in_org_start(course)
+              td
+                = course.users_try_course
+              td
+                = course.finished_with_success
+              td
+                = course.finished_badly
+              td
+                = course.average_users_mark
+
+          = will_paginate @courses
+
+    = link_to 'Back', organization_path(@organization), class: 'btn btn-default btn-raised'
