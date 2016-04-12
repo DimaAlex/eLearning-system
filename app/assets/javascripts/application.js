@@ -26,4 +26,7 @@
 //= require twitter/typeahead.min
 //= require nouislider
 //= require rangeslider
+//= require moment
+//= require bootstrap-datetimepicker
+//= require pickers
 //= require_tree .

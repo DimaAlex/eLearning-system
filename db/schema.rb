@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410204614) do
+ActiveRecord::Schema.define(version: 20160411194010) do
 
   create_table "admins_impersonations", force: :cascade do |t|
     t.integer  "user_id",             limit: 4
@@ -177,6 +177,7 @@ ActiveRecord::Schema.define(version: 20160410204614) do
     t.string   "invited_by_type",        limit: 255
     t.integer  "invitations_count",      limit: 4,   default: 0
     t.string   "country",                limit: 255, default: "Russia"
+    t.date     "birthdate"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
