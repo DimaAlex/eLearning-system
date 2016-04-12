@@ -66,6 +66,8 @@ gem 'faker'
 gem 'aasm'
 gem 'email_validator'
 
+gem 'sidekiq'
+
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.6'
   gem 'byebug'
