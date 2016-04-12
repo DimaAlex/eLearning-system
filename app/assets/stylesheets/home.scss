@@ -280,6 +280,21 @@ body{
   margin-bottom: 0;
 }
 
+
+.carousel-control.left{
+  width: 70px;
+  height: 307px;
+}
+.carousel-control.right{
+  width: 70px;
+  height: 307px;
+}
+
+.carousel-well{
+  width: 350px;
+  height: 267px;
+}
+
 .text-center-img{
   margin: 20px 0;
 }
@@ -291,3 +306,4 @@ body{
 .datetimepicker{
   margin-left: 15px;
 }
+
