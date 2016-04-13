@@ -8,8 +8,12 @@
           button.btn.btn-default.btn-xs.btn-filter
             span.glyphicon.glyphicon-filter
             |  Filter
+      .col-lg-12
+        .col-lg-6
+          = pie_chart UsersCourse.where(course_id: @courses_in_organization).group(:status_course).count
+        .col-lg-6
+          = line_chart UsersCourse.where(course_id: @courses_in_organization).group_by_hour(:created_at).count
       table.table
-
         thead
           tr.filters
             th
