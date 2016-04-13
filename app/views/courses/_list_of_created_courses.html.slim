@@ -2,9 +2,11 @@
   h4
     = "No courses"
 - else
-.col-md-3
+.col-md-1
   = link_to "Back" , :back, class: "btn btn-danger"
-.col-md-6
+.col-md-offset-2.col-md-6
+  h2.page-header
+    = "Created courses"
   - courses.each do |course|
     .panel.panel-default
       .panel-body
@@ -18,6 +20,12 @@
             = course.permission
           - if course.is_author?(user)
             .right
-              = link_to "Edit", course_pages_path(course), class: "btn btn-danger"
-.col-md-offset-3.col-md-7
-  = will_paginate courses, inner_window: 1, renderer: BootstrapPagination::Rails
+              = link_to course_pages_path(course), class: "btn btn-default" do
+                i.glyphicon.glyphicon-pencil
+              .pad
+                = link_to course_path(course), data: {:confirm => 'Are you sure?'}, :method => :delete do
+                  .passed-sign-color
+                    i.glyphicon.glyphicon-remove-sign
+.col-md-offset-4
+  .col-md-6
+    = will_paginate courses, inner_window: 1, renderer: BootstrapPagination::Rails

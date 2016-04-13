@@ -86,10 +86,12 @@ class CoursesController < ApplicationController
   end
 
   def destroy
-    @course.destroy
-    respond_to do |format|
-      format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
-      format.json { head :no_content }
+    @course.is_destroyed  = true
+    if @course.save
+      respond_to do |format|
+        format.html { redirect_to :back, notice: 'Course was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
