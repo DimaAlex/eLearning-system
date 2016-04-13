@@ -7,5 +7,3 @@
       .list-group-item
         span.h4
           = link_to course.title, course_path(course)
-
-/= pie_chart UsersCourse.where(course_id: @courses.last.id).group(:status_course).count
