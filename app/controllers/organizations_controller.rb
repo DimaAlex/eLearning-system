@@ -62,6 +62,7 @@ class OrganizationsController < ApplicationController
   def report
     @user = current_user
     if @organization.is_org_admin?(@user)
+      @courses_in_organization = @organization.courses.ids
       @courses = @organization.courses.paginate(page: params[:page], per_page: 10)
     else
       flash[:danger] =  "You have no access to report of this organization"

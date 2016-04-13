@@ -18,7 +18,10 @@
       #finished-courses
         = render "courses/list_of_courses", courses: @finished_courses, note: "Finished courses", started: false, param_names: "finished_page"
       #liked-courses
-        = render "courses/list_of_courses", courses: @liked_courses, note: "Liked courses", started: false, param_names: "liked_page"
+        = render "home/list_of_courses", courses: @liked_courses, note: "Liked courses", started: false, param_names: "liked_page"
+  = render partial: 'courses_slider', locals: { courses: @public_courses, title: "Public Courses:", id: 1 }
+  = render partial: 'courses_slider', locals: { courses: @popular_courses, title: "Popular Courses:", id: 2 }
+  = render partial: 'courses_slider', locals: { courses: @org_courses, title: "Organizations Courses:", id: 3}
 - else
   = render 'home/search'
   = render 'home/geo'

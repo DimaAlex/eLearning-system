@@ -1,0 +1,13 @@
+- if courses.empty?
+   h4
+     = "No courses"
+- else
+  - courses.each do |course|
+    .panel.panel-default
+      .panel-body
+        .col-md-3
+          = image_tag course.image.url(:thumb)
+        .col-md-8
+          h4
+            = link_to course.title, course_path(course)
+  / = will_paginate courses, inner_window: 1, renderer: BootstrapPagination::Rails, param_name: param_names
