@@ -29,7 +29,5 @@ module ELearningSystem
     else
       ActiveJob::Base.queue_adapter = :sidekiq
     end
-
-    #config.active_job.queue_adapter = :sidekiq
   end
 end

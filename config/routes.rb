@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   resources :organizations do
     get 'all_users', to: 'organization_users#users_in_org'
@@ -17,6 +19,8 @@ Rails.application.routes.draw do
     put '/user/:user_id/accept_request', to: 'invitation#accept_request_on_entrance', as: 'accept_request'
     put '/user/:user_id/reject_request', to: 'invitation#reject_request_on_entrance', as: 'reject_request'
   end
+
+  mount Sidekiq::Web, at: '/sidekiq'
 
   resources :courses, only: :index do
     collection do
