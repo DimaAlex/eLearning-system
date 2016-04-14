@@ -9,5 +9,12 @@
           = image_tag course.image.url(:thumb)
         .col-md-8
           h4
-            = link_to course.title, course_path(course)
-  / = will_paginate courses, inner_window: 1, renderer: BootstrapPagination::Rails, param_name: param_names
+            = course.title
+            br
+            | Created:
+            '
+            = render "home/author", course: course
+            br
+            a.btn.btn-sm.btn-danger[href=course_path(course) role="button"]
+              | View details »
+  = will_paginate courses, inner_window: 1, renderer: BootstrapPagination::Rails

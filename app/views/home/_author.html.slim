@@ -1,5 +1,4 @@
 = label_tag "Created by: "
-.pad
   -if course.author_type == "User"
     = link_to user_profile_path(course.author) do
       i.glyphicon.glyphicon-user
