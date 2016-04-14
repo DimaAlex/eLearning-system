@@ -1,6 +1,6 @@
-- if courses.empty?
-   h4
-     = "No courses"
+- if courses.empty? || courses.nil?
+  h4
+    = "No courses"
 - else
   h4
     = note

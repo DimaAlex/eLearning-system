@@ -1,17 +1,2 @@
-- if @courses.empty?
-  h4
-    = "No courses"
-- else
-  h4
-    = "Courses in #{ @organization.title }"
-    = link_to 'Back', organization_path(@organization), class: 'btn btn-default btn-raised pull-right'
-  - @courses.each do |course|
-    .col-md-offset-3.col-md-7.panel.panel-default
-      .panel-body
-        .col-md-3
-          = image_tag course.image.url(:thumb)
-        .col-md-8
-          h4
-            = link_to course.title, course_path(course)
-
-  = will_paginate @courses, inner_window: 1, renderer: BootstrapPagination::Rails
+#courses
+  = render "courses/list_of_created_courses", courses: @courses, author: @organization, user: @user
