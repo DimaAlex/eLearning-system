@@ -87,6 +87,8 @@ class CoursesController < ApplicationController
 
   def destroy
     @course.is_destroyed  = true
+    @course.pages.each {|x| x.answers.destroy_all}
+    @course.pages.destroy_all
     if @course.save
       respond_to do |format|
         format.html { redirect_to :back, notice: 'Course was successfully destroyed.' }
