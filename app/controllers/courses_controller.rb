@@ -7,9 +7,9 @@ class CoursesController < ApplicationController
     if params[:query].present?
       @courses = Course.search(params[:query], page: params[:page], per_page: 3)
     elsif params[:type] == "public"
-      @courses = Course.where(permission: 'Public').paginate(page: params[:popular_page], per_page: 3)
+      @courses = Course.where(permission: 'Public').paginate(page: params[:page], per_page: 3)
     elsif params[:type] == "popular"
-      @courses = Course.where(permission: 'Public').paginate(page: params[:public_page], per_page: 3)
+      @courses = Course.where(permission: 'Public').paginate(page: params[:page], per_page: 3)
     elsif params[:type] == "org"
       @courses = Course.where(permission: 'Public').where(author_type: "Organization").paginate(page: params[:page], per_page: 3)
     else

@@ -1,8 +1,8 @@
-- if courses.empty?
+- if @courses.empty?
    h4
      = "No courses"
 - else
-  - courses.each do |course|
+  - @courses.each do |course|
     .panel.panel-default
       .panel-body
         .col-md-3
@@ -17,5 +17,5 @@
             br
             a.btn.btn-sm.btn-danger[href=course_path(course) role="button"]
               | View details »
-  = will_paginate courses, inner_window: 1, renderer: BootstrapPagination::Rails
+  = will_paginate @courses, inner_window: 1, renderer: BootstrapPagination::Rails
 

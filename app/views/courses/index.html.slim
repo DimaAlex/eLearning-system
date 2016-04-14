@@ -18,4 +18,5 @@
         .input-group-btn
           = submit_tag "Search", class: "btn btn-danger"
     br
-    = render 'courses', courses: @courses
+    #courses
+      = render 'courses'
