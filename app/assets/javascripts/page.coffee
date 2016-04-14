@@ -1,4 +1,4 @@
-$(document).ready ->
+pages = ->
   $('#question').hide()
 
   $(document).on 'click', '#page_page_type_lecture', ->
@@ -22,3 +22,6 @@ $(document).ready ->
     $('#count-of-answers').show()
     return
   return
+
+$(document).ready pages
+$(document).on 'page:load', pages

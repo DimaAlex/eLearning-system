@@ -12,8 +12,7 @@ class Organization < ActiveRecord::Base
   end
 
   def courses
-    courses = Course.where(author_type: "Organization")
-    courses.where(author_id: self.id)
+    Course.where(author: self, is_destroyed: false)
   end
 
   def proceent_of_users_in_org_start(course)

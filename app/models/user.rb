@@ -72,7 +72,12 @@ class User < ActiveRecord::Base
   end
 
   def courses_with_status(status)
-    users_courses.where("#{status}=?", true).sort_by(&:updated_at).reverse.map {|x| x.course}
+    courses_with_st = users_courses.where("#{status}=?", true).sort_by(&:updated_at).reverse.map {|x| x.course}
+    if status == "is_started" || status == "is_liked"
+      courses_with_st.map {|x| x if x.is_destroyed == false}.compact
+    else
+      courses_with_st
+    end
   end
 
   def passed_pages_ids(course)
@@ -81,5 +86,9 @@ class User < ActiveRecord::Base
 
   def member_of_organization?(organization)
     organizations.include?(organization)
+  end
+
+  def courses
+    Course.where(author: self, is_destroyed: false)
   end
 end
