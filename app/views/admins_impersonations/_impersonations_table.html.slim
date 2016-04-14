@@ -1,0 +1,20 @@
+.table-responsive
+  table#mytable.table.table-bordred.table-striped
+    thead
+      th Photo
+      th Name
+      th Email
+      th Begin Impersonation
+      th End Impersonation
+    - @impersonations.each do |impersonation|
+      tbody
+        tr
+          td = link_to( image_tag(impersonation.user.avatar.url(:thumb), class: 'img-ciricle'), user_profile_path(impersonation.user.id))
+          td
+            = impersonation.user.first_name
+            '
+            = impersonation.user.last_name
+          td = link_to impersonation.user.email, user_profile_path(impersonation.user.id)
+          td = impersonation.begin_impersonation
+          td = impersonation.end_impersonation
+      = will_paginate @impersonations, inner_window: 1, renderer: BootstrapPagination::Rails, class:"pull-right"

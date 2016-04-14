@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  around_action :handle_exceptions
+
   helper_method :mailbox, :conversation
 
 
@@ -11,6 +13,15 @@ class ApplicationController < ActionController::Base
   def configure_devise_params
     devise_parameter_sanitizer.for(:sign_up) do |u|
       u.permit(:first_name, :last_name, :country, :email, :password, :password_confirmation)
+    end
+  end
+
+
+  def handle_exceptions
+    begin
+      yield
+    rescue ActiveRecord::RecordNotFound
+      redirect_to errors_not_found_path
     end
   end
 

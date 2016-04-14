@@ -51,16 +51,18 @@ class OrganizationsController < ApplicationController
 
   def users_in_org
     @users_not_in_org = User.all - @organization.users
-    @users_in_org = @organization.users.usual_users_in_org.paginate(page: params[:page], per_page: 20)
+    @users_in_org = @organization.users.usual_users_in_org.paginate(page: params[:page], per_page: 10)
   end
 
   def courses_in_org
-    @courses = @organization.courses.paginate(page: params[:page], per_page: 4)
+    @user = current_user
+    @courses = @organization.courses.paginate(page: params[:page], per_page: 3)
   end
 
   def report
     @user = current_user
     if @organization.is_org_admin?(@user)
+      @courses_in_organization = @organization.courses.ids
       @courses = @organization.courses.paginate(page: params[:page], per_page: 10)
     else
       flash[:danger] =  "You have no access to report of this organization"
