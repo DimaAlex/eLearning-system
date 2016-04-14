@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  match "/404", :to => "errors#not_found", :via => :all
+
   resources :organizations do
     get 'all_users', to: 'organization_users#users_in_org'
     get 'add_users_to_org', to: 'organization_users#add_users_to_org'
