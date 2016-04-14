@@ -91,6 +91,6 @@ class User < ActiveRecord::Base
   end
 
   def courses
-    Course.where(author: self, is_destroyed: false)
+    Course.where(is_destroyed: false)
   end
 end
