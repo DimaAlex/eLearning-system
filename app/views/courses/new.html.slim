@@ -5,14 +5,15 @@
     = f.label "Title"
     = f.input :title,label: false, autofocus: true, class: 'form-control'
     = f.label "Permission"
-    - if !@organizations_user_org_admin.empty?
+    - if @organizations_user_org_admin && !@organizations_user_org_admin.empty?
       = f.input :permission, label: false, as: :radio_buttons,
               collection: ['Public', 'In organization', 'Individual'],
               checked: 'Public'
       = f.label "Author"
-      = f.input :author_type, label: false, as: :radio_buttons,
-              collection: ['Organization','User'],
-              checked: 'Organization'
+      #author-type
+        = f.input :author_type, label: false, as: :radio_buttons,
+                collection: ['Organization','User'],
+                checked: 'Organization'
       #author-organization
         = f.label "Select organization"
         = f.input :author_id, label: false, as: :select, collection: @organizations_user_org_admin,selected: @organizations_user_org_admin.first
