@@ -1,9 +1,4 @@
-- if courses.empty? || courses.nil?
-  h4
-    = "No courses"
-- else
-  h4
-    = note
+- unless courses.empty?
   - courses.each do |course|
     .panel.panel-default
       .panel-body
