@@ -1,12 +1,12 @@
 p
   = t("devise.mailer.invitation_instructions.hello", email: @resource.email)
 p
-  = t("devise.mailer.invitation_instructions.someone_invited_you", url: root_url)
+  = t("devise.mailer.invitation_instructions.someone_invited_you", url: @resource.organizations.first.title)
 p
   = link_to t("devise.mailer.invitation_instructions.end_registration"), accept_invitation_url(@resource, :invitation_token => @token)
 p
   = 'To accept invitation after registration or learn more about organization '
-  = link_to 'Organization', root_url
+  = link_to @resource.organizations.first.title, organization_url(@resource.organizations.first)
   |.
 /- if @resource.invitation_due_at
   p

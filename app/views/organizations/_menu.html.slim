@@ -1,0 +1,13 @@
+button#dropdownMenu.btn.dropdown-toggle[type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"]
+  .fa.fa-cog
+  span.caret
+ul.dropdown-menu[aria-labelledby="dropdownMenu"]
+  li
+    - if can? :write, @organization
+      li= link_to 'EDIT', edit_organization_path(@organization)
+      li= link_to 'SHOW USERS', organization_all_users_path(@organization)
+      li= link_to 'REPORT', report_path(@organization)
+      li= link_to 'ADD USERS', organization_add_users_to_org_path(@organization)
+
+    - if can? :manage, @organization
+      li= link_to 'ADD ORG ADMINS', organization_add_org_admins_to_org_path(@organization)

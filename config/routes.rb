@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   match "/404", :to => "errors#not_found", :via => :all
 
@@ -20,6 +22,8 @@ Rails.application.routes.draw do
     put '/user/:user_id/reject_request', to: 'invitation#reject_request_on_entrance', as: 'reject_request'
   end
 
+  mount Sidekiq::Web, at: '/sidekiq'
+
   resources :courses, only: :index do
     collection do
       get :autocomplete
@@ -36,8 +40,6 @@ Rails.application.routes.draw do
     post 'like_course', to: 'users_courses#like_course'
   end
   root to: 'home#index'
-
-
 
   match '/organizations/:id/report' => 'organizations#report', via: [:get, :post], :as => :report
   match '/courses/:id/start_course' => 'users_courses#start_course', via: [:get, :post], :as => :start_course

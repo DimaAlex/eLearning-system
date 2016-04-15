@@ -47,7 +47,7 @@ class Course < ActiveRecord::Base
       course_marks[cor] = cor.users_courses.average(:estimation)
     end
     course_marks.compact!
-    courses = course_marks.sort_by{ |_key, value| value }.reverse!.to_h.keys.last(8)
+    course_marks.sort_by{ |_key, value| value }.reverse!.to_h.keys.last(8)
   end
 
   def finished_with_success
