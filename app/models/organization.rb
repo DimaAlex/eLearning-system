@@ -8,7 +8,10 @@ class Organization < ActiveRecord::Base
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   def is_org_admin?(user)
-    users_organizations.where(is_org_admin: true).pluck(:user_id).include?(user.id)
+    unless user.nil?
+      return users_organizations.where(is_org_admin: true).pluck(:user_id).include?(user.id)
+    end
+    false
   end
 
   def courses

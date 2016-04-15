@@ -1,14 +1,13 @@
-- if can? :write, @organization
-  = link_to 'Edit', edit_organization_path(@organization), class: 'btn btn-danger btn-raised'
-  .pad
-  = link_to 'Show users in organization', organization_all_users_path(@organization), class: 'btn btn-primary btn-raised'
-  = link_to 'Report', report_path(@organization), class: 'btn btn-danger'
-  .pad
+button#dropdownMenu.btn.dropdown-toggle[type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"]
+  .fa.fa-cog
+  span.caret
+ul.dropdown-menu[aria-labelledby="dropdownMenu"]
+  li
+    - if can? :write, @organization
+      li= link_to 'EDIT', edit_organization_path(@organization)
+      li= link_to 'SHOW USERS', organization_all_users_path(@organization)
+      li= link_to 'REPORT', report_path(@organization)
+      li= link_to 'ADD USERS', organization_add_users_to_org_path(@organization)
 
-- if can? :write, @organization
-  .pad
-  = link_to 'Add users', organization_add_users_to_org_path(@organization), class: 'btn btn-warning btn-raised'
-
-  - if can? :manage, @organization
-    .pad
-    = link_to 'Add admins of organization', organization_add_org_admins_to_org_path(@organization), class: 'btn btn-info btn-raised'
+    - if can? :manage, @organization
+      li= link_to 'ADD ORG ADMINS', organization_add_org_admins_to_org_path(@organization)
