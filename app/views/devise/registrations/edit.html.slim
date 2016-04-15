@@ -10,8 +10,7 @@
             .text-center.text-center-img
               = image_tag current_user.avatar.url(:medium), class: 'img-ciricle'
               p
-              = f.file_field :avatar, class: "text-center center-block well well-sm filestyle",
-                             "data-buttonName" => "btn-danger", "data-size" => "sm", "data-buttonBefore" => "true"
+              = f.file_field :avatar, class: "text-center center-block well well-sm filestyle"
           .col-md-9.personal-info
             .form-group.has-error
               label.col-lg-3.control-label= f.label "First name"

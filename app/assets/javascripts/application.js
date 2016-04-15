@@ -35,5 +35,3 @@
 //= require_tree .
 //= require bootstrap-filestyle
 
-$(":file").filestyle();
-

@@ -11,7 +11,7 @@ br
 
 #from_file
   = form_tag organization_import_users_path(@organization), multipart: true do
-    = file_field_tag :file, class: 'filestyle', "data-size" => "sm", "data-buttonBefore" => "true"
+    = file_field_tag :file, class: 'filestyle'
     = submit_tag 'Import from file', class: 'btn btn-danger btn-raised', onclick: 'form_slideUp()'
 br
 = link_to 'Back', organization_path(@organization), class: 'btn btn-default btn-raised'
