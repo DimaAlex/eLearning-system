@@ -23,10 +23,10 @@ class CoursesController < ApplicationController
       return
     end
       @user = current_user
-      @mark = UsersCourse.where(user_id: current_user.id, course_id: @course.id)
 
       @user_start_course = @user.users_courses.find_by_course_id(@course.id) if @user
       if @user_start_course && !@course.is_author?(@user)
+        @mark = UsersCourse.where(user_id: current_user.id, course_id: @course.id)
         @progress = @user.progress(@course)
         @passed_pages_ids = @user.passed_pages_ids(@course)
       end
@@ -56,7 +56,7 @@ class CoursesController < ApplicationController
         end
         format.json { render :show, status: :created, location: @course }
       else
-        format.html { render :new }
+        format.html { redirect_to new_course_path }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
     end
