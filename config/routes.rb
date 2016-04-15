@@ -29,9 +29,7 @@ Rails.application.routes.draw do
       get :autocomplete
     end
   end
-   # get "courses/popular" => "courses#popular", as: :courses_popular
-  # get "courses/org" => "courses#org", as: :courses_org
-  # get "courses/public" => "courses#public", as: :courses_public
+
   get 'organizations/:id/courses', to: 'organizations#courses_in_org', as: 'organization_courses'
 
 
@@ -43,15 +41,15 @@ Rails.application.routes.draw do
   end
   root to: 'home#index'
 
-
-
   match '/organizations/:id/report' => 'organizations#report', via: [:get, :post], :as => :report
   match '/courses/:id/start_course' => 'users_courses#start_course', via: [:get, :post], :as => :start_course
   match '/courses/:course_id/pages/:id/finish_page' => 'pages#finish_page', via: [:get, :post], :as => :finish_page
 
   get 'admin', to: 'admin#index'
   get '/user/:id', to: 'users#profile', as: 'user_profile'
+
   get 'user/courses/:id', to: 'users#courses', as: 'users_courses'
+
   resources :input_user_answers, only: [:create, :update]
   get '/user/show', to: 'users#show'
 

@@ -65,6 +65,9 @@ gem 'pretender'
 gem 'audited', '~> 4.0'
 gem 'faker'
 
+
+gem 'simplecov', require: false, group: :test
+
 gem 'aasm'
 gem 'email_validator'
 
