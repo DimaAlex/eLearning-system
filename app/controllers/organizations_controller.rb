@@ -1,8 +1,12 @@
 class OrganizationsController < ApplicationController
-  before_action :set_organization, except: [:index, :new, :create]
+  before_action :set_organization, only: [:new, :create, :show]
 
   def index
-    @organizations = Organization.paginate(page: params[:page], per_page: 5)
+    if params[:query].present?
+      @organizations = Organization.search(params[:query], page: params[:page], per_page:4 )
+    else
+      @organizations = Organization.paginate(page: params[:page], per_page: 4)
+    end
   end
 
   def show
@@ -69,6 +73,11 @@ class OrganizationsController < ApplicationController
       redirect_to organization_path(@organization)
     end
   end
+
+  def autocomplete
+    render json: Organization.search(params[:query], autocomplete: true, limit: 10).map(&:title)
+  end
+
 
   private
   def set_organization
