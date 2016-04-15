@@ -2,6 +2,7 @@ class RecommendedCoursesJob < ActiveJob::Base
   queue_as :default
 
   def perform()
-    CourseMailer.recommended_courses(Course.where(id: courses_ids)).deliver_later
+    courses_ids = Course.popular_courses.map {|c| c.id }
+    CourseMailer.recommended_courses(courses_ids).deliver_later
   end
 end

@@ -8,5 +8,4 @@ body
             h2
               = course.title
               p
-              a.btn.btn-danger[href=course_path(course) role="button"]
-                | View details »
+              = link_to 'View details »', course_url(course), class: 'btn btn-danger'
