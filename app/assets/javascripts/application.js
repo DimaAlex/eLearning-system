@@ -33,4 +33,7 @@
 //= require bootstrap-datetimepicker
 //= require pickers
 //= require_tree .
+//= require bootstrap-filestyle
+
+$(":file").filestyle();
 
