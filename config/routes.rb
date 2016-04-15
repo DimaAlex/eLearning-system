@@ -45,7 +45,9 @@ Rails.application.routes.draw do
 
   get 'admin', to: 'admin#index'
   get '/user/:id', to: 'users#profile', as: 'user_profile'
+
   get 'user/courses/:id', to: 'users#courses', as: 'users_courses'
+
   resources :input_user_answers, only: [:create, :update]
   get '/user/show', to: 'users#show'
 

@@ -5,23 +5,33 @@ class CoursesController < ApplicationController
 
   def index
     if params[:query].present?
-      @courses = Course.search(params[:query])
+      @courses = Course.search(params[:query], page: params[:page], per_page: 3)
+    elsif params[:type] == "public"
+      @courses = Course.where(permission: 'Public').paginate(page: params[:page], per_page: 3)
+    elsif params[:type] == "popular"
+      @courses = Course.popular_courses.paginate(page: params[:page], per_page: 3)
+    elsif params[:type] == "org"
+      @courses = Course.where(permission: 'Public').where(author_type: "Organization").paginate(page: params[:page], per_page: 3)
     else
       @courses = []
     end
   end
 
   def show
-    @user = current_user
-
-    @user_start_course = @user.users_courses.find_by_course_id(@course.id) if @user
-    if @user_start_course && !@course.is_author?(@user)
-      @mark = UsersCourse.where(user_id: current_user.id, course_id: @course.id)
-      @progress = @user.progress(@course)
-      @passed_pages_ids = @user.passed_pages_ids(@course)
+    unless current_user
+      redirect_to :back
+      return
     end
-    @is_liked = @user.users_courses.find_by_course_id(@course.id)
-    @is_liked = @is_liked.is_liked if @is_liked
+      @user = current_user
+      @mark = UsersCourse.where(user_id: current_user.id, course_id: @course.id)
+
+      @user_start_course = @user.users_courses.find_by_course_id(@course.id) if @user
+      if @user_start_course && !@course.is_author?(@user)
+        @progress = @user.progress(@course)
+        @passed_pages_ids = @user.passed_pages_ids(@course)
+      end
+      @is_liked = @user.users_courses.find_by_course_id(@course.id)
+      @is_liked = @is_liked.is_liked if @is_liked
   end
 
   def new
@@ -115,23 +125,22 @@ class CoursesController < ApplicationController
     @user = current_user
   end
 
-    def check_user
-      unless current_user
-        flash[:danger] =  "You should log in"
-        redirect_to root_path
-      end
+  def check_user
+    unless current_user
+      flash[:danger] =  "You should log in"
+      redirect_to root_path
     end
+  end
 
-    def set_course
-      @course = Course.find(params[:id])
-    end
+  def set_course
+    @course = Course.find(params[:id])
+  end
 
-    def course_params
-      params.require(:course).permit(:title, :image, :permission, :certificate_template, :author_type, :author_id)
-    end
+  def course_params
+    params.require(:course).permit(:title, :image, :permission, :certificate_template, :author_type, :author_id)
+  end
 
-    def user_course_params
-      params.require(:course).permit(:user_id, :course_id, :estimation)
-    end
-
+  def user_course_params
+    params.require(:course).permit(:user_id, :course_id, :estimation)
+  end
 end

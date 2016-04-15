@@ -95,3 +95,24 @@
 .btn-close {
   margin-top: 10px !important;
 }
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  border-color: #f55549;
+  background-color: #f55549;
+}
+
+button.list-group-item.active{
+  border-color: #f55549;
+  background-color: #f55549;
+}
+.list-group-item.active{
+  border-color: #f55549;
+  background-color: #f55549;
+}
+
+.pagination{
+  margin-top: 0px;
+}
+
+.panel-body {
+  padding: 5px;
+}
