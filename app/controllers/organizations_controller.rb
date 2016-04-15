@@ -51,7 +51,7 @@ class OrganizationsController < ApplicationController
 
   def users_in_org
     @users_not_in_org = User.all - @organization.users
-    @users_in_org = @organization.users.usual_users_in_org.paginate(page: params[:page], per_page: 20)
+    @users_in_org = @organization.users.usual_users_in_org.paginate(page: params[:page], per_page: 10)
   end
 
   def courses_in_org

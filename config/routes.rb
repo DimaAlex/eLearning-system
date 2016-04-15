@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  match "/404", :to => "errors#not_found", :via => :all
+
   resources :organizations do
     get 'all_users', to: 'organization_users#users_in_org'
     get 'add_users_to_org', to: 'organization_users#add_users_to_org'
@@ -27,7 +29,9 @@ Rails.application.routes.draw do
       get :autocomplete
     end
   end
-
+   # get "courses/popular" => "courses#popular", as: :courses_popular
+  # get "courses/org" => "courses#org", as: :courses_org
+  # get "courses/public" => "courses#public", as: :courses_public
   get 'organizations/:id/courses', to: 'organizations#courses_in_org', as: 'organization_courses'
 
 

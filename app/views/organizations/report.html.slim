@@ -12,38 +12,8 @@
         .col-lg-6
           = pie_chart UsersCourse.where(course_id: @courses_in_organization).group(:status_course).count
         .col-lg-6
-          = line_chart UsersCourse.where(course_id: @courses_in_organization).group_by_hour(:created_at).count
-      table.table
-        thead
-          tr.filters
-            th
-              input.form-control[type="text" placeholder="Title" disabled]
-            th
-              input.form-control[type="text" placeholder="% of users in organization" disabled]
-            th
-              input.form-control[type="text" placeholder="Users started course" disabled]
-            th
-              input.form-control[type="text" placeholder="N finished with success" disabled]
-            th
-              input.form-control[type="text" placeholder="N finished badly" disabled]
-            th
-              input.form-control[type="text" placeholder="Average mark" disabled]
-        - @courses.each do |course|
-          tbody
-            tr
-              td
-                = link_to course.title, course_path(course)
-              td
-                = @organization.proceent_of_users_in_org_start(course)
-              td
-                = course.users_try_course
-              td
-                = course.finished_with_success
-              td
-                = course.finished_badly
-              td
-                = course.average_users_mark
-
-          = will_paginate @courses
+          /= line_chart UsersCourse.where(course_id: @courses_in_organization).group_by_hour(:created_at).count
+      #courses_in_report
+        = render "courses_in_report"
 
     = link_to 'Back', organization_path(@organization), class: 'btn btn-default btn-raised'
