@@ -2,49 +2,88 @@ class OrganizationUsersController < ApplicationController
   before_action :set_organization
 
   def add_users_to_org
-    @users_not_in_org = User.all - @organization.users
+    if can? :write, @organization
+      @users_not_in_org = User.where(is_admin: false) - @organization.users
+    else
+      redirect_to organization_path(@organization), notice: "You can't do this."
+    end
   end
 
   def add_org_admins_to_org
-    @users_without_admin = User.where(is_admin: false) - @organization.users.org_admins
+    if can? :write, @organization
+      @users_without_admin = User.where(is_admin: false) - @organization.users.org_admins - User.invitation_not_accepted
+    else
+      redirect_to organization_path(@organization), notice: "You can't do this."
+    end
   end
 
   def create_users_in_org
-    @users = User.where(id: params.require(:organization).permit(users:[])[:users])
+    users = User.where(id: params.require(:organization).permit(users:[])[:users])
 
-    @organization.users << @users
-    UserMailer.invitation_instractions(@users.last, @organization).deliver_later # for last user
+    if users.empty?
+      redirect_to organization_add_users_to_org_path(@organization), notice: 'There is no users to add in organization.'
+    else
+      uniq_users = users - @organization.users
+      users_org = []
 
-    redirect_to organization_path(@organization), notice: 'Users added.'
+      uniq_users.each do |user|
+        users_org << { user_id: user.id, state: :invited }
+      end
+
+      @organization.users_organizations.create(users_org)
+
+      uniq_users.each do |user|
+        UserMailer.invitation_instractions(user.email, @organization).deliver_later
+      end
+
+      redirect_to organization_path(@organization), notice: 'User(s) added.'
+    end
+
   end
 
   def create_org_admins_in_org
-    @org_admins = User.where(id: params.require(:organization).permit(users:[])[:users])
+    org_admins = User.where(id: params.require(:organization).permit(users:[])[:users])
 
-    @org_admins.each do |org_admin|
-      oa = @organization.users_organizations.build(user_id: org_admin.id, is_org_admin: true)
-      oa.save
+    if org_admins.empty?
+      redirect_to organization_add_org_admins_to_org_path(@organization), notice: 'There is no users to add.'
+    else
+      uniq_users = []
+      org_admins.each do |admin|
+        if @organization.users.include?(admin)
+          uo = @organization.users_organizations.find_by_user_id(admin.id)
+          uo.update_attributes(is_org_admin: true)
+        else
+          uniq_users << { user_id: admin.id, is_org_admin: true }
+        end
+      end
+
+      @organization.users_organizations.create(uniq_users)
+
+      redirect_to organization_path(@organization), notice: 'Admin(s) of organization added.'
     end
 
-    redirect_to organization_path(@organization)
   end
 
   def users_in_org
-    @users_in_org = @organization.users.usual_users_in_org.paginate(:page => params[:page], :per_page => 20)
+    if can? :write, @organization
+      @users_in_org = @organization.users.not_org_admins.paginate(:page => params[:page], :per_page => 20)
+    else
+      redirect_to organization_path(@organization), notice: "You can't do this."
+    end
   end
 
   def import_users_from_file
     begin
       User.import(params[:file], @organization)
-      redirect_to organization_path(@organization), notice: 'Users added.'
+      redirect_to organization_path(@organization), notice: 'User(s) added.'
     rescue
-      redirect_to organization_path(@organization), notice: 'Invalid CSV file format.'
+      redirect_to organization_add_users_to_org_path(@organization), notice: 'Invalid CSV file format.'
     end
   end
 
   private
 
   def set_organization
-    @organization = Organization.find(params[:organization_id])
+    @organization = Organization.includes(:users).find(params[:organization_id])
   end
 end

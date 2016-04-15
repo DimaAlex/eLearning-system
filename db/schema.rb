@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330211825) do
+ActiveRecord::Schema.define(version: 20160413163253) do
 
   create_table "admins_impersonations", force: :cascade do |t|
     t.integer  "user_id",             limit: 4
@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 20160330211825) do
     t.string   "permission",                        limit: 255
     t.integer  "author_id",                         limit: 4
     t.string   "author_type",                       limit: 255
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
     t.string   "image_file_name",                   limit: 255
     t.string   "image_content_type",                limit: 255
     t.integer  "image_file_size",                   limit: 4
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20160330211825) do
     t.string   "certificate_template_content_type", limit: 255
     t.integer  "certificate_template_file_size",    limit: 4
     t.datetime "certificate_template_updated_at"
+    t.boolean  "is_destroyed",                                  default: false
   end
 
   add_index "courses", ["author_type", "author_id"], name: "index_courses_on_author_type_and_author_id", using: :btree
@@ -177,6 +178,7 @@ ActiveRecord::Schema.define(version: 20160330211825) do
     t.integer  "invited_by_id",          limit: 4
     t.string   "invited_by_type",        limit: 255
     t.integer  "invitations_count",      limit: 4,   default: 0
+    t.date     "birthdate"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -186,10 +188,17 @@ ActiveRecord::Schema.define(version: 20160330211825) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "users_courses", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.integer  "course_id",  limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.integer  "user_id",       limit: 4
+    t.integer  "course_id",     limit: 4
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.boolean  "is_started"
+    t.boolean  "is_finished"
+    t.integer  "estimation",    limit: 4
+    t.boolean  "is_liked"
+    t.string   "certificate",   limit: 255
+    t.integer  "mark",          limit: 4
+    t.string   "status_course", limit: 255, default: "In Progress"
   end
 
   add_index "users_courses", ["course_id"], name: "index_users_courses_on_course_id", using: :btree
@@ -206,9 +215,10 @@ ActiveRecord::Schema.define(version: 20160330211825) do
   add_index "users_courses_pages", ["users_course_id"], name: "index_users_courses_pages_on_users_course_id", using: :btree
 
   create_table "users_organizations", force: :cascade do |t|
-    t.boolean "is_org_admin",              default: false
+    t.boolean "is_org_admin",                default: false
     t.integer "user_id",         limit: 4
     t.integer "organization_id", limit: 4
+    t.string  "state",           limit: 255
   end
 
   add_index "users_organizations", ["organization_id"], name: "index_users_organizations_on_organization_id", using: :btree

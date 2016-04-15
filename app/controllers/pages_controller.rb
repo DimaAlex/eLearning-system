@@ -14,8 +14,10 @@ class PagesController < ApplicationController
     @user = current_user
     @input_user_answer = @user.input_user_answers.find_by_page_id(@page.id)
     @input_user_answer ||= @user.input_user_answers.build
-    @progress = @user.progress(@page.course)
-    @passed_pages_ids = @user.passed_pages_ids(@page.course) unless @page.course.author == @user
+    unless @page.course.is_author?(@user)
+      @progress = @user.progress(@page.course)
+      @passed_pages_ids = @user.passed_pages_ids(@page.course)
+    end
   end
 
   def new
@@ -23,15 +25,17 @@ class PagesController < ApplicationController
   end
 
   def edit
-    @answer_type = @page.answers.first.answer_type
-    if @page.page_type == "Question" && (@answer_type == "Radio" || @answer_type == "Checkbox")
-      (@page.body.to_i-1).times { @page.answers.build }
+    unless @page.answers.empty?
+      @answer_type = @page.answers.first.answer_type
+      if @page.page_type == "Question" && (@answer_type == "Radio" || @answer_type == "Checkbox")
+        (@page.body.to_i-1).times { @page.answers.build }
+      end
     end
   end
 
   def create
     @page = @course.pages.build(page_params)
-
+    @page.answers.destroy_all if @page.page_type == "Lecture" || @page.page_type == "Video"
     respond_to do |format|
       if @page.save
         format.html { redirect_to edit_course_page_path(id: @page.id) }
@@ -61,7 +65,7 @@ class PagesController < ApplicationController
 
   def finish_page
     @user = current_user
-    if @course.author == @user
+    if @course.is_author?(@user)
       to_next_page
     else
       users_course = @user.users_courses.find_by_course_id(@course.id)
@@ -91,7 +95,7 @@ class PagesController < ApplicationController
     @user = current_user
     if @user
       @user_start_course = @user.courses.include?(@page.course)
-      unless @user_start_course || @page.course.author == @user
+      unless @user_start_course || @page.course.is_author?(@user)
         flash[:danger] = "You should start course to see page"
         redirect_to course_path(@page.course)
       end

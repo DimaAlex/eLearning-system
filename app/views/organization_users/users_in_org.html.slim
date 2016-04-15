@@ -8,30 +8,7 @@
           button.btn.btn-default.btn-xs.btn-filter
             span.glyphicon.glyphicon-filter
             |  Filter
-      table.table
-
-        thead
-          tr.filters
-            th
-              input.form-control[type="text" placeholder="First Name" disabled]
-            th
-              input.form-control[type="text" placeholder="Last Name" disabled]
-            th
-              input.form-control[type="text" placeholder="Email" disabled]
-            th
-              em class="fa fa-cog"
-        - @users_in_org.each do |user|
-          tbody
-            tr
-              td
-                = link_to "#{ user.first_name }", user_profile_path(user)
-              td
-                = link_to "#{ user.last_name }", user_profile_path(user)
-              td
-                = link_to "#{ user.email }", user_profile_path(user)
-              td
-                = link_to "Impersonate", impersonate_path(user), class:"fa fa-user"
-
-        = will_paginate @users_in_org
+      #users_in_org
+        = render "users_in_org_table"
 
     = link_to 'Back', organization_path(@organization), class: 'btn btn-default btn-raised'

@@ -19,6 +19,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'rspec-rails'
+gem 'react-rails', '~> 1.6', '>= 1.6.2'
 
 gem 'devise', '~> 3.5', '>= 3.5.6'
 gem 'devise_invitable', '~> 1.5.2'
@@ -46,6 +47,7 @@ gem 'chosen-rails', '1.4.3'
 
 gem 'paperclip', '~> 4.3'
 gem 'pdf-forms', '~> 1.0'
+gem 'groupdate', '~> 2.5', '>= 2.5.2'
 
 gem 'ckeditor', '~> 4.1'
 gem 'font-awesome-rails'
@@ -63,7 +65,15 @@ gem 'pretender'
 gem 'audited', '~> 4.0'
 gem 'faker'
 
+
 gem 'simplecov', require: false, group: :test
+
+gem 'aasm'
+gem 'email_validator'
+
+gem 'momentjs-rails', '~> 2.9',  :github => 'derekprior/momentjs-rails'
+gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
+
 
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.6'

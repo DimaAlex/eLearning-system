@@ -1,0 +1,3 @@
+$("div#current-courses").html("<%= escape_javascript(render "courses/list_of_courses", courses: @current_courses, note: "Current courses", started: true, param_names: "current_page") %>");
+$("div#finished-courses").html("<%= escape_javascript(render "courses/list_of_courses", courses: @finished_courses, note: "Finished courses", started: false, param_names: "finished_page") %>");
+$("div#liked-courses").html("<%= escape_javascript(render "courses/list_of_courses", courses: @liked_courses, note: "Liked courses", started: false, param_names: "liked_page") %>");

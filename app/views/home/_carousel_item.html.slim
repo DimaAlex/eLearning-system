@@ -1,0 +1,45 @@
+.item
+  .col-md-3
+    br
+    -if c1
+      .well.carousel-well
+        = image_tag c1.image.url(:thumb), class: "img img-circle"
+        h4
+          = c1.title
+          p
+          = render "author", course: c1
+          a.btn.btn-danger[href=course_path(c1) role="button"]
+            | View details »
+  .col-md-3
+    br
+    -if c2
+      .well.carousel-well
+        = image_tag c2.image.url(:thumb), class: "img img-circle"
+        h4
+          = c2.title
+          p
+          = render "author", course: c2
+          a.btn.btn-danger[href=course_path(c2) role="button"]
+            | View details »
+  .col-md-3
+    br
+    -if c3
+      .well.carousel-well
+        = image_tag c3.image.url(:thumb), class: "img img-circle"
+        h4
+          = c3.title
+          p
+          = render "author", course: c3
+          a.btn.btn-danger[href=course_path(c3) role="button"]
+            | View details »
+  .col-md-3
+    br
+    -if c4
+      .well.carousel-well
+        = image_tag c4.image.url(:thumb), class: "img img-circle"
+        h4
+          = c4.title
+          p
+          = render "author", course: c4
+          a.btn.btn-danger[href=course_path(c4) role="button"]
+            | View details »

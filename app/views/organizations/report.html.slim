@@ -1,0 +1,19 @@
+.container
+  .row
+    .panel.panel-primary.filterable
+      .panel-heading
+        h3.panel-title
+          =  "Courses in #{@organization.title}"
+        .pull-right
+          button.btn.btn-default.btn-xs.btn-filter
+            span.glyphicon.glyphicon-filter
+            |  Filter
+      .col-lg-12
+        .col-lg-6
+          = pie_chart UsersCourse.where(course_id: @courses_in_organization).group(:status_course).count
+        .col-lg-6
+          /= line_chart UsersCourse.where(course_id: @courses_in_organization).group_by_hour(:created_at).count
+      #courses_in_report
+        = render "courses_in_report"
+
+    = link_to 'Back', organization_path(@organization), class: 'btn btn-default btn-raised'

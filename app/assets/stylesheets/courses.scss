@@ -5,9 +5,17 @@
   float: right;
   display: inline;
 }
+.timestamp {
+  color: gray;
+}
 
 .passed-sign-color {
   color: crimson;
+}
+
+.star {
+  color: crimson;
+  font-size: 2em;
 }
 
 .border-right {
@@ -32,4 +40,79 @@
   top: 0; left: 0;
   width: 100%;
   height: 100%;
+}
+
+.rangeslider__value-bubble {
+  border: 1px solid #ccc;
+  display: block;
+  padding: 5px;
+  position: absolute;
+  bottom: 100%;
+  margin-bottom: 25px;
+  width: 100px;
+  margin-left: -50px;
+  text-align: center;
+  border-radius: 5px;
+
+  &:before,
+  &:after {
+    border-width: 11px;
+    border-style: solid;
+    border-color: transparent;
+    content: "";
+    display: block;
+    margin: auto;
+    width: 10px;
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+  &:before {
+    border-top-color: #ccc;
+    border-bottom-width: 0;
+    bottom: -11px;
+  }
+  &:after {
+    border-top-color: #fff;
+    border-bottom-width: 0;
+    bottom: -10px;
+  }
+}
+
+.rangeslider__fill{
+  background-color: #f44336 !important;
+}
+
+.range-input {
+  margin-top: 80px;
+  margin-bottom: 20px;
+}
+
+.modal-footer {
+  margin-top: 40px;
+}
+
+.btn-close {
+  margin-top: 10px !important;
+}
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  border-color: #f55549;
+  background-color: #f55549;
+}
+
+button.list-group-item.active{
+  border-color: #f55549;
+  background-color: #f55549;
+}
+.list-group-item.active{
+  border-color: #f55549;
+  background-color: #f55549;
+}
+
+.pagination{
+  margin-top: 0px;
+}
+
+.panel-body {
+  padding: 5px;
 }

@@ -1,9 +1,22 @@
-.text-center
-  = link_to "New course", new_course_path, class: "btn btn-primary"
-.list-group
-  .list-group-item.h2
-    ="Courses"
-    - @courses.each do |course|
-      .list-group-item
-        span.h4
-          = link_to course.title, course_path(course)
+.row
+  .col-lg-4
+    = link_to courses_path(type: "popular") , class: "list-group-item" do
+      i.glyphicon.glyphicon-star
+      |  Most popular
+
+    = link_to courses_path(type: "org"), class: "list-group-item" do
+      i.glyphicon.glyphicon-home
+      |  Organizations courses
+
+    = link_to courses_path(type: "public"), class: "list-group-item" do
+      i.fa.fa-users
+      |  Public courses
+  .col-lg-6.col-offset-4
+    = form_tag courses_path, class: "form-inline", method: :get do
+      .input-group.input-group-lg
+        = text_field_tag :query, params[:query], id: "course_search", autocomplete: "off"
+        .input-group-btn
+          = submit_tag "Search", class: "btn btn-danger"
+    br
+    #courses
+      = render 'courses'

@@ -1,21 +1,23 @@
 class OrganizationsController < ApplicationController
   before_action :set_organization, except: [:index, :new, :create]
 
-  authorize_resource except: [:index, :show]
-
   def index
     @organizations = Organization.paginate(page: params[:page], per_page: 5)
-    @organization = Organization.new
   end
 
   def show
   end
 
   def new
-    @organization = Organization.new
+    if can? :manage, Organization
+      @organization = Organization.new
+    else
+      redirect_to organizations_path, alert: "You can't do this."
+    end
   end
 
   def edit
+    redirect_to organization_path(@organization), alert: "You can't do this." if cannot? :write, @organization
   end
 
   def create
@@ -49,22 +51,22 @@ class OrganizationsController < ApplicationController
 
   def users_in_org
     @users_not_in_org = User.all - @organization.users
-    @users_in_org = @organization.users.usual_users_in_org.paginate(page: params[:page], per_page: 20)
+    @users_in_org = @organization.users.usual_users_in_org.paginate(page: params[:page], per_page: 10)
   end
 
-  def create_users_to_org
-    @organization.users << @users
-    UserMailer.invitation_instractions(@users.last, @organization).deliver_later
-
-    redirect_to organization_all_users_path(@organization)
+  def courses_in_org
+    @user = current_user
+    @courses = @organization.courses.paginate(page: params[:page], per_page: 3)
   end
 
-  def import
-    begin
-      User.import(params[:file], @organization)
-      redirect_to organization_all_users_path(@organization)
-    rescue
-      redirect_to organization_all_users_path(@organization), notice: 'Invalid CSV file format.'
+  def report
+    @user = current_user
+    if @organization.is_org_admin?(@user)
+      @courses_in_organization = @organization.courses.ids
+      @courses = @organization.courses.paginate(page: params[:page], per_page: 10)
+    else
+      flash[:danger] =  "You have no access to report of this organization"
+      redirect_to organization_path(@organization)
     end
   end
 

@@ -4,4 +4,7 @@ class UsersCourse < ActiveRecord::Base
 
   has_many :users_courses_pages
   has_many :pages, through: :users_courses_pages
+
 end
+
+

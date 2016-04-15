@@ -2,28 +2,30 @@
   h2.col-md-offset-3
     = "New course"
   = simple_form_for(@course) do |f|
-    .form-group
-      = f.label "Title", class: 'col-sm-2 control-label'
-      .col-sm-6
-        = f.input :title,label: false, autofocus: true, class: 'form-control'
-      br
+    = f.label "Title"
+    = f.input :title,label: false, autofocus: true, class: 'form-control'
+    = f.label "Permission"
+    - if !@organizations_user_org_admin.empty?
+      = f.input :permission, label: false, as: :radio_buttons,
+              collection: ['Public', 'In organization', 'Individual'],
+              checked: 'Public'
+      = f.label "Author"
+      = f.input :author_type, label: false, as: :radio_buttons,
+              collection: ['Organization','User'],
+              checked: 'Organization'
+      #author-organization
+        = f.label "Select organization"
+        = f.input :author_id, label: false, as: :select, collection: @organizations_user_org_admin,selected: @organizations_user_org_admin.first
+    -else
+      = f.input :permission, label: false, as: :radio_buttons,
+              collection: ['Public', 'Individual'],
+              checked: 'Public'
+      = f.input :author_type, as: :hidden, :input_html => { value: "User" }
+    = f.label "Add image to course"
+    = f.file_field :image
     br
-    .form-group
-      = f.label "Permission", class: 'col-sm-2 control-label'
-      .col-sm-6
-        = f.input :permission, label: false, as: :radio_buttons,
-                collection: ['Public', 'In organization', 'Individual'],
-                checked: 'Public'
-    .form-group
-      .col-sm-offset-2.col-sm-6
-        = f.file_field :image
-      .col-sm-offset-2.col-sm-6
-        = f.file_field :certificate_template
-    .form-group
-      .col-sm-offset-2.col-sm-6
-        = link_to "Back", :back, class: "btn btn-default"
-        = f.submit "Create", class: "btn btn-primary"
+    = f.label "Add certificate to course"
+    = f.file_field :certificate_template
 
-
-
-= render 'courses/estimation'
+    = link_to "Back", :back, class: "btn btn-default"
+    = f.submit "Create", class: "btn btn-primary"

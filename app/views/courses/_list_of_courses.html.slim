@@ -1,0 +1,15 @@
+- unless courses.empty?
+  - courses.each do |course|
+    .panel.panel-default
+      .panel-body
+        .col-md-3
+          = image_tag course.image.url(:thumb)
+        .col-md-8
+          h4
+            = link_to course.title, course_path(course)
+          - if @user.course_finished?(course)
+            .timestamp
+              = "Course finished #{@user.users_courses.find_by_course_id(course.id).updated_at.strftime("%d.%m.%Y в %I:%M %p")}"
+          - elsif started
+            = render "courses/progress", progress: @user.progress(course)
+  = will_paginate courses, inner_window: 1, renderer: BootstrapPagination::Rails, param_name: param_names

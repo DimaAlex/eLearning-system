@@ -14,3 +14,8 @@ table.table.table-hover
           i.glyphicon.glyphicon-question-sign
       td
         =link_to page.title, course_page_path(page.course, page)
+      - if page.course.is_author?(current_user)
+        td width="5%"
+          = link_to course_page_path(page.course, page), data: {:confirm => 'Are you sure?'}, :method => :delete do
+            .passed-sign-color
+              i.glyphicon.glyphicon-remove-sign
