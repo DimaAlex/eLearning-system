@@ -1,13 +1,7 @@
-/ .col-lg-12
-/   .col-lg-2.col-lg-offset-1
-/     h2.title-box
-/       = 'Organizations'
 /     br
 /       - if can? :new, Organization
 /         = link_to 'New Organization', new_organization_path, class: 'btn btn-info btn-raise'
 /   .col-lg-6.col-lg-offset-1
-/     #organizations
-/       = render "organizations"
 .org-container.panel.panel-default
 p.partners.col-lg-7
   | Our Partners

@@ -7,11 +7,11 @@ br
 #by_email
   = simple_form_for @organization, url: organization_create_users_path, method: :post do |f|
     = f.select(:users, @users_not_in_org.collect { |u| [u.email, u.id] }, {}, {multiple: true, class: "chosen-select form-control"})
-    = f.button :submit, 'Add users', class: 'btn btn-primary btn-raised', onclick: 'form_slideUp()'
+    = f.button :submit, 'Add users', class: 'btn btn-danger btn-raised', onclick: 'form_slideUp()'
 
 #from_file
   = form_tag organization_import_users_path(@organization), multipart: true do
-    = file_field_tag :file
-    = submit_tag 'Import from file', class: 'btn btn-primary btn-raised', onclick: 'form_slideUp()'
+    = file_field_tag :file, class: 'filestyle'
+    = submit_tag 'Import from file', class: 'btn btn-danger btn-raised', onclick: 'form_slideUp()'
 br
 = link_to 'Back', organization_path(@organization), class: 'btn btn-default btn-raised'
