@@ -25,7 +25,7 @@
               .pad
                 = @course.permission
               br
-              = render "courses/author", course: @course
+              = render "author", course: @course
             div
               - unless @course.is_author?(@user)
                 - if @user_start_course && @user_start_course.is_started
