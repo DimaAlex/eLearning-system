@@ -15,6 +15,10 @@
                 checked: 'Input'
         #count-of-answers
           = p.input :body, label: false, as: :select, collection: 2..5, prompt: "Count of answers"
-    =link_to "Finish", course_path(@course), class: "btn btn-danger"
-    .right
-      =p.submit "Next", class: "btn btn-default"
+
+    .col-md-offset-5
+      .input-group-btn
+        button.btn.btn-default.btn-raised type="submit"
+          .passed-sign-color
+            = "Next"
+            span.glyphicon.glyphicon-circle-arrow-right

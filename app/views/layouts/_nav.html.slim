@@ -9,7 +9,7 @@
     .navbar-collapse.collapse.navbar-responsive-collapse
       ul.nav.navbar-nav.ul-right
         li.nav-text-color.header-box
-          = link_to 'Courses', courses_path
+          = link_to 'Courses', courses_path(type: "popular")
           = render "layouts/categories"
         li.nav-text-color.header-box
           = link_to 'Companies', organizations_path

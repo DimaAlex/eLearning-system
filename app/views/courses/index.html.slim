@@ -14,9 +14,10 @@
   .col-lg-6.col-offset-4
     = form_tag courses_path, class: "form-inline", method: :get do
       .input-group.input-group-lg
-        = text_field_tag :query, params[:query], id: "course_search", placeholder: "Search for courses", autocomplete: "off"
+        = text_field_tag :query, params[:query], id: "course_search", autocomplete: "off", placeholder: "Search course"
         .input-group-btn
-          = submit_tag "Search", class: "btn btn-danger"
+          button.btn.btn-danger type="submit"
+            span.glyphicon.glyphicon-search
     br
     #courses
       = render 'courses'
