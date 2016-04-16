@@ -9,10 +9,10 @@
     .navbar-collapse.collapse.navbar-responsive-collapse
       ul.nav.navbar-nav.ul-right
         li.nav-text-color.header-box
-          = link_to 'Courses', courses_path
+          = link_to 'Courses', courses_path(type: "popular")
+          = render "layouts/categories"
         li.nav-text-color.header-box
           = link_to 'Companies', organizations_path
-          = render 'layouts/companies'
         - if user_signed_in?
           li.dropdown.nav-text-color
             a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
@@ -33,6 +33,7 @@
                 li = link_to 'PROFILE', user_profile_path(:id => current_user)
                 - if is_admin?
                   li = link_to "MY IMPERSONATIONS", admins_impersonations_path(true_user.id)
+                li.divider
                 - if current_user != true_user
                   li = link_to "BACK TO ADMIN", stop_impersonate_path
                 - else

@@ -1,9 +1,11 @@
 - if signed_in?
   div.row
-    .col-md-3
+    .col-md-4
+      =link_to "Finish", course_path(@course), class: "btn btn-danger"
       - unless @pages.empty?
         h2
           = "Class Curriculum"
-      = render "pages", pages: @pages, passed_pages_ids: nil
+      #pages
+        = render "pages", pages: @pages, passed_pages_ids: nil
     .col-md-6
       = render "page_form"

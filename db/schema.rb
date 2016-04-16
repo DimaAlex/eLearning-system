@@ -164,11 +164,12 @@ ActiveRecord::Schema.define(version: 20160413163253) do
     t.datetime "updated_at",                                            null: false
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
+    t.boolean  "is_admin",                           default: false
     t.string   "avatar_file_name",       limit: 255
     t.string   "avatar_content_type",    limit: 255
     t.integer  "avatar_file_size",       limit: 4
     t.datetime "avatar_updated_at"
-    t.boolean  "is_admin",                           default: false
+    t.string   "country",                limit: 255, default: "Russia"
     t.string   "invitation_token",       limit: 255
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -177,7 +178,6 @@ ActiveRecord::Schema.define(version: 20160413163253) do
     t.integer  "invited_by_id",          limit: 4
     t.string   "invited_by_type",        limit: 255
     t.integer  "invitations_count",      limit: 4,   default: 0
-    t.string   "country",                limit: 255, default: "Russia"
     t.date     "birthdate"
   end
 
@@ -192,11 +192,14 @@ ActiveRecord::Schema.define(version: 20160413163253) do
     t.integer  "course_id",     limit: 4
     t.datetime "created_at",                                        null: false
     t.datetime "updated_at",                                        null: false
+    t.integer  "estimation",    limit: 4
     t.boolean  "is_started"
+    t.boolean  "is_finished"
     t.integer  "estimation",    limit: 4
     t.boolean  "is_finished"
     t.boolean  "is_liked"
     t.string   "certificate",   limit: 255
+    t.boolean  "is_liked"
     t.integer  "mark",          limit: 4
     t.string   "status_course", limit: 255, default: "In Progress"
   end

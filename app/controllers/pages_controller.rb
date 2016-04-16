@@ -4,13 +4,13 @@ class PagesController < ApplicationController
   before_action :check_user, only: [:show, :edit]
 
   def index
-    @pages = Page.where(course_id: params[:course_id])
+    @pages = Page.where(course_id: params[:course_id]).paginate(page: params[:page], per_page: 10)
     @page = Page.new
     @page.answers.build
   end
 
   def show
-    @pages = Page.where(course_id: params[:course_id])
+    @pages = Page.where(course_id: params[:course_id]).paginate(page: params[:page], per_page: 10)
     @user = current_user
     @input_user_answer = @user.input_user_answers.find_by_page_id(@page.id)
     @input_user_answer ||= @user.input_user_answers.build
@@ -95,13 +95,13 @@ class PagesController < ApplicationController
     @user = current_user
     if @user
       @user_start_course = @user.courses.include?(@page.course)
-      unless @user_start_course || @page.course.is_author?(@user)
+      unless @user_start_course && @page.course.is_author?(@user)
         flash[:danger] = "You should start course to see page"
         redirect_to course_path(@page.course)
       end
     else
-      flash[:danger] = "You should log in"
-      redirect_to root_path
+      flash[:danger] = "You should log in and start course to see page"
+      redirect_to course_path(@page.course)
     end
   end
 
