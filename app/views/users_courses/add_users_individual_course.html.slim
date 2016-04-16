@@ -1,4 +1,8 @@
-= simple_form_for @course, url: course_create_users_individual_course_url(@course), method: :post do |f|
-  = f.label "Choose users"
-  = f.select(:users, @users_not_in_list.collect { |u| [u.email, u.id] }, {}, {multiple: true, class: "chosen-select form-control"})
-  = f.button :submit, 'Add users', class: 'btn btn-primary btn-raised', onclick: 'form_slideUp()'
+.header-title.header-title-top
+  | Add users individual course
+.panel.panel-default.col-lg-6.col-lg-offset-3
+  .panel-body.choose-user
+    = simple_form_for @course, url: course_create_users_individual_course_url(@course), method: :post do |f|
+      = f.label "Choose users"
+      = f.select(:users, @users_not_in_list.collect { |u| [u.email, u.id] }, {}, {multiple: true, class: "chosen-select form-control links_type"})
+      = f.button :submit, 'Add users', class: 'btn btn-raised btn-danger', onclick: 'form_slideUp()'
