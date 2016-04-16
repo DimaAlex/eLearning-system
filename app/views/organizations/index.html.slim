@@ -1,11 +1,18 @@
-.col-lg-12
-  .col-lg-2.col-lg-offset-1
-    h2.title-box
-      = 'Organizations'
-    br
-      - if can? :new, Organization
-        = link_to 'New Organization', new_organization_path, class: 'btn btn-danger btn-raise'
-  .col-lg-6.col-lg-offset-1
+/     br
+/       - if can? :new, Organization
+/         = link_to 'New Organization', new_organization_path, class: 'btn btn-info btn-raise'
+/   .col-lg-6.col-lg-offset-1
+.org-container.panel.panel-default
+p.partners.col-lg-7
+  | Our Partners
+.col-lg-12.search-block-end
+  h1.col-lg-8.col-lg-offset-3.search-form
+    = form_tag organizations_path, class: "form-inline", method: :get do
+      .input-group.input-group-lg.label-floating.col-lg-9
+        = text_field_tag :query, params[:query], id: "org_search",  placeholder: "Search for organizations", autocomplete: "off"
+        .input-group-btn
+          = submit_tag "Search", class: "btn  btn-danger"
+  br
+  .row
     #organizations
       = render "organizations"
-

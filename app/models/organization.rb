@@ -4,8 +4,10 @@ class Organization < ActiveRecord::Base
   has_many :courses, as: :author
   validates :title, presence: true, allow_blank: false
 
-  has_attached_file :image, styles: { medium: "300x300>", thumb: "200x200>" }, default_url: ":style/no_org_image.png"
+  has_attached_file :image, styles: { medium: "300x300>", thumb: "145x145>" }, default_url: ":style/no_org_image.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+
+  searchkick autocomplete: ['title']
 
   def is_org_admin?(user)
     unless user.nil?
