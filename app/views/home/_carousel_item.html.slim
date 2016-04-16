@@ -1,31 +1,9 @@
 .item
-  .col-md-4
-    br
-    -if c1
-      .well.carousel-well
-        = image_tag c1.image.url(:thumb), class: "img img-circle"
-        h2
-          = c1.title
-          p
-          a.btn.btn-danger[href=course_path(c1) role="button"]
-            | View details »
-  .col-md-4
-    br
-    -if c2
-      .well.carousel-well
-        = image_tag c2.image.url(:thumb), class: "img img-circle"
-        h2
-          = c2.title
-          p
-          a.btn.btn-danger[href=course_path(c2) role="button"]
-            | View details »
-  .col-md-4
-    br
-    -if c3
-      .well.carousel-well
-        = image_tag c3.image.url(:thumb), class: "img img-circle"
-        h2
-          = c3.title
-          p
-          a.btn.btn-danger[href=course_path(c3) role="button"]
-            | View details »
+  .col-md-3
+    = render "course_item", c: c1
+  .col-md-3
+    = render "course_item", c: c2
+  .col-md-3
+    = render "course_item", c: c3
+  .col-md-3
+    = render "course_item", c: c4

@@ -1,6 +1,7 @@
 class UsersCoursesController < ApplicationController
   before_action :set_course_and_user, only:[:start_course, :add_users_individual_course,
                                             :create_users_individual_course, :like_course]
+  before_action :check_user, only: [:like_course, :start_course]
 
   def start_course
     user_course = @user.users_courses.find_by_course_id(@course.id)
@@ -19,13 +20,7 @@ class UsersCoursesController < ApplicationController
           redirect_to course_path
         end
       elsif @course.permission == "Individual"
-        if @user
-          start_individual_course
-        else
-          flash[:success] =  "Log in to start course"
-          redirect_to new_user_registration_url
-        end
-
+        start_individual_course
       end
     end
   end
@@ -54,6 +49,13 @@ class UsersCoursesController < ApplicationController
   end
 
   private
+
+  def check_user
+    unless @user
+      flash[:success] =  "You should sign up or log in"
+      redirect_to new_user_registration_url
+    end
+  end
 
   def start_individual_course
     user_course = @user.users_courses.find_by_course_id(@course.id)

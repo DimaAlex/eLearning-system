@@ -24,3 +24,6 @@ system/
 /config/application.yml
 coverage
 /public/pdfs/
+
+dump.rdb
+/сonfig/secrets.yml

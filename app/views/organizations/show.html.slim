@@ -2,10 +2,13 @@
   .col-lg-12
     .col-lg-10.col-lg-offset-1.well
       .row
+        = link_to '', organizations_path, class: 'btn fa fa-arrow-left pull-left'
         - if can? :manage, @organization
-          = link_to '', @organization, data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'glyphicon glyphicon-remove pull-right pad'
-        h2.col-sm-offset-1
+          = link_to '', @organization, data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'btn glyphicon glyphicon-remove pull-right'
+
+        h2.col-sm-offset-1.dropdown
           = @organization.title
+          = render 'menu'
         p
           = image_tag @organization.image.url(:medium), class: 'col-lg-4 img-ciricle'
 
@@ -20,18 +23,8 @@
             - @organization.users.org_admins.each do |oa|
               = link_to user_profile_path(oa)
                 = image_tag oa.avatar.url(:thumb), class: 'img-ciricle', title: "#{ oa.first_name } #{ oa.last_name }"
-      .row.col-sm-offset-1.pad
-        - if user_invited?(@organization)
-          = link_to 'Accept', organization_invitation_accept_path(@organization), method: :put, class: 'btn btn-info btn-raised'
-          .pad
-          = link_to 'Reject', organization_invitation_reject_path(@organization), method: :put, class: 'btn btn-danger btn-raised'
 
-        - elsif user_in_organization?(@organization)
-          = link_to 'Follow', organization_follow_path(@organization), method: :post, class: 'btn btn-info btn-raised'
-
-        - elsif user_in_organization?(@organization)
-          = link_to 'Leave', organization_leave_path(@organization), method: :post, class: 'btn btn-warning btn-raised'
-
+      = render 'buttons_for_users'
       .row
         .col-lg-4
           table.table.table-hover
@@ -41,19 +34,4 @@
             tr
               td Phone
               td= @organization.phone
-        - if can? :write, @organization
-          = link_to 'Edit', edit_organization_path(@organization), class: 'btn btn-danger btn-raised'
-          .pad
-          = link_to 'Show users in organization', organization_all_users_path(@organization), class: 'btn btn-primary btn-raised'
-          = link_to "Report", report_path(@organization), class: "btn btn-danger"
-        .pad
-        = link_to 'Courses', organization_courses_path(@organization), class: 'btn btn-success btn-raised'
-      = link_to 'Back', organizations_path, class: 'btn btn-default btn-raised'
-
-      - if can? :write, @organization
-        .pad
-        = link_to 'Add users', organization_add_users_to_org_path(@organization), class: 'btn btn-warning btn-raised'
-
-      - if can? :manage, @organization
-        .pad
-        = link_to 'Add admins of organization', organization_add_org_admins_to_org_path(@organization), class: 'btn btn-info btn-raised'
+        = link_to 'Courses', organization_courses_path(@organization), class: 'btn btn-danger btn-raised'
