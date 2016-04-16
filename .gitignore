@@ -26,4 +26,4 @@ coverage
 /public/pdfs/
 
 dump.rdb
-/сonfig/secrets.yml
+secrets.yml
