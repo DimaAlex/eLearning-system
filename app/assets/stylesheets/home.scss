@@ -67,7 +67,7 @@ body{
 .header-box-info{
   display:none;
   color: #ffffff;
-  padding: 50px;
+  padding: 30px 50px 50px 50px;
   background: #333333;
   opacity: 0.8;
   height:200px;
@@ -353,4 +353,9 @@ h1.center{
 
 a, a:hover, a:focus {
   color: #000;
+}
+
+.link_header{
+  color: #fff !important;
+  margin-bottom: 1px !important;
 }

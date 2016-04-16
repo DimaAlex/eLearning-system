@@ -27,6 +27,8 @@
     br
     = f.label "Add certificate to course"
     = f.file_field :certificate_template
-
-    = link_to "Back", :back, class: "btn btn-raised btn-default"
-    = f.submit "Create", class: "btn btn-primary"
+    .row
+      .col-md-5
+        = link_to "Back", :back, class: "btn btn-raised btn-default"
+      .col-md-2
+        = f.submit "Create", class: "btn btn-danger"
