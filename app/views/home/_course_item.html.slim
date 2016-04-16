@@ -1,7 +1,7 @@
 br
 -if c
   .well.carousel-well
-    = link_to (image_tag c.image.url(:medium), class: "course-item"), course_path(c)
+    = link_to (image_tag c.image.url(:thumb), class: "img img-circle"), course_path(c)
     h3
       = link_to c.title, course_path(c), class: "black"
     h4.p
