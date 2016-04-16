@@ -1,6 +1,6 @@
 - if user_signed_in?
   .row
-    .col-lg-6.col-lg-offset-4
+    .col-lg-4.col-lg-offset-4
       .col-lg-12
         h2
           = "My courses"
@@ -14,9 +14,9 @@
           label.btn.btn-danger
             input#liked_courses_button autocomplete="off" name="options" type="radio"
               i.glyphicon.glyphicon-star
-    .col-lg-2
+    .col-lg-4
       = form_tag courses_path, class: "form-inline", method: :get do
-        .input-group.input-group-sm
+        .input-group.input-group-lg
           = text_field_tag :query, params[:query], id: "course_search", autocomplete: "off", placeholder: "Search course"
           .input-group-btn
             button.btn.btn-danger type="submit"
