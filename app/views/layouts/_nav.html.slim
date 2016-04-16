@@ -33,6 +33,7 @@
                 li = link_to 'PROFILE', user_profile_path(:id => current_user)
                 - if is_admin?
                   li = link_to "MY IMPERSONATIONS", admins_impersonations_path(true_user.id)
+                li.divider
                 - if current_user != true_user
                   li = link_to "BACK TO ADMIN", stop_impersonate_path
                 - else
