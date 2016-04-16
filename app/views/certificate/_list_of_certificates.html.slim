@@ -7,6 +7,7 @@
 	.col-md-offset-2.col-md-6
 	  h2.page-header
 	    = "Certificates"
+      = will_paginate certificates, inner_window: 1, renderer: BootstrapPagination::Rails
 	  - certificates.each do |certificate|
 	    .panel.panel-default
 	      .panel-body
@@ -20,4 +21,4 @@
               .h4.certificate-link
                 = link_to "Get a certificate", certificate_path(id: certificate.id), class: "btn btn-raise btn-danger"
         .col-md-6
-          = will_paginate certificates, inner_window: 1, renderer: BootstrapPagination::Rails
+
