@@ -24,38 +24,45 @@
 #   imper.save
 # end
 
+
+# 30.times do |i|
+#   course = Course.create(title: Faker::Company.name,
+#                          permission: "Public",
+#                          author_id: rand(121..130),
+#                          author_type: "Organization"
+#                          )
+#   page = Page.new(title: Faker::Company.name,
+#                      course_id: course.id,
+#                      page_type: "Lecture",
+#                      body: "Example")
+#   page.save
+#   course.save
+# end
+
+# 10.times do |i|
+#   course = Course.create(title: Faker::Company.name,
+#                          permission: "Public",
+#                          author_id: 80,
+#                          author_type: "User"
+#                          )
+#   page = Page.new(title: Faker::Company.name,
+#                      course_id: course.id,
+#                      page_type: "Lecture",
+#                      body: "Example")
+#   page.save
+#   course.save
+# end
+
 # 10.times do |i|
 #   course = Course.create(title: Faker::Company.name,
 #                          permission: "Public",
 #                          author_id: 49,
 #                          author_type: "User"
 #                          )
+#   page = Page.new(title: Faker::Company.name,
+#                      course_id: course.id,
+#                      page_type: "Lecture",
+#                      body: "Example")
+#   page.save
 #   course.save
 # end
-
-10.times do |i|
-  course = Course.create(title: Faker::Company.name,
-                         permission: "Public",
-                         author_id: rand(78..81),
-                         author_type: "User"
-                         )
-  page = Page.new(title: Faker::Company.name,
-                     course_id: course.id,
-                     page_type: "Lecture",
-                     body: "Example")
-  page.save
-  course.save
-end
-10.times do |i|
-  course = Course.create(title: Faker::Company.name,
-                         permission: "Public",
-                         author_id: rand(1..5),
-                         author_type: "Organization"
-                         )
-  page = Page.new(title: Faker::Company.name,
-                     course_id: course.id,
-                     page_type: "Lecture",
-                     body: "Example")
-  page.save
-  course.save
-end
