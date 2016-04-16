@@ -1,5 +1,5 @@
 class OrganizationsController < ApplicationController
-  before_action :set_organization, only: [:new, :create, :show, :courses_in_org]
+  before_action :set_organization, except: [:new, :create, :index, :autocomplete]
 
   def index
     if params[:query].present?
@@ -69,7 +69,7 @@ class OrganizationsController < ApplicationController
       @courses_in_organization = @organization.courses.ids
       @courses = @organization.courses.paginate(page: params[:page], per_page: 10)
     else
-      flash[:danger] =  "You have no access to report of this organization"
+      flash[:danger] =  'You have no access to report of this organization'
       redirect_to organization_path(@organization)
     end
   end
@@ -81,7 +81,6 @@ class OrganizationsController < ApplicationController
 
   private
   def set_organization
-    binding.pry
     @organization = Organization.find(params[:id])
   end
 
