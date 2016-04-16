@@ -18,20 +18,18 @@ class CoursesController < ApplicationController
   end
 
   def show
-    unless current_user
-      redirect_to :back
-      return
-    end
-      @user = current_user
+    @user = current_user
 
-      @user_start_course = @user.users_courses.find_by_course_id(@course.id) if @user
-      if @user_start_course && !@course.is_author?(@user)
-        @mark = UsersCourse.where(user_id: current_user.id, course_id: @course.id)
-        @progress = @user.progress(@course)
-        @passed_pages_ids = @user.passed_pages_ids(@course)
-      end
+    @user_start_course = @user.users_courses.find_by_course_id(@course.id) if @user
+    if @user_start_course && !@course.is_author?(@user)
+      @mark = UsersCourse.where(user_id: current_user.id, course_id: @course.id)
+      @progress = @user.progress(@course)
+      @passed_pages_ids = @user.passed_pages_ids(@course)
+    end
+    if @user
       @is_liked = @user.users_courses.find_by_course_id(@course.id)
       @is_liked = @is_liked.is_liked if @is_liked
+    end
   end
 
   def new

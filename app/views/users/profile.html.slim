@@ -1,6 +1,10 @@
 - provide(:title, 'Profile')
 .panel.panel-default
   .panel-heading
+    .right
+      = label_tag "Edit pofile"
+      = link_to edit_user_registration_path, class: "btn btn-raised btn-default btn-circle" do
+        i.glyphicon.glyphicon-pencil
     h4
       | Profile
   .panel-body
@@ -9,9 +13,9 @@
       .col-md-4.text-center.text-center-img
         img.img-circle.avatar.avatar-original
           = image_tag @user.avatar.url(:medium), class: 'img-ciricle'
-      .col-md-8
+      .col-md-6
         .row
-          .col-md-12
+          .col-md-11
             h1.only-bottom-margin
               = @user.first_name
               .pad
@@ -38,8 +42,6 @@
               -if current_user.id == @user.id
                 = link_to "My Courses", users_courses_path(current_user.id), class: "btn btn-raised btn-danger"
                 .pad
-                = link_to "New course", new_course_path, class: "btn btn-primary"
-                .pad
-                = link_to edit_user_registration_path, class: "btn btn-raised btn-default" do
-                  i.glyphicon.glyphicon-pencil
-                  | Edit Profile
+                = link_to new_course_path, class: "btn btn-danger btn-circle"do
+                  i.glyphicon.glyphicon-plus
+                = label_tag "New course"

@@ -100,8 +100,8 @@ class PagesController < ApplicationController
         redirect_to course_path(@page.course)
       end
     else
-      flash[:danger] = "You should log in"
-      redirect_to root_path
+      flash[:danger] = "You should log in and start course to see page"
+      redirect_to course_path(@page.course)
     end
   end
 
