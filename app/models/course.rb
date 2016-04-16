@@ -7,7 +7,7 @@ class Course < ActiveRecord::Base
   has_many :users_courses
   has_many :users, through: :users_courses
 
-  # searchkick autocomplete: ['title']
+  searchkick autocomplete: ['title']
 
   has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: ":style/missing_course.jpg"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
