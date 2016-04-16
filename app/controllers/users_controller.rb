@@ -6,11 +6,12 @@ class UsersController < ApplicationController
   end
 
   def courses
-    @courses = @user.courses.paginate(page: params[:page], per_page: 4)
+    @courses = @user.courses.where(author: @user).paginate(page: params[:page], per_page: 4)
   end
 
+
   def certificates
-    @certificates = UsersCourse.where(user_id: current_user.id, status_course: "Success").joins(:course).paginate(page: params[:page], per_page: 1)
+    @certificates = UsersCourse.where(user_id: current_user.id, status_course: "Success").joins(:course).paginate(page: params[:page], per_page: 3)
   end
 
   private

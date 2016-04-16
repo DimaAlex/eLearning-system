@@ -11,6 +11,10 @@ module UserHelper
     organization.users.in_organization.include?(current_user)
   end
 
+  def can_follow?(organization)
+     !current_user.nil? && !current_user.is_admin && !organization.users.include?(current_user)
+  end
+
   def state(user, organization)
     user.users_organizations.find_by_organization_id(organization.id)
   end

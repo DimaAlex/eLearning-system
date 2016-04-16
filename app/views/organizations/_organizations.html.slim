@@ -1,12 +1,9 @@
-- @organizations.each do |organization|
-  .well
-    .media-left
-      = image_tag organization.image.url(:thumb), class: 'pull-left'
-    .media-body
-      h4.media-heading
-        = organization.title
-      br
-      = "Phone: #{organization.phone}"
-      br
-      = link_to 'Show', organization, class: 'pad btn btn-primary'
-= will_paginate @organizations, inner_window: 1, renderer: BootstrapPagination::Rails
+.row
+  - @organizations.each do |organization|
+    .col-sm-3
+      .thumbnail
+        = image_tag organization.image.url(:thumb)
+        .caption
+          h5.center
+            = link_to "#{organization.title}", organization_path(organization.id)
+  = will_paginate @organizations, inner_window: 1, renderer: BootstrapPagination::Rails

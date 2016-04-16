@@ -65,11 +65,20 @@ gem 'pretender'
 gem 'audited', '~> 4.0'
 gem 'faker'
 
+
+gem 'simplecov', require: false, group: :test
+
 gem 'aasm'
 gem 'email_validator'
 
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'whenever', require: false
+
 gem 'momentjs-rails', '~> 2.9',  :github => 'derekprior/momentjs-rails'
 gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
+
+gem 'bootstrap-filestyle-rails'
 
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.6'

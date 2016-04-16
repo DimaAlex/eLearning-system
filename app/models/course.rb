@@ -40,6 +40,16 @@ class Course < ActiveRecord::Base
     marks.compact.empty? ? 0 : marks.sum / marks.count.to_f
   end
 
+  def self.popular_courses
+    course_marks = {}
+    courses = Course.where(permission: 'Public', is_destroyed: false)
+    courses.each do |cor|
+      course_marks[cor] = cor.users_courses.average(:estimation)
+    end
+    course_marks.compact!
+    course_marks.sort_by{ |_key, value| value }.reverse!.to_h.keys.last(8)
+  end
+
   def finished_with_success
     users_courses.where(mark: 90..100).count
   end

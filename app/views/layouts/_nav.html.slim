@@ -7,16 +7,15 @@
     a.navbar-brand[href = root_path]
       = image_tag 'logo.png'
     .navbar-collapse.collapse.navbar-responsive-collapse
-      - if user_signed_in?
-        ul.nav.navbar-nav.ul-right
-          li.nav-text-color.header-box
-            = link_to 'Courses', courses_path
-          li.nav-text-color.header-box
-            = link_to 'Companies', organizations_path
-            = render 'layouts/companies'
+      ul.nav.navbar-nav.ul-right
+        li.nav-text-color.header-box
+          = link_to 'Courses', courses_path
+        li.nav-text-color.header-box
+          = link_to 'Companies', organizations_path
+          = render 'layouts/companies'
+        - if user_signed_in?
           li.dropdown.nav-text-color
             a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
-
               - if current_user != true_user
                 |  You (
                 = true_user.first_name
@@ -38,13 +37,6 @@
                   li = link_to "BACK TO ADMIN", stop_impersonate_path
                 - else
                   li = link_to 'LOG OUT', destroy_user_session_path, :method => :delete
-      - else
-        ul.nav.navbar-nav.ul-right
-          li.nav-text-color.header-box
-            = link_to 'Courses', root_path
-            = render 'layouts/categories'
-          li.nav-text-color.header-box
-            = link_to 'Companies', organizations_path
-            = render 'layouts/companies'
+        - else
           li.nav-text-color
             = link_to 'Sign In', new_user_session_path

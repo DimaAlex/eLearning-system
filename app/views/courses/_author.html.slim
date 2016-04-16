@@ -1,10 +1,10 @@
 = label_tag "Created by: "
 .pad
   -if course.author_type == "User"
-    = link_to user_profile_path(course.author), class: "btn btn-default" do
-      = "#{course.author.first_name} #{course.author.last_name}"
+    = link_to user_profile_path(course.author) do
       i.glyphicon.glyphicon-user
+      = " #{course.author.first_name} #{course.author.last_name}"
   -else
-    = link_to organization_path(course.author), class: "btn btn-default" do
-      = course.author.title
+    = link_to organization_path(course.author) do
       i.glyphicon.glyphicon-home
+      = " #{course.author.title}"

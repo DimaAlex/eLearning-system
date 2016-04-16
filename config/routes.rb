@@ -1,4 +1,14 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  match "/404", :to => "errors#not_found", :via => :all, as: 'errors_not_found'
+
+  resources :organizations, only: :index do
+    collection do
+      get :autocomplete
+    end
+  end
+
   resources :organizations do
     get 'all_users', to: 'organization_users#users_in_org'
     get 'add_users_to_org', to: 'organization_users#add_users_to_org'
@@ -18,6 +28,8 @@ Rails.application.routes.draw do
     put '/user/:user_id/reject_request', to: 'invitation#reject_request_on_entrance', as: 'reject_request'
   end
 
+  mount Sidekiq::Web, at: '/sidekiq'
+
   resources :courses, only: :index do
     collection do
       get :autocomplete
@@ -25,7 +37,6 @@ Rails.application.routes.draw do
   end
 
   get 'organizations/:id/courses', to: 'organizations#courses_in_org', as: 'organization_courses'
-
 
   resources :courses do
     resources :pages
@@ -35,8 +46,6 @@ Rails.application.routes.draw do
   end
   root to: 'home#index'
 
-
-
   match '/organizations/:id/report' => 'organizations#report', via: [:get, :post], :as => :report
   match '/courses/:id/start_course' => 'users_courses#start_course', via: [:get, :post], :as => :start_course
   match '/courses/:course_id/pages/:id/finish_page' => 'pages#finish_page', via: [:get, :post], :as => :finish_page
@@ -45,6 +54,7 @@ Rails.application.routes.draw do
   get '/user/:id', to: 'users#profile', as: 'user_profile'
   get 'certificates', to: 'users#certificates', as: 'user_certificates'
   get 'user/courses/:id', to: 'users#courses', as: 'users_courses'
+
   resources :input_user_answers, only: [:create, :update]
   get 'certificates/show', to: 'users#show'
 
