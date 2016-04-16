@@ -192,11 +192,14 @@ ActiveRecord::Schema.define(version: 20160413163253) do
     t.integer  "course_id",     limit: 4
     t.datetime "created_at",                                        null: false
     t.datetime "updated_at",                                        null: false
+    t.integer  "estimation",    limit: 4
     t.boolean  "is_started"
     t.boolean  "is_finished"
     t.integer  "estimation",    limit: 4
+    t.boolean  "is_finished"
     t.boolean  "is_liked"
     t.string   "certificate",   limit: 255
+    t.boolean  "is_liked"
     t.integer  "mark",          limit: 4
     t.string   "status_course", limit: 255, default: "In Progress"
   end

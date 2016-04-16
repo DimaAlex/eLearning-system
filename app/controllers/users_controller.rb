@@ -9,11 +9,9 @@ class UsersController < ApplicationController
     @courses = @user.courses.where(author: @user).paginate(page: params[:page], per_page: 4)
   end
 
-  def show
-    @user = current_user
-    respond_to do |format|
-      format.pdf { send_file TestPdfForm.new(@user).export, type: 'application/pdf' }
-    end
+
+  def certificates
+    @certificates = UsersCourse.where(user_id: current_user.id, status_course: "Success").joins(:course).paginate(page: params[:page], per_page: 3)
   end
 
   private
