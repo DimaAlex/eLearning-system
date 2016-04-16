@@ -7,7 +7,8 @@ p.partners.col-lg-7
       .input-group.input-group-lg.label-floating.col-lg-9
         = text_field_tag :query, params[:query], id: "org_search",  placeholder: "Search for organizations", autocomplete: "off"
         .input-group-btn
-          = submit_tag "Search", class: "btn  btn-danger"
+          button.btn.btn-danger type="submit"
+            span.glyphicon.glyphicon-search
   br
   .row
     #organizations

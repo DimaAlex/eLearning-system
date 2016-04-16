@@ -1,7 +1,8 @@
 .header-box-info
-	p
-		| example 1
-	p
-		| example 2
-	p
-		| example 3
+  .col-lg-4
+    p Courses:
+    = link_to "Most popular courses", "http://localhost:3000/courses?type=popular", class: 'link_header'
+    br
+    = link_to "Organizations courses", "http://localhost:3000/courses?type=popular", class: 'link_header'
+    br
+    = link_to "Public courses", "http://localhost:3000/courses?type=popular", class: 'link_header'

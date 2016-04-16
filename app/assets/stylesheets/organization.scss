@@ -4,7 +4,7 @@
 .org-container{
   z-index: 99;
   height: 270px;
-  background-image: url("search-box.png");
+  background-image: image-url("search-box.png");
   background-size: cover;
   margin-bottom: 0;
 }
@@ -23,4 +23,12 @@
 
 h5.center{
   text-align: center;
+}
+
+.choose-user{
+  margin-top: 20px;
+}
+
+.links_type{
+  margin-bottom: 10px;
 }

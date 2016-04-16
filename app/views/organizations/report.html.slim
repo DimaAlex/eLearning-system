@@ -1,6 +1,6 @@
 .container
   .row
-    .panel.panel-primary.filterable
+    .panel.panel-danger.filterable
       .panel-heading
         h3.panel-title
           =  "Courses in #{@organization.title}"
@@ -12,7 +12,7 @@
         .col-lg-6
           = pie_chart UsersCourse.where(course_id: @courses_in_organization).group(:status_course).count
         .col-lg-6
-          /= line_chart UsersCourse.where(course_id: @courses_in_organization).group_by_hour(:created_at).count
+          = line_chart UsersCourse.where(course_id: @courses_in_organization).group_by_hour(:created_at).count
       #courses_in_report
         = render "courses_in_report"
 
