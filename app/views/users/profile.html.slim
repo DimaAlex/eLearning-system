@@ -47,7 +47,7 @@
                 = link_to new_course_path, class: 'btn btn-danger btn-circle'
                   i.glyphicon.glyphicon-plus
                 = label_tag 'New course'
-                = link_to 'My Organizations', '#', class: 'btn btn-raised btn-danger'
+                = link_to 'My Organizations', user_organizations_path(current_user.id), class: 'btn btn-raised btn-danger'
                 .pad
                 - if can? :new, Organization
                   = link_to new_organization_path, class: 'btn btn-danger btn-circle'

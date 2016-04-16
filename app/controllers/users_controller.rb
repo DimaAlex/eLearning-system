@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def organizations
-    @organizations = @user.organizations
+    @organizations = @user.organizations.paginate(page: params[:page], per_page: 4)
   end
 
   def show
