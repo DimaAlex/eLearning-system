@@ -41,6 +41,7 @@
             - if current_user
               -if current_user.id == @user.id
                 = link_to "My Courses", users_courses_path(current_user.id), class: "btn btn-raised btn-danger"
+                = link_to "My Certificates", user_certificates_path, class: "btn btn-raised btn-danger"
                 .pad
                 = link_to new_course_path, class: "btn btn-danger btn-circle"do
                   i.glyphicon.glyphicon-plus

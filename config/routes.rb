@@ -52,11 +52,11 @@ Rails.application.routes.draw do
 
   get 'admin', to: 'admin#index'
   get '/user/:id', to: 'users#profile', as: 'user_profile'
-
+  get 'certificates', to: 'users#certificates', as: 'user_certificates'
   get 'user/courses/:id', to: 'users#courses', as: 'users_courses'
 
   resources :input_user_answers, only: [:create, :update]
-  get '/user/show', to: 'users#show'
+  get 'certificates/show', to: 'users#show'
 
   devise_for :users, controllers: {
     sessions: 'devise/sessions',
@@ -79,6 +79,7 @@ Rails.application.routes.draw do
   end
 
   resources :estimation
+  resources :certificate
   post "create_users_courses/:id" => "courses#create_users_courses", as: :create_users_courses
   post "course_result/:id" => "courses#course_result", as: :course_result
 

@@ -7,13 +7,11 @@
       .panel-body
         .col-md-3
           = image_tag course.image.url(:thumb)
-        .col-md-8
+        .col-md-9
           h4
             = course.title
             br
-            | Created:
-            '
-            = render "home/author", course: course
+            = render "author", course: course
             br
             a.btn.btn-sm.btn-danger[href=course_path(course) role="button"]
               | View details »
