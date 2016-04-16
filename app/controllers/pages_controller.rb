@@ -95,7 +95,7 @@ class PagesController < ApplicationController
     @user = current_user
     if @user
       @user_start_course = @user.courses.include?(@page.course)
-      unless @user_start_course && @page.course.is_author?(@user)
+      unless @user_start_course || @page.course.is_author?(@user)
         flash[:danger] = "You should start course to see page"
         redirect_to course_path(@page.course)
       end
