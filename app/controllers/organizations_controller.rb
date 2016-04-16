@@ -81,7 +81,6 @@ class OrganizationsController < ApplicationController
 
   private
   def set_organization
-    binding.pry
     @organization = Organization.find(params[:id])
   end
 

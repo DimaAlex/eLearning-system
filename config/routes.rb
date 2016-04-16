@@ -1,7 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  match "/404", :to => "errors#not_found", :via => :all
+
+  match "/404", :to => "errors#not_found", :via => :all, as: 'errors_not_found'
 
   resources :organizations, only: :index do
     collection do

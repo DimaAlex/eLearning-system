@@ -3,7 +3,7 @@
     = "New course"
   = simple_form_for(@course) do |f|
     = f.label "Title"
-    = f.input :title,label: false, autofocus: true, class: 'form-control'
+    = f.input :title,label: false,maxlength: 30, autofocus: true, class: 'form-control'
     = f.label "Permission"
     - if @organizations_user_org_admin && !@organizations_user_org_admin.empty?
       = f.input :permission, label: false, as: :radio_buttons,
