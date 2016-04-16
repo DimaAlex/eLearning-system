@@ -11,13 +11,13 @@
 	    .panel.panel-default
 	      .panel-body
 			.col-md-3
-			  = image_tag certificate.course.image.url(:thumb)
+			  = image_tag certificate.course.image.url(:thumb), class: "img-certificate"
             .col-md-8
               h4
                 = link_to certificate.course.title, course_path(certificate.course), class: "text-center"
               .timestamp
                 = "Course finished #{certificate.updated_at.strftime("%d.%m.%Y в %I:%M %p")}"
               .h4.certificate-link
-                = link_to "Get a certificate", certificate_path(id: certificate.id)
+                = link_to "Get a certificate", certificate_path(id: certificate.id), class: "btn btn-raise btn-danger"
         .col-md-6
           = will_paginate certificates, inner_window: 1, renderer: BootstrapPagination::Rails
