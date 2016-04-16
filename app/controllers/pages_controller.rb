@@ -4,13 +4,13 @@ class PagesController < ApplicationController
   before_action :check_user, only: [:show, :edit]
 
   def index
-    @pages = Page.where(course_id: params[:course_id])
+    @pages = Page.where(course_id: params[:course_id]).paginate(page: params[:page], per_page: 10)
     @page = Page.new
     @page.answers.build
   end
 
   def show
-    @pages = Page.where(course_id: params[:course_id])
+    @pages = Page.where(course_id: params[:course_id]).paginate(page: params[:page], per_page: 10)
     @user = current_user
     @input_user_answer = @user.input_user_answers.find_by_page_id(@page.id)
     @input_user_answer ||= @user.input_user_answers.build

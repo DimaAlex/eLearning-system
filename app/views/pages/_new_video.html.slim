@@ -3,4 +3,5 @@
     = @page.title
   = simple_form_for [@course, @page] do |p|
     = p.text_field :body, placeholder: "Add link from youtube", class: "form-control"
-    =p.submit "Save", class: "btn btn-default"
+    .col-md-offset-5
+      =p.submit "Save", class: "btn btn-danger"

@@ -19,3 +19,5 @@ table.table.table-hover
           = link_to course_page_path(page.course, page), data: {:confirm => 'Are you sure?'}, :method => :delete do
             .passed-sign-color
               i.glyphicon.glyphicon-remove-sign
+
+  = will_paginate pages, inner_window: 1, renderer: BootstrapPagination::Rails

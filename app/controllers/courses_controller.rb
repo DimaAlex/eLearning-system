@@ -19,7 +19,7 @@ class CoursesController < ApplicationController
 
   def show
     @user = current_user
-
+    @pages = @course.pages.paginate(page: params[:page], per_page: 10)
     @user_start_course = @user.users_courses.find_by_course_id(@course.id) if @user
     if @user_start_course && !@course.is_author?(@user)
       @mark = UsersCourse.where(user_id: current_user.id, course_id: @course.id)
