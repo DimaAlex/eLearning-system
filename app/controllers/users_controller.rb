@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
 
   def courses
-    @courses = @user.courses.where(author: @user).paginate(page: params[:page], per_page: 4)
+    @courses = Course.where(author: @user, is_destroyed: false).paginate(page: params[:page], per_page: 4)
   end
 
 
