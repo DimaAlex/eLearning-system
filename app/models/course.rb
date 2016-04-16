@@ -9,7 +9,7 @@ class Course < ActiveRecord::Base
 
   # searchkick autocomplete: ['title']
 
-  has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/assets/:style/missing_course.jpg"
+  has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: ":style/missing_course.jpg"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   has_attached_file :certificate_template,
