@@ -1,12 +1,16 @@
 class UsersController < ApplicationController
 
-  before_action :find_user, only: [:profile, :courses]
+  before_action :find_user, only: [:profile, :courses, :organizations]
 
   def profile
   end
 
   def courses
     @courses = @user.courses.where(author: @user).paginate(page: params[:page], per_page: 4)
+  end
+
+  def organizations
+    @organizations = @user.organizations
   end
 
   def show
