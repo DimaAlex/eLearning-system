@@ -41,7 +41,7 @@
                         = "Course is finished unsuccessfully"
                       - else
                         = "Course is finished successfully."
-                        = link_to "Start course", start_course_path(course_id: @course.id), class: "btn btn-raised btn-danger"
+                        = link_to "Certificates", user_certificates_path, class: "btn btn-raised btn-danger"
                 - else
                   = link_to "Start course", start_course_path(course_id: @course.id), class: "btn btn-danger"
         .col-md-8
