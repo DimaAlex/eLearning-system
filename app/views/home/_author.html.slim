@@ -3,7 +3,7 @@
     = link_to user_profile_path(course.author) do
       i.glyphicon.glyphicon-user
       = " #{course.author.first_name} #{course.author.last_name}"
-  -else
+  -elsif course.author_type == "Organization"
     = link_to organization_path(course.author) do
       i.glyphicon.glyphicon-home
       = " #{course.author.title}"

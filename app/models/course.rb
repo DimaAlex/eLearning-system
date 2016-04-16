@@ -41,13 +41,9 @@ class Course < ActiveRecord::Base
   end
 
   def self.popular_courses
-    course_marks = {}
     courses = Course.where(permission: 'Public', is_destroyed: false)
-    courses.each do |cor|
-      course_marks[cor] = cor.users_courses.average(:estimation)
-    end
-    course_marks.compact!
-    course_marks.sort_by{ |_key, value| value }.reverse!.to_h.keys.last(8)
+    courses = courses.sort_by {|x| x.users_courses.average(:estimation) ? x.users_courses.average(:estimation) : 0 }
+    courses.reverse!.last(8)
   end
 
   def finished_with_success
