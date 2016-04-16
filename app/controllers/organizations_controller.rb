@@ -1,5 +1,5 @@
 class OrganizationsController < ApplicationController
-  before_action :set_organization, only: [:new, :create, :show]
+  before_action :set_organization, only: [:new, :create, :show, :courses_in_org]
 
   def index
     if params[:query].present?
@@ -81,6 +81,7 @@ class OrganizationsController < ApplicationController
 
   private
   def set_organization
+    binding.pry
     @organization = Organization.find(params[:id])
   end
 
