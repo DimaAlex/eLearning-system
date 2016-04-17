@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :find_user, only: [:profile, :courses, :organizations]
+  before_action :authenticate_user!
 
   def profile
   end

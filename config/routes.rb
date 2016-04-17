@@ -51,7 +51,7 @@ Rails.application.routes.draw do
   match '/courses/:course_id/pages/:id/finish_page' => 'pages#finish_page', via: [:get, :post], :as => :finish_page
 
   get 'admin', to: 'admin#index'
-  get '/users/:id', to: 'users#profile', as: 'user_profile'
+  get '/user/:id', to: 'users#profile', as: 'user_profile'
   get 'certificates', to: 'users#certificates', as: 'user_certificates'
   get 'users/:id/courses/', to: 'users#courses', as: 'users_courses'
   get 'users/:id/organizations', to: 'users#organizations', as: 'user_organizations'
