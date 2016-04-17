@@ -27,8 +27,4 @@ class Organization < ActiveRecord::Base
     all_users_without_admins != 0 ? (users_start.count * 100 / all_users_without_admins) : 0
   end
 
-  private
-  def count_percent(sum)
-    courses.count == 0 ? 0 : sum.to_f / courses.count.to_f * 100
-  end
 end

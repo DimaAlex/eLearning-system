@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
 
   def course_finished?(course)
     user_course = users_courses.find_by_course_id(course.id)
-    user_course.is_finished
+    user_course.is_finished if user_course
   end
 
   def courses_with_status(status)
