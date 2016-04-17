@@ -1,11 +1,11 @@
 .row.col-sm-offset-1.pad
   - if user_invited?(@organization)
-    = link_to 'Accept', organization_invitation_accept_path(@organization), method: :put, class: 'btn btn-info btn-raised'
+    = link_to 'Accept', organization_invitation_accept_path(@organization), method: :put, class: 'btn btn-success btn-raised'
     .pad
     = link_to 'Reject', organization_invitation_reject_path(@organization), method: :put, class: 'btn btn-danger btn-raised'
 
   - elsif can_follow?(@organization)
-    = link_to 'Follow', organization_follow_path(@organization), method: :post, class: 'btn btn-info btn-raised'
+    = link_to 'Follow', organization_follow_path(@organization), method: :post, class: 'btn btn-danger btn-raised'
 
   - elsif user_in_organization?(@organization)
-    = link_to 'Leave', organization_leave_path(@organization), method: :post, class: 'btn btn-warning btn-raised'
+    = link_to 'Leave', organization_leave_path(@organization), method: :post, class: 'btn btn-danger btn-raised'
