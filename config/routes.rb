@@ -53,7 +53,8 @@ Rails.application.routes.draw do
   get 'admin', to: 'admin#index'
   get '/user/:id', to: 'users#profile', as: 'user_profile'
   get 'certificates', to: 'users#certificates', as: 'user_certificates'
-  get 'user/courses/:id', to: 'users#courses', as: 'users_courses'
+  get 'users/:id/courses/', to: 'users#courses', as: 'users_courses'
+  get 'users/:id/organizations', to: 'users#organizations', as: 'user_organizations'
 
   resources :input_user_answers, only: [:create, :update]
   get 'certificates/show', to: 'users#show'

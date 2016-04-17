@@ -1,10 +1,11 @@
 - provide(:title, 'Profile')
 .panel.panel-default
   .panel-heading
-    .right
-      = label_tag "Edit pofile"
-      = link_to edit_user_registration_path, class: "btn btn-raised btn-default btn-circle" do
-        i.glyphicon.glyphicon-pencil
+    - if !current_user.nil? && current_user.id == @user.id
+      .right
+        = label_tag 'Edit pofile'
+        = link_to edit_user_registration_path, class: 'btn btn-raised btn-default btn-circle' do
+          i.glyphicon.glyphicon-pencil
     h4
       | Profile
   .panel-body
@@ -40,9 +41,16 @@
           .col-md-12
             - if current_user
               -if current_user.id == @user.id
-                = link_to "My Courses", users_courses_path(current_user.id), class: "btn btn-raised btn-danger"
-                = link_to "My Certificates", user_certificates_path, class: "btn btn-raised btn-danger"
+                = link_to 'My Courses', users_courses_path(current_user.id), class: 'btn btn-raised btn-danger'
                 .pad
-                = link_to new_course_path, class: "btn btn-danger btn-circle"do
+                = link_to 'My Certificates', user_certificates_path, class: 'btn btn-raised btn-danger'
+                .pad
+                = link_to new_course_path, class: 'btn btn-danger btn-circle'
                   i.glyphicon.glyphicon-plus
-                = label_tag "New course"
+                = label_tag 'New course'
+                = link_to 'My Organizations', user_organizations_path(current_user.id), class: 'btn btn-raised btn-danger'
+                .pad
+                - if can? :new, Organization
+                  = link_to new_organization_path, class: 'btn btn-danger btn-circle'
+                    i.glyphicon.glyphicon-plus
+                  = label_tag 'New organization'
