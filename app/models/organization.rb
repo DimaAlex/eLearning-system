@@ -27,21 +27,6 @@ class Organization < ActiveRecord::Base
     all_users_without_admins != 0 ? (users_start.count * 100 / all_users_without_admins) : 0
   end
 
-  def started_courses
-    started_courses_count = courses.map {|x| x.users_courses.where(is_started: true).count}.sum
-    count_percent(started_courses_count)
-  end
-
-  def success_finished_courses
-    success_count = courses.map {|x| x.users_courses.where(mark: 90..100).count}.sum
-    count_percent(success_count)
-  end
-
-  def unsuccess_finished_courses
-    unsuccess_count = courses.map {|x| x.users_courses.where(mark: 0..89).count}.sum
-    count_percent(unsuccess_count)
-  end
-
   private
   def count_percent(sum)
     courses.count == 0 ? 0 : sum.to_f / courses.count.to_f * 100
