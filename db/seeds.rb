@@ -34,7 +34,7 @@ end
     page = Page.create(title: Faker::Company.name,
                     course_id: course.id,
                     page_type: "Lecture",
-                    body: Faker::Lorem.paragraph(15)
+                    body: Faker::Lorem.paragraph(25)
                     )
   end
   Page.create(title: Faker::Company.name,
@@ -57,7 +57,7 @@ end
     page = Page.create(title: Faker::Company.name,
                     course_id: course.id,
                     page_type: "Lecture",
-                    body: Faker::Lorem.paragraph(15)
+                    body: Faker::Lorem.paragraph(25)
                     )
   end
   Page.create(title: Faker::Company.name,
