@@ -31,11 +31,11 @@ end
 
                          )
   3.times do
-    page = Page.create(title: Faker::Company.name,
-                    course_id: course.id,
-                    page_type: "Lecture",
-                    body: Faker::Lorem.paragraph(25)
-                    )
+    Page.create(title: Faker::Company.name,
+                course_id: course.id,
+                page_type: "Lecture",
+                body: Faker::Lorem.paragraph(25)
+                )
   end
   Page.create(title: Faker::Company.name,
               course_id: course.id,
@@ -51,19 +51,18 @@ end
                          author_id: rand(Organization.first.id..Organization.last.id),
                          author_type: "Organization",
                          image: Faker::Avatar.image
-
                          )
   3.times do
-    page = Page.create(title: Faker::Company.name,
-                    course_id: course.id,
-                    page_type: "Lecture",
-                    body: Faker::Lorem.paragraph(25)
-                    )
+    Page.create(title: Faker::Company.name,
+              course_id: course.id,
+              page_type: "Lecture",
+              body: Faker::Lorem.paragraph(25)
+              )
   end
   Page.create(title: Faker::Company.name,
               course_id: course.id,
               page_type: "Video",
               body: "https://www.youtube.com/watch?v=Dji9ALCgfpM"
-                  )
+              )
   course.save
 end

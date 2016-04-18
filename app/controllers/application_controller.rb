@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) do |u|
       u.permit(:first_name, :last_name, :country, :email, :password, :password_confirmation)
     end
+
+    devise_parameter_sanitizer.for(:accept_invitation) do |u|
+      u.permit(:invitation_token, :first_name, :last_name, :password, :password_confirmation)
+    end
   end
 
 
@@ -24,6 +28,11 @@ class ApplicationController < ActionController::Base
   end
 
   impersonates :user
+
+  protected
+  def configure_permitted_parameters
+    devise.parameter_sanitizaer_for(:accept_invitation).concat([:first_name, :last_name])
+  end
 
   private
   def mailbox

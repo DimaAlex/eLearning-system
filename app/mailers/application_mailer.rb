@@ -1,3 +1,3 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "eLarning-system@example.com"
+  default from: ENV["email"]
 end
