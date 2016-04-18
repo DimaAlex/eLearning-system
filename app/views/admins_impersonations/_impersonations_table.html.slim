@@ -15,6 +15,6 @@
             '
             = impersonation.user.last_name
           td = link_to impersonation.user.email, user_profile_path(impersonation.user.id)
-          td = impersonation.begin_impersonation
-          td = impersonation.end_impersonation
+          td = impersonation.begin_impersonation.strftime('%v')
+          td = impersonation.end_impersonation.strftime('%v')
       = will_paginate @impersonations, inner_window: 1, renderer: BootstrapPagination::Rails, class:"pull-right"
