@@ -29,6 +29,7 @@ table.table
             .pad
             = link_to '', organization_reject_request_path(@organization, user), method: :put, class: 'glyphicon glyphicon-remove'
         td
-          = link_to " Impersonate", impersonate_path(user), class:"fa fa-user"
+          - if user_invited?(@organization)
+            = link_to " Impersonate", impersonate_path(user), class:"fa fa-user"
 
     = will_paginate @users_in_org, inner_window: 1, renderer: BootstrapPagination::Rails
