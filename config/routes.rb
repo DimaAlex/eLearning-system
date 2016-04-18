@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 
     put '/user/:user_id/accept_request', to: 'invitation#accept_request_on_entrance', as: 'accept_request'
     put '/user/:user_id/reject_request', to: 'invitation#reject_request_on_entrance', as: 'reject_request'
+
+    delete '/user/:user_id/delete', to: 'organization_users#delete_user', as: 'delete_user'
   end
 
   mount Sidekiq::Web, at: '/sidekiq'

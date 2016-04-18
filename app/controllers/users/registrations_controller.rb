@@ -23,6 +23,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       organizations.each do |org|
         UsersOrganization.create(user_id: user.id, organization_id: org.id, state: :followed)
       end
+      unless user.save
+        flash[:error] = user.errors.full_messages.join(', ')
+        return redirect_to action: :new
+      end
     end
   end
 

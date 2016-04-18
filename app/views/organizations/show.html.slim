@@ -11,6 +11,9 @@
           = render 'menu'
         p
           = image_tag @organization.image.url(:medium), class: 'col-lg-4 img-ciricle'
+          - if user_follow?(@organization, current_user)
+            h4.badge.label-info= "You've already followed"
+          = render 'buttons_for_users'
 
         .col-lg-offset-4
           h4 About
@@ -24,7 +27,6 @@
               = link_to user_profile_path(oa)
                 = image_tag oa.avatar.url(:thumb), class: 'img-ciricle', title: "#{ oa.first_name } #{ oa.last_name }"
 
-      = render 'buttons_for_users'
       .row
         .col-lg-4
           table.table.table-hover
