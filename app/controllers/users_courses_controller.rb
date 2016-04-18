@@ -52,8 +52,8 @@ class UsersCoursesController < ApplicationController
 
   def check_user
     unless @user
-      flash[:success] =  "You should sign up or log in"
-      redirect_to new_user_registration_url
+      flash[:success] =  "To start the course You should sign up or log in"
+      redirect_to new_user_session_path
     end
   end
 
