@@ -25,36 +25,4 @@ RSpec.describe Organization, type: :model do
       end
     end
   end
-
-  context 'add courses with different states in DB' do
-    before do
-      10.times { @organization.courses.create(title: Faker::Name.first_name) }
-      10.times { @organization.courses.create(title: Faker::Name.first_name).users_courses.create(user_id: 1, is_started: true) }
-      10.times { @organization.courses.create(title: Faker::Name.first_name).users_courses.create(
-          user_id: 1, mark: 95, is_finished: true)
-      }
-      10.times { @organization.courses.create(title: Faker::Name.first_name).users_courses.create(
-          user_id: 1, mark: 65, is_finished: true)
-      }
-    end
-
-    describe '#started_courses' do
-      it 'should return 25' do
-        expect(@organization.started_courses).to eq 25
-      end
-    end
-
-    describe '#success_finished_courses' do
-      it 'should return 25' do
-        expect(@organization.success_finished_courses).to eq 25
-      end
-    end
-
-    describe '#unsuccess_finished_courses' do
-      it 'should return 25' do
-        expect(@organization.unsuccess_finished_courses).to eq 25
-      end
-    end
-  end
-
 end

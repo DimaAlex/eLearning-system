@@ -47,11 +47,11 @@ class Course < ActiveRecord::Base
   end
 
   def finished_with_success
-    users_courses.where(mark: 90..100).count
+    UsersCourse.success_finished_courses.where(course_id: self.id).count
   end
 
   def finished_badly
-    users_courses.where(mark: 0..89).count
+    UsersCourse.unsuccess_finished_courses.where(course_id: self.id).count
   end
 
   def self.percent(course_id, user)
