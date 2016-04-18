@@ -81,6 +81,12 @@ class OrganizationUsersController < ApplicationController
     end
   end
 
+  def delete_user
+    uo = UsersOrganization.where(organization_id: @organization.id, user_id: params[:user_id]).limit(1)
+    uo.first.destroy
+    redirect_to action: :users_in_org
+  end
+
   private
 
   def set_organization

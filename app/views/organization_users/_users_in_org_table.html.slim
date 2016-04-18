@@ -11,6 +11,7 @@ table.table
       th
         input.form-control[type="text" placeholder="State" disabled]
       th
+      th
         em class="fa fa-cog"
   - @users_in_org.each do |user|
     tbody
@@ -31,5 +32,6 @@ table.table
         td
           - if user_invited?(@organization)
             = link_to " Impersonate", impersonate_path(user), class:"fa fa-user"
-
+        td
+          = link_to 'Delete', organization_delete_user_path(@organization, user), method: :delete, data: {:confirm => 'Are you sure?'}'
     = will_paginate @users_in_org, inner_window: 1, renderer: BootstrapPagination::Rails

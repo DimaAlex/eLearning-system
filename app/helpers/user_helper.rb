@@ -7,6 +7,10 @@ module UserHelper
     organization.users.invited_users.include?(current_user)
   end
 
+  def user_follow?(organization)
+    organization.users.followed_users.include?(current_user)
+  end
+
   def user_in_organization?(organization)
     organization.users.in_organization.include?(current_user)
   end
