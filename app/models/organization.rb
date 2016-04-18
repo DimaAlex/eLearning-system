@@ -20,7 +20,7 @@ class Organization < ActiveRecord::Base
     Course.where(author: self, is_destroyed: false)
   end
 
-  def proceent_of_users_in_org_start(course)
+  def percent_of_users_in_org_start(course)
     all_users_without_admins = users_organizations.where(is_org_admin: false).count
     users_start = course.users_courses.where(is_started: true)
     users_start << course.users_courses.where(is_finished: true)
@@ -42,7 +42,8 @@ class Organization < ActiveRecord::Base
     count_percent(unsuccess_count)
   end
 
+  private
   def count_percent(sum)
-    courses.count == 0 ? sum.to_f / courses.count.to_f * 100 : 0
+    courses.count == 0 ? 0 : sum.to_f / courses.count.to_f * 100
   end
 end
