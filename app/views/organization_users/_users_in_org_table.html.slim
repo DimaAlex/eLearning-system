@@ -30,8 +30,8 @@ table.table
             .pad
             = link_to '', organization_reject_request_path(@organization, user), method: :put, class: 'glyphicon glyphicon-remove'
         td
-          - if user_invited?(@organization)
+          - unless user_invited?(@organization, user) || user_follow?(@organization, user)
             = link_to " Impersonate", impersonate_path(user), class:"fa fa-user"
         td
-          = link_to 'Delete', organization_delete_user_path(@organization, user), method: :delete, data: {:confirm => 'Are you sure?'}'
+          = link_to 'Delete', organization_delete_user_path(@organization, user), method: :delete, data: {:confirm => 'Are you sure?'}
     = will_paginate @users_in_org, inner_window: 1, renderer: BootstrapPagination::Rails

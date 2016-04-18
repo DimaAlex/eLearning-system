@@ -1,11 +1,12 @@
 .col-lg-12
   .col-sm-1
     = link_to 'Back', :back, class: 'btn btn-raised btn-danger'
-  .col-lg-offset-2
+  .col-lg-offset-4
     h2 My organizations
   - if @organizations.empty?
-    h4 No organizations where you are
-    = image_tag 'owl.png', size: '350'
+    .col-lg-offset-4
+      h4 No organizations where you are
+      = image_tag 'owl.png', size: '350'
   - else
     .row
       #organizations

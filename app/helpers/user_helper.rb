@@ -3,12 +3,12 @@ module UserHelper
     User.org_admins.include?(current_user) || current_user.is_admin
   end
 
-  def user_invited?(organization)
-    organization.users.invited_users.include?(current_user)
+  def user_invited?(organization, user)
+    organization.users.invited_users.include?(user)
   end
 
-  def user_follow?(organization)
-    organization.users.followed_users.include?(current_user)
+  def user_follow?(organization, user)
+    organization.users.followed_users.include?(user)
   end
 
   def user_in_organization?(organization)

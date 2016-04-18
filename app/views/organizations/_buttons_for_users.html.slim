@@ -1,5 +1,5 @@
 .col-sm-offset-1
-  - if user_invited?(@organization)
+  - if user_invited?(@organization, current_user)
     = link_to 'Accept', organization_invitation_accept_path(@organization), method: :put, class: 'btn btn-success btn-raised'
     .pad
     = link_to 'Reject', organization_invitation_reject_path(@organization), method: :put, class: 'btn btn-danger btn-raised'

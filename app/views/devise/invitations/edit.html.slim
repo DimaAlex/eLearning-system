@@ -1,13 +1,17 @@
+= bootstrap_devise_error_messages!
 .panel.panel-default
   .panel-heading
     h4= t 'devise.invitations.edit.header'
   .panel-body
     .col-lg-4.col-lg-offset-4.well
       = simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put } do |f|
-        = devise_error_messages!
         = f.hidden_field :invitation_token
         .form-group.has-error.label-floating
-          = f.input :password, autofocus: true
+          = f.input :first_name, autofocus: true
+        .form-group.has-error.label-floating
+          = f.input :last_name
+        .form-group.has-error.label-floating
+          = f.input :password
         .form-group.has-error.label-floating
           = f.input :password_confirmation
         = f.button :submit, t("devise.invitations.edit.submit_button"), class: 'btn btn-danger btn-raised'
