@@ -51,4 +51,36 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "#courses_with_status" do
+
+    before do
+      3.times do
+        @course = create(:course)
+        @course.is_destroyed = true
+        @course.save
+        @user.users_courses.create(course_id: @course.id, is_started: true)
+      end
+      4.times {@user.users_courses.create(is_finished: true)}
+      5.times do
+        @course = create(:course)
+        @user.users_courses.create(course_id: @course.id, is_liked: true)
+      end
+    end
+
+    context 'all courses is destroyed' do
+      it "return count 0" do
+        expect(@user.courses_with_status("is_started").count).to eq 0
+      end
+    end
+
+    it "return count 4" do
+      expect(@user.courses_with_status("is_finished").count).to eq 4
+    end
+
+    it "return count 5" do
+      expect(@user.courses_with_status("is_liked").count).to eq 5
+    end
+
+  end
 end
