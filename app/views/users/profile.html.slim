@@ -37,7 +37,7 @@
                 small.text-muted
                   | Created:
                 .pad
-                = @user.created_at
+                = @user.created_at.strftime('%v')
           .col-md-12
             - if current_user
               -if current_user.id == @user.id
