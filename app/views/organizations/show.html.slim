@@ -11,7 +11,7 @@
           = render 'menu'
         p
           = image_tag @organization.image.url(:medium), class: 'col-lg-4 img-ciricle'
-          - if user_follow?(@organization)
+          - if user_follow?(@organization, current_user)
             h4.badge.label-info= "You've already followed"
           = render 'buttons_for_users'
 
