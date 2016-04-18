@@ -36,8 +36,8 @@ class Course < ActiveRecord::Base
   end
 
   def average_users_mark
-    marks = users_courses.pluck(:mark)
-    marks.compact.empty? ? 0 : marks.sum / marks.count.to_f
+    marks = users_courses.pluck(:mark).compact
+    marks.empty? ? 0 : marks.sum / marks.count.to_f
   end
 
   def self.popular_courses
