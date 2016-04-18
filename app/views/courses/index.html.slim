@@ -1,16 +1,19 @@
 .row
   .col-lg-4
-    = link_to courses_path(type: "popular") , class: "list-group-item" do
-      i.glyphicon.glyphicon-star
-      |  Most popular
-
-    = link_to courses_path(type: "org"), class: "list-group-item" do
-      i.glyphicon.glyphicon-home
-      |  Organizations courses
-
-    = link_to courses_path(type: "public"), class: "list-group-item" do
-      i.fa.fa-users
-      |  Public courses
+    .well
+      ul.nav.nav-pills.nav-stacked
+        li class="#{active_list(@pop_type)}"
+          = link_to courses_path(type: "popular") do
+            i.glyphicon.glyphicon-star
+            |  Most popular
+        li class="#{active_list(@org_type)}"
+          = link_to courses_path(type: "org") do
+            i.glyphicon.glyphicon-home
+            |  Organizations courses
+        li class="#{active_list(@pub_type)}"
+          = link_to courses_path(type: "public") do
+            i.fa.fa-users
+            |  Public courses
   .col-lg-6.col-offset-4
     = form_tag courses_path, class: "form-inline", method: :get do
       .input-group.input-group-lg
