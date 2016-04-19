@@ -92,6 +92,6 @@ class User < ActiveRecord::Base
   end
 
   def courses
-    Course.where(author: self, is_destroyed: false)
+    users_courses.map {|x| x.course if x.course.is_destroyed == false}.compact
   end
 end
