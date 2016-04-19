@@ -8,10 +8,13 @@ class CoursesController < ApplicationController
       @courses = Course.search(params[:query], page: params[:page], per_page: 3)
     elsif params[:type] == "public"
       @courses = Course.where(permission: 'Public').paginate(page: params[:page], per_page: 3)
+      @pub_type = "active_page"
     elsif params[:type] == "popular"
       @courses = Course.popular_courses.paginate(page: params[:page], per_page: 3)
+      @pop_type = "active_page"
     elsif params[:type] == "org"
       @courses = Course.where(permission: 'Public').where(author_type: "Organization").paginate(page: params[:page], per_page: 3)
+      @org_type = "active_page"
     else
       @courses = []
     end
